@@ -1,44 +1,25 @@
 package Controlador;
 
-import Modelo.Conexion;
-import Modelo.Usuario;
-import vista.FrmLogin; // Importa la vista para poder actualizarla
-import vista.FrmDashboard;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import Modelo.CRUDusuario;
+import vista.FrmLogin;
 
 public class UsuarioController {
-
-    private FrmLogin vistaLogin; // Referencia a la vista
+    private FrmLogin vista;
+    private CRUDusuario modelo;
 
     public UsuarioController(FrmLogin vista) {
-        this.vistaLogin = vista;
+        this.vista = vista;
+        this.modelo = new CRUDusuario();
     }
 
-    public void validarUsuario(String email, String password) {
-        Usuario usuario = new Usuario(email, password);
-        Conexion conexion = new Conexion();
-        Connection cnx = conexion.getConexion();
-        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-        
-        try (PreparedStatement statement = cnx.prepareStatement(sql)) {
-            statement.setString(1, usuario.getEmail());
-            statement.setString(2, usuario.getPassword());
-            
-            ResultSet result = statement.executeQuery();
-            
-            if (result.next()) {
-                vistaLogin.setVisible(false); // Oculta la vista de FrmLogin
-                new FrmDashboard().setVisible(true); // Muestra el FrmDashboard
-            } else {
-                vistaLogin.lblErrorLogin.setText("Email o contraseña incorrectos.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejar excepción
-        }
+    public void iniciar() {
+        this.vista.btnIngresar.addActionListener(e -> validarLogin());
+    }
+
+    private void validarLogin() {
+        String email = vista.txtEmail.getText();
+        String password = new String(vista.txtPassword.getPassword());
+
+        vista.lblErrorLogin.setText(modelo.validarUsuario(email, password));
     }
 }
