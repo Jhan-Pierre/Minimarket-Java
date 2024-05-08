@@ -2,9 +2,11 @@ package vista;
 
 import Controlador.UsuarioController;
 
-public class login extends javax.swing.JFrame {
+public class FrmLogin extends javax.swing.JFrame {
 
-    public login() {
+    private UsuarioController controlador;
+    
+    public FrmLogin() {
         initComponents();
         java.net.URL url = getClass().getResource("/img/logo.png");
         if (url != null) {
@@ -12,6 +14,9 @@ public class login extends javax.swing.JFrame {
         } else {
             System.out.println("No se encontró la imagen en la ubicación especificada.");
         }
+        
+        controlador = new UsuarioController(this);
+        controlador.iniciar();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +46,6 @@ public class login extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(475, 480));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Copyright © Grupo 03 - SENATI");
 
@@ -95,6 +99,7 @@ public class login extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Password");
 
+        jCheckBox1.setBackground(new java.awt.Color(255, 174, 120));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Remenber Password");
 
@@ -108,7 +113,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        lblErrorLogin.setText("jLabel8");
+        lblErrorLogin.setText(" ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,7 +139,7 @@ public class login extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addGap(89, 89, 89)
                         .addComponent(lblErrorLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -154,13 +159,13 @@ public class login extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(lblErrorLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErrorLogin)
+                .addGap(12, 12, 12)
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         jLabel1.getAccessibleContext().setAccessibleName("cerrar");
@@ -176,39 +181,8 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String email = txtEmail.getText();
-        String password = new String(txtPassword.getPassword());
-        
-        UsuarioController controller = new UsuarioController(login.this);
-        controller.validarUsuario(email, password);
- 
+
     }//GEN-LAST:event_btnIngresarActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new login().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnIngresar;
