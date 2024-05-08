@@ -2,8 +2,8 @@ package Controlador;
 
 import Modelo.Conexion;
 import Modelo.Usuario;
-import vista.login; // Importa la vista para poder actualizarla
-import vista.dashboard;
+import vista.FrmLogin; // Importa la vista para poder actualizarla
+import vista.FrmDashboard;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +12,9 @@ import java.sql.SQLException;
 
 public class UsuarioController {
 
-    private login vistaLogin; // Referencia a la vista
+    private FrmLogin vistaLogin; // Referencia a la vista
 
-    public UsuarioController(login vista) {
+    public UsuarioController(FrmLogin vista) {
         this.vistaLogin = vista;
     }
 
@@ -31,8 +31,8 @@ public class UsuarioController {
             ResultSet result = statement.executeQuery();
             
             if (result.next()) {
-                vistaLogin.setVisible(false); // Oculta la vista de login
-                new dashboard().setVisible(true); // Muestra el dashboard
+                vistaLogin.setVisible(false); // Oculta la vista de FrmLogin
+                new FrmDashboard().setVisible(true); // Muestra el FrmDashboard
             } else {
                 vistaLogin.lblErrorLogin.setText("Email o contraseña incorrectos.");
             }

@@ -2,9 +2,9 @@ package vista;
 
 import Controlador.UsuarioController;
 
-public class login extends javax.swing.JFrame {
+public class FrmLogin extends javax.swing.JFrame {
 
-    public login() {
+    public FrmLogin() {
         initComponents();
         java.net.URL url = getClass().getResource("/img/logo.png");
         if (url != null) {
@@ -41,7 +41,6 @@ public class login extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(475, 480));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Copyright © Grupo 03 - SENATI");
 
@@ -179,36 +178,10 @@ public class login extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String password = new String(txtPassword.getPassword());
         
-        UsuarioController controller = new UsuarioController(login.this);
+        UsuarioController controller = new UsuarioController(FrmLogin.this);
         controller.validarUsuario(email, password);
  
     }//GEN-LAST:event_btnIngresarActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new login().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnIngresar;
