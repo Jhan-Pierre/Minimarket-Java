@@ -97,4 +97,35 @@ public class CRUDusuario {
         }
         return permisos;
     }
+    
+    public Usuario obtenerUsuarioLogeado(String email) {
+        Usuario usuario = null;
+        Connection cnx = conexion.getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return null;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_obtener_usuario_logeado(?)}")) {
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Long id = rs.getLong("id");
+                String nombre = rs.getString("nombre");
+                String correo = rs.getString("correo");
+                String rol = rs.getString("rol");
+                usuario = new Usuario(id, nombre, correo, rol);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al obtener usuario logeado", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return usuario;
+    }
 }

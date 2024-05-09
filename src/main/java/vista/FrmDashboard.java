@@ -81,7 +81,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         PanelPadre = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -89,7 +89,6 @@ public class FrmDashboard extends javax.swing.JFrame {
 
         PanelControles.setBackground(new java.awt.Color(255, 174, 120));
 
-        btnDashboard.setBackground(new java.awt.Color(255, 255, 255));
         btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDashboard.setForeground(new java.awt.Color(255, 153, 51));
         btnDashboard.setText("Dashboard");
@@ -98,7 +97,6 @@ public class FrmDashboard extends javax.swing.JFrame {
         btnDashboard.setBorderPainted(false);
         btnDashboard.setFocusPainted(false);
 
-        btnUsuario.setBackground(new java.awt.Color(255, 255, 255));
         btnUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnUsuario.setForeground(new java.awt.Color(255, 153, 51));
         btnUsuario.setText("Usuarios");
@@ -107,7 +105,6 @@ public class FrmDashboard extends javax.swing.JFrame {
         btnUsuario.setBorderPainted(false);
         btnUsuario.setFocusPainted(false);
 
-        btnProducto.setBackground(new java.awt.Color(255, 255, 255));
         btnProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnProducto.setForeground(new java.awt.Color(255, 153, 0));
         btnProducto.setText("Productos");
@@ -116,7 +113,6 @@ public class FrmDashboard extends javax.swing.JFrame {
         btnProducto.setBorderPainted(false);
         btnProducto.setFocusPainted(false);
 
-        btnProveedor.setBackground(new java.awt.Color(255, 255, 255));
         btnProveedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnProveedor.setForeground(new java.awt.Color(255, 153, 0));
         btnProveedor.setText("Proveedores");
@@ -125,7 +121,6 @@ public class FrmDashboard extends javax.swing.JFrame {
         btnProveedor.setBorderPainted(false);
         btnProveedor.setFocusPainted(false);
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 153, 0));
         jButton4.setText("Ventas");
@@ -134,7 +129,6 @@ public class FrmDashboard extends javax.swing.JFrame {
         jButton4.setBorderPainted(false);
         jButton4.setFocusPainted(false);
 
-        btnCliente.setBackground(new java.awt.Color(255, 255, 255));
         btnCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCliente.setForeground(new java.awt.Color(255, 153, 0));
         btnCliente.setText("Categorias");
@@ -218,9 +212,9 @@ public class FrmDashboard extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DON PEPE");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("Usuario Iniciado Seciom");
+        lblUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        lblUsuario.setText("Usuario Iniciado Seciom");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,7 +223,7 @@ public class FrmDashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 725, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lblUsuario)
                 .addGap(20, 20, 20))
         );
         jPanel3Layout.setVerticalGroup(
@@ -238,7 +232,7 @@ public class FrmDashboard extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(lblUsuario))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -270,7 +264,7 @@ public class FrmDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnUsuario;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
+    public javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }
