@@ -107,11 +107,6 @@ public class FrmLogin extends javax.swing.JFrame {
         btnIngresar.setForeground(new java.awt.Color(255, 174, 120));
         btnIngresar.setText("LOGIN");
         btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
-            }
-        });
 
         lblErrorLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblErrorLogin.setText(" ");
@@ -180,10 +175,6 @@ public class FrmLogin extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-
-    }//GEN-LAST:event_btnIngresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnIngresar;
