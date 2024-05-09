@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Conexion {
     private final String controlador = "com.mysql.cj.jdbc.Driver";
-    private final String bd = "minimarket_java";
+    private final String bd = "bd_minimarket";
     private final String user = "root";
     private final String password = "";
     private final String url = "jdbc:mysql://localhost:3306/" + bd;

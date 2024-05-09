@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.CRUDusuario;
+import java.util.Set;
 import vista.FrmLogin;
 import vista.FrmDashboard;
 
@@ -33,12 +34,16 @@ public class UsuarioController {
         String password = new String(vista.txtPassword.getPassword());
 
         String resultado = modelo.validarUsuario(email, password);
-        vista.lblErrorLogin.setText(resultado);
-
+        
         if (resultado.equals("Exito")) {
-            FrmDashboard dashboard = new FrmDashboard();
+            Set<String> permisosUsuario = modelo.obtenerPermisosPorUsuario(email);
+            System.out.println(permisosUsuario); 
+            FrmDashboard dashboard = new FrmDashboard(permisosUsuario);
+            //dashboard.configurarAccesoSegunRol(permisosUsuario);
             dashboard.setVisible(true);
             vista.dispose(); // Cerrar el FrmLogin
-        }   
+        }else{
+            vista.lblErrorLogin.setText(resultado);
+        }
     }
 }

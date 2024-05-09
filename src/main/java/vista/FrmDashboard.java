@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 
 public class FrmDashboard extends javax.swing.JFrame {
     
@@ -13,10 +14,16 @@ public class FrmDashboard extends javax.swing.JFrame {
     PanelProducto panelProducto;
     CardLayout vista;
     
-    public FrmDashboard() {
+    public FrmDashboard(Set<String> permisosUsuario) {
         initComponents();
         inicializarPaneles();
         configurarListeners();
+        configurarAccesoSegunRol(permisosUsuario); // Llama al método aquí con los permisos
+    }
+    
+    public void configurarAccesoSegunRol(Set<String> permisosUsuario) {
+        btnUsuario.setVisible(permisosUsuario.contains("ver_usuario"));
+        btnProducto.setVisible(permisosUsuario.contains("ver_producto"));
     }
     
     private void inicializarPaneles() {
