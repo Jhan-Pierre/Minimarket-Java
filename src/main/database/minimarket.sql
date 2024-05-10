@@ -1,3 +1,6 @@
+-- ##################################################################################################
+-- Zona segura
+-- ##################################################################################################
 create database bd_minimarket;
 -- drop database bd_minimarket;
 use bd_minimarket;  --    use bd_minimarket;                   
@@ -48,10 +51,10 @@ create table tb_usuario(
     fecha_actualizado datetime,
     rol_id int not null,
     estado_id int not null,
-    id_turno int,
+    turno_id int,
     foreign key (rol_id) references tb_rol (id),
     foreign key (estado_id) references tb_estado (id),
-    foreign key (id_turno) references tb_turno (id)
+    foreign key (turno_id) references tb_turno (id)
 );
 
 create table tb_proveedor(
@@ -201,8 +204,12 @@ begin
     FROM tb_usuario AS u
     WHERE u.correo = p_correo;
 end;
-
-
+-- ##################################################################################################
+-- Zona segura
+-- ##################################################################################################
+-- ##################################################################################################
+-- Zona experimental
+-- ##################################################################################################
 DELIMITER //
 CREATE PROCEDURE sp_registrar_cesta_temporal(
     IN p_usuario_id INT,
@@ -300,7 +307,7 @@ create procedure sp_listar_proveedor()
 begin
     select p.id, p.nombre, p.ruc, p.correo, e.nombre as estado
     from tb_proveedor p
-    inner join tb_estado e ON p.id_estado = e.id;
+    inner join tb_estado e ON p.estado_id = e.id;
 end //
 
 -- call sp_listar_proveedor();
@@ -310,7 +317,7 @@ create procedure sp_buscar_proveedor_por_codigo(in codproveedor int)
 begin
 	select p.id, p.nombre, p.ruc, p.descripcion,p.telefono, p.correo, p.direccion, e.nombre as estado
     from tb_proveedor p
-    inner join tb_estado e on p.id_estado = e.id
+    inner join tb_estado e on p.estado_id = e.id
     where p.id = codproveedor;
 end; //
 -- call sp_buscar_proveedor_por_codigo('12');
@@ -323,11 +330,11 @@ create procedure sp_registrar_proveedor(
     in telefono VARCHAR(20),
     in correo VARCHAR(100),
     in direccion VARCHAR(255),
-    in id_estado INT
+    in estado_id INT
 )
 begin	
-    insert into tb_proveedor (nombre, ruc, descripcion, telefono, correo, direccion, id_estado)
-    values (nombre, ruc, descripcion, telefono, correo, direccion, id_estado);
+    insert into tb_proveedor (nombre, ruc, descripcion, telefono, correo, direccion, estado_id)
+    values (nombre, ruc, descripcion, telefono, correo, direccion, estado_id);
 end //
 
 
@@ -340,7 +347,7 @@ CREATE PROCEDURE sp_editar_proveedor(
     IN p_telefono CHAR(9),
     IN p_correo VARCHAR(60),
     IN p_direccion VARCHAR(100),
-    IN p_id_estado_proveedor INT
+    IN p_estado_proveedor_id INT
 )
 BEGIN
     UPDATE tb_proveedor
@@ -350,7 +357,7 @@ BEGIN
         telefono = p_telefono,
         correo = p_correo,
         direccion = p_direccion,
-        id_estado = p_id_estado_proveedor
+        estado_id = p_estado_proveedor_id
     WHERE id = p_codprov;
 END //
 
@@ -395,7 +402,7 @@ DELIMITER ;
 delimiter //
 create procedure sp_actualizar_estado_proveedor(in codprov int, in idesta int)
 begin
-	update tb_proveedor set id_estado = idesta
+	update tb_proveedor set estado_id = idesta
     where id = codprov;
 end //
 
@@ -422,10 +429,10 @@ begin
         p.codigoBarras, 
         c.nombre as categoria,
         e.nombre as estado,
-        p.id_estado
+        p.estado_id
     from tb_producto p
-    left join  tb_categoria_producto c on p.id_categoria_producto = c.id
-    left join tb_estado e on p.id_estado = e.id;
+    left join  tb_categoria_producto c on p.categoria_producto_id = c.id
+    left join tb_estado e on p.estado_id = e.id;
 end; //
 
 delimiter //
@@ -453,9 +460,9 @@ begin
     from 
         tb_producto p
 	inner join 
-        tb_categoria_producto c on p.id_categoria_producto = c.id
+        tb_categoria_producto c on p.categoria_producto_id = c.id
     inner join 
-        tb_estado e on p.id_estado = e.id
+        tb_estado e on p.estado_id = e.id
     where 
         p.id = producto_id;
 end; //
@@ -479,9 +486,9 @@ begin
     from 
         tb_producto p
     inner join
-        tb_categoria_producto c on p.id_categoria_producto = c.id
+        tb_categoria_producto c on p.categoria_producto_id = c.id
     left join 
-        tb_estado e on p.id_estado = e.id
+        tb_estado e on p.estado_id = e.id
     where 
         p.nombre like concat('%', valor, '%');
 end; //
@@ -501,12 +508,12 @@ create procedure sp_registrar_producto(
     in p_precio_venta float,
     in p_stock_disponible int,
     in p_codigo_barras varchar(100),
-    in p_id_categoria_producto int,
-    in p_id_estado int
+    in p_categoria_producto_id int,
+    in p_estado_id int
 )
 begin
-    insert into tb_producto (nombre, precio_compra, precio_venta, stock_disponible, codigoBarras, id_categoria_producto, id_estado)
-    values (p_nombre, p_precio_compra, p_precio_venta, p_stock_disponible, p_codigo_barras, p_id_categoria_producto, p_id_estado);
+    insert into tb_producto (nombre, precio_compra, precio_venta, stock_disponible, codigoBarras, categoria_producto_id, estado_id)
+    values (p_nombre, p_precio_compra, p_precio_venta, p_stock_disponible, p_codigo_barras, p_categoria_producto_id, p_estado_id);
 end; //
 
 
@@ -518,8 +525,8 @@ create procedure sp_editar_producto(
     in p_precio_venta float,
     in p_stock_disponible int,
     in p_codigo_barras varchar(255),
-    in p_id_categoria_producto int,
-    in p_id_estado int
+    in p_categoria_producto_id int,
+    in p_estado_id int
 )
 begin
     update tb_producto
@@ -528,8 +535,8 @@ begin
         precio_venta = p_precio_venta,
         stock_disponible = p_stock_disponible,
         codigoBarras = p_codigo_barras,
-        id_categoria_producto = p_id_categoria_producto,
-        id_estado = p_id_estado
+        categoria_producto_id = p_categoria_producto_id,
+        estado_id = p_estado_id
     where id = p_id;
 end; //
 
@@ -559,7 +566,7 @@ end;//
 delimiter //
 create procedure sp_actualizar_estado_producto(in codprod int, in idesta int)
 begin
-	update tb_producto set id_estado = idesta
+	update tb_producto set estado_id = idesta
     where id = codprod;
 end //
 
@@ -722,10 +729,10 @@ begin
             u.nombre,
             u.apellido,
             u.telefono,
-            u.id_estado,
+            u.estado_id,
             e.nombre as estado
     from tb_usuario u
-    inner join tb_estado e on u.id_estado = e.id;
+    inner join tb_estado e on u.estado_id = e.id;
 end //
 
 -- call sp_listar_usuario();
@@ -751,8 +758,8 @@ begin
            e.nombre as estado
 	from tb_usuario u
     inner join tb_tipo_usuario t on u.rol_id = t.id
-    inner join tb_turno tu on u.id_turno = tu.id
-    inner join tb_estado e on u.id_estado = e.id
+    inner join tb_turno tu on u.turno_id = tu.id
+    inner join tb_estado e on u.estado_id = e.id
     where u.id = iduser;
 end //
 
@@ -770,8 +777,8 @@ begin
            e.nombre as estado
 	from tb_usuario u
     inner join tb_tipo_usuario t on u.rol_id = t.id
-    inner join tb_turno tu on u.id_turno = tu.id
-    inner join tb_estado e on u.id_estado = e.id
+    inner join tb_turno tu on u.turno_id = tu.id
+    inner join tb_estado e on u.estado_id = e.id
     where u.nombre like concat(valor, '%');
 end //
 
@@ -783,12 +790,12 @@ create procedure sp_registrar_usuario(
     in p_nombre varchar(80),
     in p_apellido varchar(80),
     in p_rol_id int,
-    in p_id_turno int,
-    in p_id_estado int
+    in p_turno_id int,
+    in p_estado_id int
 )
 begin
-    insert into tb_usuario (correo, contraseña, telefono, nombre, apellido, rol_id, id_turno, id_estado)
-    values (p_correo, p_contraseña, p_telefono, p_nombre, p_apellido, p_rol_id, p_id_turno, p_id_estado);
+    insert into tb_usuario (correo, contraseña, telefono, nombre, apellido, rol_id, turno_id, estado_id)
+    values (p_correo, p_contraseña, p_telefono, p_nombre, p_apellido, p_rol_id, p_turno_id, p_estado_id);
 end //
 
 -- CALL sp_registrar_usuario('usuaradsio@example.com', 'contraseña123', '123451889', 'Juan', 'torres', 2, 1, 1);
@@ -803,8 +810,8 @@ create procedure sp_editar_usuario(
     in nombre_usuario varchar(80),
     in apellido_usuario varchar(80),
     in rol_id int,
-    in id_turno int,
-    in id_estado_usuario int
+    in turno_id int,
+    in estado_id_usuario int
 )
 begin
     update tb_usuario
@@ -814,15 +821,15 @@ begin
         nombre = nombre_usuario,
         apellido = apellido_usuario,
         rol_id = rol_id,
-        id_turno = id_turno,
-        id_estado = id_estado_usuario
+        turno_id = turno_id,
+        estado_id = estado_id_usuario
     where id = usuario_id;
 end //
 
 delimiter //
 create procedure sp_actualizar_estado_usuario(in iduser int, in idest int)
 begin
-	update tb_usuario set id_estado = idest
+	update tb_usuario set estado_id = idest
     where id = iduser;
 end //
 
@@ -834,7 +841,7 @@ DELIMITER //
 
 CREATE PROCEDURE sp_listar_pedidos()
 BEGIN
-    SELECT id, fecha, costoTotal, usuario_id, id_proveedor
+    SELECT id, fecha, costoTotal, usuario_id, proveedor_id
     FROM tb_pedido;
 END //
 
@@ -846,11 +853,11 @@ CREATE PROCEDURE sp_insertar_pedido(
     IN p_fecha DATE,
     IN p_costoTotal FLOAT,
     IN p_usuario_id INT,
-    IN p_id_proveedor INT
+    IN p_proveedor_id INT
 )
 BEGIN
-    INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, id_proveedor)
-    VALUES (p_fecha, p_costoTotal, p_usuario_id, p_id_proveedor);
+    INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
+    VALUES (p_fecha, p_costoTotal, p_usuario_id, p_proveedor_id);
 END //
 DELIMITER ;
 
@@ -861,14 +868,14 @@ CREATE PROCEDURE sp_editar_pedido(
     IN p_fecha DATE,
     IN p_costoTotal FLOAT,
     IN p_usuario_id INT,
-    IN p_id_proveedor INT
+    IN p_proveedor_id INT
 )
 BEGIN
     UPDATE tb_pedido
     SET fecha = p_fecha,
         costoTotal = p_costoTotal,
         usuario_id = p_usuario_id,
-        id_proveedor = p_id_proveedor
+        proveedor_id = p_proveedor_id
     WHERE id = p_pedido_id;
 END //
 DELIMITER ;
@@ -923,11 +930,11 @@ CREATE PROCEDURE sp_registrar_pedido(
     IN p_fecha DATE,
     IN p_costoTotal FLOAT,
     IN p_usuario_id INT,
-    IN p_id_proveedor INT
+    IN p_proveedor_id INT
 )
 BEGIN
-    INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, id_proveedor)
-    VALUES (p_fecha, p_costoTotal, p_usuario_id, p_id_proveedor);
+    INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
+    VALUES (p_fecha, p_costoTotal, p_usuario_id, p_proveedor_id);
 END //
 
 DELIMITER ;
@@ -939,7 +946,7 @@ CREATE PROCEDURE sp_buscar_pedido_por_codigo(
     IN p_codigo INT
 )
 BEGIN
-    SELECT id, fecha, costoTotal, usuario_id, id_proveedor
+    SELECT id, fecha, costoTotal, usuario_id, proveedor_id
     FROM tb_pedido
     WHERE id = p_codigo;
 END //
@@ -952,7 +959,7 @@ CREATE PROCEDURE sp_filtrar_pedido(
     IN p_pedido_id INT
 )
 BEGIN
-    SELECT id, fecha, costoTotal, usuario_id, id_proveedor
+    SELECT id, fecha, costoTotal, usuario_id, proveedor_id
     FROM tb_pedido
     WHERE id = p_pedido_id;
 END //
@@ -965,17 +972,17 @@ CREATE PROCEDURE sp_consultar_pedido_codigo(
     IN p_codpedido INT
 )
 BEGIN
-    SELECT id, fecha, costoTotal, usuario_id, id_proveedor
+    SELECT id, fecha, costoTotal, usuario_id, proveedor_id
     FROM tb_pedido
     WHERE id = p_codpedido;
 END //
 
-
-
-
-
--- *****************************************************************************************************************
-
+-- ##################################################################################################
+-- Zona experimental
+-- ##################################################################################################
+-- ##################################################################################################
+-- Zona segura
+-- ##################################################################################################
 -- Inserts
 
 -- insertar estados
@@ -994,7 +1001,7 @@ INSERT INTO tb_rol VALUES (1,'admin'),(2,'empleado');
 INSERT INTO tb_rol_permiso VALUES (23,1,1),(24,1,2),(25,1,3),(26,1,4),(27,1,5),(28,1,6),(29,1,7),(30,1,8),(31,1,9),(32,1,10),(33,1,11),(34,1,12),(35,1,13),(36,1,14),(37,1,15),(38,1,16),(39,1,17),(40,1,18),(41,1,19),(42,1,20),(43,2,14),(44,2,15);
 
 -- Insertar usuarios
-INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, id_turno)
+INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, turno_id)
 VALUES 
     ('juan@example.com', '$2y$12$cj3/SNIEMQUqEeZjO.btxuQav0U.ySoHv35rOKb1IGcLVx3p1tkIO', 963754812, 'Juan', 'Perez', '2024-05-06 02:19:51', '2024-05-06 02:19:51', 2, 1, NULL),
     ('maria@example.com', '$2y$12$V59gK64Xx.awhZU9v0MnUOCS8h8At6VY69k2vzV5UMjA4EbWm8tUO', 964578132, 'María', 'García', '2024-05-06 02:19:51', '2024-05-06 02:19:51', 2, 1, NULL),
@@ -1002,7 +1009,7 @@ VALUES
 
 
 -- Insertar proveedores de productos
-INSERT INTO tb_proveedor (nombre, ruc, descripcion, telefono, correo, direccion, id_estado) VALUES 
+INSERT INTO tb_proveedor (nombre, ruc, descripcion, telefono, correo, direccion, estado_id) VALUES 
 ('Distribuidora Alfa Enlatados', '22345678901', 'Proveedor de alimentos enlatados', '987954329', 'info@alfa.com', 'Calle Principal #123', 1),
 ('Distribuidora frut S.A.', '28768432101', 'Proveedor de frutas', '954321987', 'ventas@productosfrescos.com', 'Avenida Central #456', 1),
 ('Bebidas Refrescantes Ltda.', '26789052301', 'Proveedor de bebidas gaseosas y aguas embotelladas', '921654981', 'pedidos@bebidasrefrescantes.com', 'Calle Secundaria #789', 1),
@@ -1017,22 +1024,22 @@ INSERT INTO tb_proveedor (nombre, ruc, descripcion, telefono, correo, direccion,
 ('Carnes y Pescados Frescos S.A.', '28795032009', 'Proveedor de carnes y pescados frescos y de calidad', '987154821', 'ventas@carnespescadosfrescos.com', 'Avenida del Mar #789' , 2);
 
 -- Insertar categorías de productos para un minimarket
-INSERT INTO tb_categoria_producto (nombre, descripcion) VALUES 
-('Enlatados', 'Productos enlatados como conservas de frutas, verduras, pescados y otros.'),
-('Frutas', 'Productos frescos como manzanas, bananas, y naranjas.'),
-('Bebidas', 'Incluye agua embotellada, jugos, refrescos y bebidas energéticas.'),
-('Snacks y golosinas', 'Productos como papas fritas, galletas, caramelos y chocolates.'),
-('Productos de limpieza', 'Incluye detergentes, desinfectantes, y productos para la limpieza del hogar.'),
-('Lácteos', 'Productos lácteos como leche, yogur, queso y mantequilla.'),
-('Verduras', 'Productos frescos como zanahorias, lechuga, y tomates.'),
-('Cervezas', 'Productos relacionados con la fabricación y venta de cervezas, tanto artesanales como comerciales.'),
-('Cuidado personal', 'Productos como jabón, champú, pasta de dientes y papel higiénico.'),
-('Helados', 'Productos relacionados con la fabricación y venta de helados, incluyendo diferentes sabores y presentaciones.'),
-('Panadería', 'Productos horneados como pan blanco, pan integral y pastelería.'),
-('Carnes y pescados', 'Incluye carne de res, pollo, pescado fresco y mariscos.');
+INSERT INTO tb_categoria_producto (nombre) VALUES 
+('Enlatados'),
+('Frutas'),
+('Bebidas'),
+('Snacks y golosinas'),
+('Productos de limpieza'),
+('Lácteos'),
+('Verduras'),
+('Cervezas'),
+('Cuidado personal'),
+('Helados'),
+('Panadería'),
+('Carnes y pescados');
 
 -- Insertar productos relacionados con las categorías ya definidas
-INSERT INTO tb_producto (nombre, precio_compra, precio_venta, stock_disponible, codigoBarras, id_categoria_producto, id_estado) VALUES 
+INSERT INTO tb_producto (nombre, precio_compra, precio_venta, stock_disponible, codigoBarras, categoria_producto_id, estado_id) VALUES 
 ('Atún enlatado', 3.1, 3.99, 50, '0123456789099', 1, 1),
 ('Sopa de fideos enlatada', 0.8, 1.75, 80, '1234567890188', 1, 1),
 ('Maíz enlatado', 0.95, 1.49, 60, '2345678901277', 1, 1),
@@ -1073,8 +1080,8 @@ INSERT INTO tb_producto (nombre, precio_compra, precio_venta, stock_disponible, 
 
 -- Insert para los pedidos y sus detalles
 -- pedido 1
-INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, id_proveedor)
-VALUES ('2024-04-11', 15.50, 1, 2);
+INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
+VALUES ('2024-04-11', 15.50, 9, 2);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (2, 3.50, 1, 2);
@@ -1083,8 +1090,8 @@ INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (1, 2.50, 1, 5);
 
 -- pedido 2
-INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, id_proveedor)
-VALUES ('2024-04-10', 22.00, 2, 4);
+INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
+VALUES ('2024-04-10', 22.00, 8, 4);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (3, 1.80, 2, 7);
@@ -1096,8 +1103,8 @@ INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (1, 10.00, 2, 12);
 
 -- pedido 3
-INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, id_proveedor)
-VALUES ('2024-04-09', 10.20, 3, 1);
+INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
+VALUES ('2024-04-09', 10.20, 7, 1);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (5, 2.50, 3, 1);
@@ -1106,8 +1113,8 @@ INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (2, 1.20, 3, 3);
 
 -- pedido 4
-INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, id_proveedor)
-VALUES ('2024-04-08', 18.70, 4, 3);
+INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
+VALUES ('2024-04-08', 18.70, 9, 3);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (1, 5.00, 4, 6);
@@ -1119,19 +1126,20 @@ INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (1, 2.80, 4, 13);
 
 -- Insert para tipo de comprobante
-insert into tb_tipo_comprobante (comprobante, descripcion) values
-("factura", "Comprobantes fiscales que detallan las ventas realizadas"),
-("boleta", "Similar a las facturas, pero generalmente utilizadas para transacciones de menor valor o para clientes que no requieren una factura formal.");
+insert into tb_tipo_comprobante (comprobante) values
+("factura"),
+("boleta");
 
 -- Insert para los metodos de pago
-insert into tb_metodo_pago (metodo_pago, descripcion) values
-("efectivo", "Pago realizado con dinero fisico."),
-("tarjeta", "Pago realizado con una tarjeta emitida por una entidad bancaria."),
-("Yape", "Billetera digital.");
+insert into tb_metodo_pago (metodo_pago) values
+("efectivo"),
+("tarjeta debito"),
+("tarjeta credito"),
+("Yape");
 
 -- Insertar venta 1
 INSERT INTO tb_venta (fecha_hora, impuesto, total, tipo_comprobante_id, metodo_pago_id, usuario_id)
-VALUES ('2024-04-12 09:30:00', 1.50, 18.99, 1, 2, 2);
+VALUES ('2024-04-12 09:30:00', 1.50, 18.99, 1, 2, 9);
 
 -- Detalles de la venta 1
 INSERT INTO tb_detalle_venta (precio_unitario, subtotal, cantidad, producto_id, id_venta)
@@ -1142,7 +1150,7 @@ VALUES (1.75, 1.75, 1, 11, 1);
 
 -- Insertar venta 2
 INSERT INTO tb_venta (fecha_hora, impuesto, total, tipo_comprobante_id, metodo_pago_id, usuario_id)
-VALUES ('2024-04-12 12:45:00', 2.20, 10.24, 1, 3, 3);
+VALUES ('2024-04-12 12:45:00', 2.20, 10.24, 1, 3, 8);
 
 -- Detalles de la venta 2
 INSERT INTO tb_detalle_venta (precio_unitario, subtotal, cantidad, producto_id, id_venta)
@@ -1153,3 +1161,7 @@ VALUES (1.75, 3.5, 2, 10, 2);
 
 INSERT INTO tb_detalle_venta (precio_unitario, subtotal, cantidad, producto_id, id_venta)
 VALUES (1.49, 1.49, 1, 12, 2);
+
+-- ##################################################################################################
+-- Zona segura
+-- ##################################################################################################
