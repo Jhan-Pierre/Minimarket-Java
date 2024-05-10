@@ -16,11 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CRUDusuario {
-    private final Conexion conexion = new Conexion();
+public class CRUDusuario extends Conexion {
 
     public String validarUsuario(String email, String password) {
-        Connection cnx = conexion.getConexion();
+        Connection cnx = getConexion();
         if (cnx == null) {
             return "No se pudo establecer conexión con la base de datos.";
         }
@@ -72,7 +71,7 @@ public class CRUDusuario {
     
     public Set<String> obtenerPermisosPorUsuario(int rol_id) {
         Set<String> permisos = new HashSet<>();
-        Connection cnx = conexion.getConexion();
+        Connection cnx = getConexion();
         if (cnx == null) {
             Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
             return permisos;
@@ -103,7 +102,7 @@ public class CRUDusuario {
     
     public Usuario obtenerUsuarioLogeado(String email) {
         Usuario usuario = null;
-        Connection cnx = conexion.getConexion();
+        Connection cnx = getConexion();
         if (cnx == null) {
             Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
             return null;
@@ -134,7 +133,7 @@ public class CRUDusuario {
     
      public List<Usuario> listarUsuarios() {
         List<Usuario> listaUsuarios = new ArrayList<>();
-        Connection cnx = conexion.getConexion();
+        Connection cnx = getConexion();
         if (cnx == null) {
             Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
             return listaUsuarios;
@@ -165,4 +164,7 @@ public class CRUDusuario {
         }
         return listaUsuarios;
     }
+     
+     
+     
 }

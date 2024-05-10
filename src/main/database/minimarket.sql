@@ -3,7 +3,7 @@
 -- ##################################################################################################
 create database bd_minimarket;
 -- drop database bd_minimarket;
-use bd_minimarket;  --    use bd_minimarket;                   
+use bd_minimarket;         
 
 CREATE TABLE tb_estado(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -719,22 +719,50 @@ end //
 
 -- call sp_listar_usuario();
 
+DELIMITER //
+CREATE PROCEDURE sp_crear_usuario(
+    IN p_correo VARCHAR(60),
+    IN p_password VARCHAR(200),
+    IN p_telefono CHAR(9),
+    IN p_nombre VARCHAR(80),
+    IN p_apellido VARCHAR(80),
+    IN p_rol_id INT,
+    IN p_estado_id INT,
+    IN p_turno_id INT
+)
+BEGIN
+    DECLARE exit handler for sqlexception
+    BEGIN
+        -- Manejo de errores
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+
+    -- Insertar el nuevo usuario
+    INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, turno_id)
+    VALUES (p_correo, p_password, p_telefono, p_nombre, p_apellido, NOW(), now(), p_rol_id, p_estado_id, p_turno_id);
+
+    COMMIT;
+END;
+
 delimiter //
-create procedure sp_listar_tipo_usuario()
+create procedure sp_listar_rol_usuario()
 begin
-	select * from tb_tipo_usuario;
+	select id, nombre from tb_rol;
 end //
 
 delimiter //
 create procedure sp_listar_turno_usuario()
 begin
-	select * from tb_turno;
+	select id, nombre from tb_turno;
 end //
 
 delimiter //
 create procedure sp_listar_estado_usuario()
 begin
-	select * from tb_estado;
+	select id, nombre from tb_estado;
 end //
 
 
@@ -782,22 +810,6 @@ begin
     inner join tb_turno tu on u.turno_id = tu.id
     inner join tb_estado e on u.estado_id = e.id
     where u.nombre like concat(valor, '%');
-end //
-
-delimiter //
-create procedure sp_registrar_usuario(
-    in p_correo varchar(60),
-    in p_contraseña varchar(20),
-    in p_telefono char(9),
-    in p_nombre varchar(80),
-    in p_apellido varchar(80),
-    in p_rol_id int,
-    in p_turno_id int,
-    in p_estado_id int
-)
-begin
-    insert into tb_usuario (correo, contraseña, telefono, nombre, apellido, rol_id, turno_id, estado_id)
-    values (p_correo, p_contraseña, p_telefono, p_nombre, p_apellido, p_rol_id, p_turno_id, p_estado_id);
 end //
 
 -- CALL sp_registrar_usuario('usuaradsio@example.com', 'contraseña123', '123451889', 'Juan', 'torres', 2, 1, 1);

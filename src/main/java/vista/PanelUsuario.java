@@ -27,6 +27,7 @@ public class PanelUsuario extends javax.swing.JPanel {
         btnAgregarUsuario = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(900, 490));
 
         jLabel1.setText("Lista de Usuarios");
 

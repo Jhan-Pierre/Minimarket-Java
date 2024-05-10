@@ -1,16 +1,21 @@
 package Modelo;
 
-public class Estado {
+public class Turno {
     private int id;
     private String nombre;
 
-    public Estado() {}
+    public Turno() {
+    }
 
-    public Estado(int id, String nombre) {
+    public Turno(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Turno(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -19,8 +24,4 @@ public class Estado {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    
 }
