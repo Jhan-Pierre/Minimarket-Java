@@ -1,9 +1,11 @@
 package Controlador;
 
 import Modelo.CRUDturno;
+import Modelo.Estado;
 import Modelo.Turno;
 import vista.PanelUsuarioCrear;
 import java.util.List;
+import javax.swing.JComboBox;
 
 public class TurnoController {
     
@@ -16,12 +18,14 @@ public class TurnoController {
     }
     
     public void cargarTurnosEnComboBox() {
+         JComboBox<Turno> cboTurno = vista.cboTurno; // ComboBox que contiene objetos de tipo Turno
+
         vista.cboTurno.removeAllItems(); //Limpiar el cboTurno
 
         List<Turno> listaTurnos = modelo.listarTurno();
 
         for (Turno turno : listaTurnos) {
-            vista.cboTurno.addItem(turno.getNombre());
+            cboTurno.addItem(turno);
         }
     }
 }

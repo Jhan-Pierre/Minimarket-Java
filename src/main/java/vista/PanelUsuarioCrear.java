@@ -5,10 +5,15 @@ import Controlador.RolController;
 import Controlador.TurnoController;
 import Controlador.UsuarioController;
 import Modelo.Estado;
+import Modelo.Rol;
+import Modelo.Turno;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
     private UsuarioController usuarioController;
-
+    private PanelListener panelListener;
+    
+    
+    
     public PanelUsuarioCrear() {
         initComponents();
         
@@ -58,8 +63,6 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Crear Usuario");
 
-        cboTurno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblNombre.setText("Nombre");
 
         jLabel3.setText("Correo");
@@ -89,8 +92,6 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         lblTelefono.setText("Telefono");
 
         lblEstado.setText("Estado");
-
-        cboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblRol.setText("Rol");
 
@@ -222,8 +223,8 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     public javax.swing.JComboBox<Estado> cboEstado;
-    public javax.swing.JComboBox<String> cboRol;
-    public javax.swing.JComboBox<String> cboTurno;
+    public javax.swing.JComboBox<Rol> cboRol;
+    public javax.swing.JComboBox<Turno> cboTurno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblApellido;

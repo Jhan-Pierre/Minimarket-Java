@@ -3,19 +3,26 @@ package vista;
 import Controlador.UsuarioController;
 
 public class PanelUsuario extends javax.swing.JPanel {
-    private FrmDashboard panelPadre;
     private UsuarioController controlador;
-
-    public PanelUsuario() {
+    private PanelListener panelListener;
+    
+    public PanelUsuario(PanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
-        controlador = new UsuarioController(this);
-        controlador.cargarUsuariosEnTabla(); // Llama al método para cargar usuarios en la tabla
-    }
-
-    public void setPanelPadre(FrmDashboard panelPadre) {
-        this.panelPadre = panelPadre;
+        inicializar();
     }
     
+    private void inicializar() {
+        controlador = new UsuarioController(this);
+        controlador.cargarUsuariosEnTabla();
+    }
+    
+    private void abrirOtroPanel() {
+        panelListener.abrirPanel("UsuarioCrear");
+    }
+    
+    public PanelUsuario() {}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,7 +94,7 @@ public class PanelUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
-         panelPadre.vista.show(panelPadre.PanelPadre, "UsuarioCrear");
+         abrirOtroPanel();
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
     

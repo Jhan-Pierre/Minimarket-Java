@@ -166,6 +166,9 @@ public class CRUDusuario extends Conexion {
     }
      
     public void crearUsuario(String correo, String password, String telefono, String nombre, String apellido, int rol_id, int estado_id, int turno_id) {
+        // Hashear la contraseña
+        String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+
         Connection cnx = getConexion();
         if (cnx == null) {
             Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
@@ -174,7 +177,7 @@ public class CRUDusuario extends Conexion {
 
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_crear_usuario(?, ?, ?, ?, ?, ?, ?, ?)}")) {
             stmt.setString(1, correo);
-            stmt.setString(2, password);
+            stmt.setString(2, hashedPassword); // Usar la contraseña hasheada
             stmt.setString(3, telefono);
             stmt.setString(4, nombre);
             stmt.setString(5, apellido);
@@ -193,5 +196,6 @@ public class CRUDusuario extends Conexion {
             }
         }
     }
+
     
 }

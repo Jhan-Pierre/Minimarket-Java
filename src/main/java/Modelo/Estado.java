@@ -23,7 +23,7 @@ public class Estado {
         this.nombre = nombre;
     }
     
-    // sobrescribir la presentacion, en lugar del objeto estado
+    // sobrescribir la presentacion, para solo mostrar el nombre
     @Override
     public String toString() {
         return nombre;

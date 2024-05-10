@@ -24,4 +24,10 @@ public class Turno {
         return nombre;
     }
 
+    // sobrescribir la presentacion, para solo mostrar el nombre
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
 }

@@ -716,7 +716,6 @@ begin
     inner join tb_estado e on u.estado_id = e.id
     order by u.fecha_actualizado;
 end //
-
 -- call sp_listar_usuario();
 
 DELIMITER //
@@ -741,7 +740,7 @@ BEGIN
     START TRANSACTION;
 
     -- Insertar el nuevo usuario
-    INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, turno_id)
+    INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, id_turno)
     VALUES (p_correo, p_password, p_telefono, p_nombre, p_apellido, NOW(), now(), p_rol_id, p_estado_id, p_turno_id);
 
     COMMIT;

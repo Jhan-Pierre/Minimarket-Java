@@ -2,7 +2,9 @@ package Controlador;
 
 import Modelo.CRUDusuario;
 import Modelo.Estado;
+import Modelo.Rol;
 import Modelo.SesionUsuario;
+import Modelo.Turno;
 import Modelo.Usuario;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
@@ -130,16 +132,21 @@ public class UsuarioController implements IButtonClickListener{
         String telefono = vistaUsuarioCrear.txtTelefono.getText();
         String nombre = vistaUsuarioCrear.txtNombre.getText();
         String apellido = vistaUsuarioCrear.txtApellido.getText();
-        int rolId = vistaUsuarioCrear.cboRol.getSelectedIndex(); // Obtener el ID del rol seleccionado
-        Estado estadoSeleccionado  = (Estado) vistaUsuarioCrear.cboEstado.getSelectedItem(); // Obtener el ID del estado seleccionado
+       
+        Rol rolSelecionado = (Rol) vistaUsuarioCrear.cboRol.getSelectedItem();
+        int rolId = rolSelecionado.getId(); // Obtener el ID del rol seleccionado
         
+        Estado estadoSeleccionado  = (Estado) vistaUsuarioCrear.cboEstado.getSelectedItem(); // Obtener el ID del estado seleccionado
         int estadoId = estadoSeleccionado.getId();
 
-        int turnoId = vistaUsuarioCrear.cboTurno.getSelectedIndex(); // Obtener el ID del turno seleccionado
+        Turno turnoSeleccionado = (Turno) vistaUsuarioCrear.cboTurno.getSelectedItem();
+        int turnoId = turnoSeleccionado.getId(); // Obtener el ID del turno seleccionado
 
         // Llamar al método del modelo para crear el usuario
-        System.out.println(correo + password + telefono + nombre + apellido + rolId + estadoId + turnoId);
-//modelo.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
+        //System.out.println(correo + password + telefono + nombre + apellido + rolId + estadoId + turnoId);
+        modelo.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
+       // Actualizar la tabla de usuarios
+
     }
     
     private void abrirDetallesUsuario(Long id) {
