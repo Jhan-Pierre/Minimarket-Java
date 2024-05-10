@@ -3,17 +3,27 @@ package Controlador;
 import Modelo.CRUDusuario;
 import Modelo.SesionUsuario;
 import Modelo.Usuario;
+import Utilidades.ButtonColumn;
+import java.util.List;
 import java.util.Set;
+import javax.swing.table.DefaultTableModel;
 import vista.FrmLogin;
 import vista.FrmDashboard;
+import vista.PanelUsuario;
 
 public class UsuarioController {
     private FrmLogin vista;
     private CRUDusuario modelo;
     private FrmDashboard dashboard;
-
+    private PanelUsuario vistaUsuario;
+    
     public UsuarioController(FrmLogin vista) {
         this.vista = vista;
+        this.modelo = new CRUDusuario();
+    }
+    
+    public UsuarioController(PanelUsuario vista) {
+        this.vistaUsuario = vista;
         this.modelo = new CRUDusuario();
     }
     
@@ -54,4 +64,45 @@ public class UsuarioController {
             vista.lblErrorLogin.setText(resultado);
         }
     }
+    
+    public void cargarUsuariosEnTabla() {
+        List<Usuario> listaUsuarios = modelo.listarUsuarios();
+
+        // Crear modelo de tabla y establecerlo en la tabla
+        DefaultTableModel model = new DefaultTableModel();
+        vistaUsuario.tbUsuario.setModel(model);
+
+        // Añadir columnas al modelo de la tabla
+        model.addColumn("ID");
+        model.addColumn("Correo");
+        model.addColumn("Nombre");
+        model.addColumn("Telefono");
+        model.addColumn("Fecha Alta");
+        model.addColumn("Rol");
+        model.addColumn("Estado");
+
+        // Añadir columnas de botones
+        model.addColumn("Ver detalles");
+        model.addColumn("Editar");
+        model.addColumn("Eliminar");
+        
+        // Añadir filas al modelo de la tabla
+        for (Usuario usuario : listaUsuarios) {
+            model.addRow(new Object[] {
+                usuario.getId(), 
+                usuario.getEmail(), 
+                usuario.getNombre(), 
+                usuario.getTelefono(), 
+                usuario.getFechaAlta(), 
+                usuario.getRol(), 
+                usuario.getEstado(), 
+                "Ver detalles", "Editar", "Eliminar"});
+        }
+
+        // Crear los botones en las columnas correspondientes
+        new ButtonColumn(vistaUsuario.tbUsuario, 7); // Ver detalles
+        new ButtonColumn(vistaUsuario.tbUsuario, 8); // Editar
+        new ButtonColumn(vistaUsuario.tbUsuario, 9); // Eliminar
+    }
+
 }

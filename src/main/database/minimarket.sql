@@ -701,6 +701,23 @@ end; //
 -- *****************************************************************************************************************
 -- Procedimientos alamcenados para Uliente
 -- *****************************************************************************************************************
+delimiter //
+create procedure sp_listar_usuario()
+begin
+	select u.id,
+			u.correo,
+            concat(u.nombre, ' ' , u.apellido) as nombre,
+            u.telefono,
+            u.fecha_alta,
+            r.nombre as rol,
+            e.nombre as estado
+    from tb_usuario u
+    inner join tb_rol r on u.rol_id = r.id
+    inner join tb_estado e on u.estado_id = e.id
+    order by u.fecha_actualizado;
+end //
+
+-- call sp_listar_usuario();
 
 delimiter //
 create procedure sp_listar_tipo_usuario()
@@ -720,22 +737,7 @@ begin
 	select * from tb_estado;
 end //
 
-delimiter //
-create procedure sp_listar_usuario()
-begin
-	select u.id,
-			u.correo,
-            u.contraseña,
-            u.nombre,
-            u.apellido,
-            u.telefono,
-            u.estado_id,
-            e.nombre as estado
-    from tb_usuario u
-    inner join tb_estado e on u.estado_id = e.id;
-end //
 
--- call sp_listar_usuario();
 
 delimiter //
 create procedure sp_buscar_usuario_por_codigo(in iduser int)

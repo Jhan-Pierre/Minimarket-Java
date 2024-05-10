@@ -6,11 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
-public class FrmDashboard extends javax.swing.JFrame {
+public final class FrmDashboard extends javax.swing.JFrame {
     
     // Declaración de tus paneles
     PanelDashboard panelDashboard;
+    
     PanelUsuario panelUsuario;
+    PanelUsuarioCrear panelUsuarioCrear;
+    
     PanelProducto panelProducto;
     CardLayout vista;
     
@@ -21,6 +24,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         configurarAccesoSegunRol(permisosUsuario); // Llama al método aquí con los permisos
     }
     
+    //Evita que muestren botones a los que no se deberia tener acceso por el rol
     public void configurarAccesoSegunRol(Set<String> permisosUsuario) {
         btnUsuario.setVisible(permisosUsuario.contains("ver_usuario"));
         btnProducto.setVisible(permisosUsuario.contains("ver_producto"));
@@ -28,9 +32,12 @@ public class FrmDashboard extends javax.swing.JFrame {
     
     private void inicializarPaneles() {
         panelDashboard = new PanelDashboard();
+        
         panelUsuario = new PanelUsuario();
+        panelUsuarioCrear = new PanelUsuarioCrear();
+        panelUsuario.setPanelPadre(this);
+        
         panelProducto = new PanelProducto();
-
         // Usamos CardLayout para cambiar entre paneles
         vista = new CardLayout();
         PanelPadre.setLayout(vista);
@@ -38,31 +45,17 @@ public class FrmDashboard extends javax.swing.JFrame {
         // Añadimos los paneles a PanelPadre
         PanelPadre.add(panelDashboard, "Dashboard");
         PanelPadre.add(panelUsuario, "Usuario");
+        PanelPadre.add(panelUsuarioCrear, "UsuarioCrear");
         PanelPadre.add(panelProducto, "Producto");
     }
 
     private void configurarListeners() {
         // Añadimos los listeners a los botones
-        btnDashboard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.show(PanelPadre, "Dashboard");
-            }
-        });
-        
-        btnUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.show(PanelPadre, "Usuario");
-            }
-        });
+        btnDashboard.addActionListener(e -> vista.show(PanelPadre, "Dashboard"));
 
-        btnProducto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.show(PanelPadre, "Producto");
-            }
-        });
+        btnUsuario.addActionListener(e -> vista.show(PanelPadre, "Usuario"));
+
+        btnProducto.addActionListener(e -> vista.show(PanelPadre, "Producto"));
     }
     
 
@@ -251,11 +244,9 @@ public class FrmDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelControles;
-    private javax.swing.JPanel PanelPadre;
+    public javax.swing.JPanel PanelPadre;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnDashboard;
