@@ -1,6 +1,6 @@
-package Utilidades;
+package Constantes;
 
-public class Constantes {
+public class ConstantesPaneles {
     // Nombres de los paneles
     public static final String PANEL_DASHBOARD = "Dashboard";
     public static final String PANEL_USUARIO = "Usuario";
