@@ -7,17 +7,18 @@ import Controlador.UsuarioController;
 import Modelo.Estado;
 import Modelo.Rol;
 import Modelo.Turno;
+import Utilidades.IPanelListener;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
-    private UsuarioController usuarioController;
-    private PanelListener panelListener;
-    
-    
-    
-    public PanelUsuarioCrear() {
+    private UsuarioController controlador;
+    private IPanelListener panelListener;
+      
+    public PanelUsuarioCrear(IPanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
         
-        this.usuarioController = new UsuarioController(this);
+        controlador = new UsuarioController();
+        controlador.setVistaUsuarioCrear(this); // Configurar la vista en el controlador
         
         TurnoController turnoController = new TurnoController(this);
         turnoController.cargarTurnosEnComboBox(); 
@@ -28,7 +29,6 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         RolController rolController = new RolController(this);
         rolController.cargarRolesEnComboBox();   
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -212,7 +212,7 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
     }//GEN-LAST:event_txtConfirmarContraseñaActionPerformed
 
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
-        usuarioController.crearUsuario();
+        controlador.crearUsuario();
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
 

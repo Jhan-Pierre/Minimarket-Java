@@ -15,7 +15,8 @@ public class FrmLogin extends javax.swing.JFrame {
             System.out.println("No se encontró la imagen en la ubicación especificada.");
         }
         
-        controlador = new UsuarioController(this);
+        controlador = new UsuarioController();
+        controlador.setVistaLogin(this); // Configurar la vista en el controlador
         controlador.iniciar();
     }
 
