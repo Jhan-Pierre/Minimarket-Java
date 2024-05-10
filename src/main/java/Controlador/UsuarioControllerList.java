@@ -18,7 +18,6 @@ public class UsuarioControllerList implements IButtonClickListener {
     }
 
     public void actualizarVista() {
-        // Lógica para actualizar la vista con la información más reciente
         cargarUsuariosEnTabla();
     }
     
@@ -70,6 +69,29 @@ public class UsuarioControllerList implements IButtonClickListener {
             case "Ver detalles" -> abrirDetallesUsuario(id);
             case "Editar" -> abrirEditarUsuario(id);
             case "Eliminar" -> eliminarUsuario(id);
+        }
+    }
+    
+    public void buscarUsuarios(String texto) {
+        List<Usuario> listaUsuarios = usuarioModelo.buscarUsuarioPorNombre(texto);
+        actualizarTablaConUsuarios(listaUsuarios);
+    }
+
+    private void actualizarTablaConUsuarios(List<Usuario> listaUsuarios) {
+        DefaultTableModel model = (DefaultTableModel) vistaUsuario.tbUsuario.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de añadir los nuevos resultados
+
+        for (Usuario usuario : listaUsuarios) {
+            model.addRow(new Object[]{
+                usuario.getId(),
+                usuario.getEmail(),
+                usuario.getNombre(),
+                usuario.getTelefono(),
+                usuario.getFechaAlta(),
+                usuario.getRol(),
+                usuario.getEstado(),
+                "Ver detalles", "Editar", "Eliminar"
+            });
         }
     }
     

@@ -11,7 +11,7 @@ import Utilidades.IPanelListener;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
     private UsuarioControllerCreate controlador;
-    private IPanelListener panelListener;
+    public IPanelListener panelListener;
       
     public PanelUsuarioCrear(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -224,4 +224,5 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -1,5 +1,6 @@
 package Controlador;
 
+import static Constantes.ConstantesPaneles.PANEL_USUARIO;
 import Modelo.Estado;
 import Modelo.Rol;
 import Modelo.Turno;
@@ -9,11 +10,11 @@ import vista.PanelUsuarioCrear;
 public class UsuarioControllerCreate {
     private UsuarioModelo usuarioModelo;
     private PanelUsuarioCrear vistaUsuarioCrear;
-
+    
     public UsuarioControllerCreate() {
         this.usuarioModelo = new UsuarioModelo();
     }
-
+    
     public void setVistaUsuarioCrear(PanelUsuarioCrear vistaUsuarioCrear) {
         this.vistaUsuarioCrear = vistaUsuarioCrear;
     }
@@ -36,5 +37,9 @@ public class UsuarioControllerCreate {
 
         // Llamar al método del modelo para crear el usuario
         usuarioModelo.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
+        
+        vistaUsuarioCrear.panelListener.abrirPanel(PANEL_USUARIO);
+        
+        
     }
 }

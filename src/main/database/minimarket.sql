@@ -718,6 +718,27 @@ begin
 end //
 -- call sp_listar_usuario();
 
+delimiter //
+create procedure sp_buscar_usuario_por_nombre(
+    in p_nombre varchar(80) -- Parámetro para el nombre a buscar
+)
+begin
+    select u.id,
+            u.correo,
+            concat(u.nombre, ' ' , u.apellido) as nombre,
+            u.telefono,
+            u.fecha_alta,
+            r.nombre as rol,
+            e.nombre as estado
+    from tb_usuario u
+    inner join tb_rol r on u.rol_id = r.id
+    inner join tb_estado e on u.estado_id = e.id
+    where u.nombre like concat('%', p_nombre, '%')
+    order by u.fecha_actualizado;
+end;
+
+
+-- call sp_buscar_usuario_por_nombre("a")
 DELIMITER //
 CREATE PROCEDURE sp_crear_usuario(
     IN p_correo VARCHAR(60),
@@ -745,6 +766,13 @@ BEGIN
 
     COMMIT;
 END;
+
+delimiter //
+create procedure sp_buscar_usuario_por_codigo(in iduser int)
+begin
+	select * from tb_usuario
+    where id = iduser;
+end //
 
 delimiter //
 create procedure sp_listar_rol_usuario()
