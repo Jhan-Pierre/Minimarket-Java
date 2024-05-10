@@ -25,6 +25,10 @@ public class UsuarioModelo {
     public List<Usuario> listarUsuarios() {
         return crudUsuario.listarUsuarios();
     }
+    
+    public List<Usuario> buscarUsuarioPorNombre(String nombre) {
+        return crudUsuario.buscarUsuarioPorNombre(nombre);
+    }
 
     public void crearUsuario(String correo, String password, String telefono, String nombre, String apellido, int rolId, int estadoId, int turnoId) {
         crudUsuario.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);

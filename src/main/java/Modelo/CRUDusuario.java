@@ -196,4 +196,40 @@ public class CRUDusuario extends Conexion {
             }
         }
     }
+    
+    public List<Usuario> buscarUsuarioPorNombre(String nombre) {
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return listaUsuarios;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_buscar_usuario_por_nombre(?)}")) {
+            stmt.setString(1, nombre);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String correo = rs.getString("correo");
+                String nombreCompleto = rs.getString("nombre");
+                String telefono = rs.getString("telefono");
+                Date fechaAlta = rs.getDate("fecha_alta");
+                String rolNombre = rs.getString("rol");
+                String estado = rs.getString("estado");
+
+                Usuario usuario = new Usuario(id, correo, nombreCompleto, telefono, fechaAlta, rolNombre, estado);
+                listaUsuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al buscar usuarios por nombre", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return listaUsuarios;
+    }
 }
