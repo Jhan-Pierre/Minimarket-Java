@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.CRUDusuario;
+import Modelo.Estado;
 import Modelo.SesionUsuario;
 import Modelo.Usuario;
 import Utilidades.ButtonColumn;
@@ -11,16 +12,23 @@ import javax.swing.table.DefaultTableModel;
 import vista.FrmLogin;
 import vista.FrmDashboard;
 import vista.PanelUsuario;
+import vista.PanelUsuarioCrear;
 
 public class UsuarioController implements IButtonClickListener{
     private FrmLogin vista;
     private CRUDusuario modelo;
     private FrmDashboard dashboard;
     private PanelUsuario vistaUsuario;
+    private PanelUsuarioCrear vistaUsuarioCrear;
     
     public UsuarioController(FrmLogin vista) {
         this.vista = vista;
         this.modelo = new CRUDusuario();
+    }
+    
+    public UsuarioController(PanelUsuarioCrear vista) {
+        this.modelo = new CRUDusuario();
+        this.vistaUsuarioCrear = vista;
     }
     
     public UsuarioController(PanelUsuario vista) {
@@ -116,6 +124,24 @@ public class UsuarioController implements IButtonClickListener{
         }
     }
 
+    public void crearUsuario() {
+        String correo = vistaUsuarioCrear.txtCorreo.getText();
+        String password = vistaUsuarioCrear.txtContraseña.getText();
+        String telefono = vistaUsuarioCrear.txtTelefono.getText();
+        String nombre = vistaUsuarioCrear.txtNombre.getText();
+        String apellido = vistaUsuarioCrear.txtApellido.getText();
+        int rolId = vistaUsuarioCrear.cboRol.getSelectedIndex(); // Obtener el ID del rol seleccionado
+        Estado estadoSeleccionado  = (Estado) vistaUsuarioCrear.cboEstado.getSelectedItem(); // Obtener el ID del estado seleccionado
+        
+        int estadoId = estadoSeleccionado.getId();
+
+        int turnoId = vistaUsuarioCrear.cboTurno.getSelectedIndex(); // Obtener el ID del turno seleccionado
+
+        // Llamar al método del modelo para crear el usuario
+        System.out.println(correo + password + telefono + nombre + apellido + rolId + estadoId + turnoId);
+//modelo.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
+    }
+    
     private void abrirDetallesUsuario(Long id) {
         System.out.println("detalle: " + id);
     }

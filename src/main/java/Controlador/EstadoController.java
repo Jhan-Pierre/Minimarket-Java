@@ -3,6 +3,7 @@ package Controlador;
 import Modelo.CRUDestado;
 import Modelo.Estado;
 import java.util.List;
+import javax.swing.JComboBox;
 import vista.PanelUsuarioCrear;
 
 public class EstadoController {
@@ -15,12 +16,13 @@ public class EstadoController {
     }
     
     public void cargarEstados() {
-        vista.cboEstado.removeAllItems(); //Limpiar el cboEstado
+        JComboBox<Estado> cboEstado = vista.cboEstado; // ComboBox que contiene objetos de tipo Estado
+        cboEstado.removeAllItems(); // Limpiar el cboEstado
 
         List<Estado> listaEstado = modelo.listarEstado();
 
         for (Estado estado : listaEstado) {
-            vista.cboEstado.addItem(estado.getNombre());
+            cboEstado.addItem(estado);
         }
     }
 }

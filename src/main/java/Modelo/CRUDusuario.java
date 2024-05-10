@@ -131,7 +131,7 @@ public class CRUDusuario extends Conexion {
         return usuario;
     }
     
-     public List<Usuario> listarUsuarios() {
+    public List<Usuario> listarUsuarios() {
         List<Usuario> listaUsuarios = new ArrayList<>();
         Connection cnx = getConexion();
         if (cnx == null) {
@@ -165,6 +165,33 @@ public class CRUDusuario extends Conexion {
         return listaUsuarios;
     }
      
-     
-     
+    public void crearUsuario(String correo, String password, String telefono, String nombre, String apellido, int rol_id, int estado_id, int turno_id) {
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_crear_usuario(?, ?, ?, ?, ?, ?, ?, ?)}")) {
+            stmt.setString(1, correo);
+            stmt.setString(2, password);
+            stmt.setString(3, telefono);
+            stmt.setString(4, nombre);
+            stmt.setString(5, apellido);
+            stmt.setInt(6, rol_id);
+            stmt.setInt(7, estado_id);
+            stmt.setInt(8, turno_id);
+
+            stmt.execute();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al crear usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+    }
+    
 }

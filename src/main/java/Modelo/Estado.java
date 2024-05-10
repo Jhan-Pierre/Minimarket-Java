@@ -23,4 +23,10 @@ public class Estado {
         this.nombre = nombre;
     }
     
+    // sobrescribir la presentacion, en lugar del objeto estado
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
 }

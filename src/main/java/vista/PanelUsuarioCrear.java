@@ -3,11 +3,16 @@ package vista;
 import Controlador.EstadoController;
 import Controlador.RolController;
 import Controlador.TurnoController;
+import Controlador.UsuarioController;
+import Modelo.Estado;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
+    private UsuarioController usuarioController;
 
     public PanelUsuarioCrear() {
         initComponents();
+        
+        this.usuarioController = new UsuarioController(this);
         
         TurnoController turnoController = new TurnoController(this);
         turnoController.cargarTurnosEnComboBox(); 
@@ -83,8 +88,6 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
 
         lblTelefono.setText("Telefono");
 
-        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblEstado.setText("Estado");
 
         cboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -92,6 +95,11 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         lblRol.setText("Rol");
 
         btnAgregarUsuario.setText("Agregar");
+        btnAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -202,14 +210,18 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmarContraseñaActionPerformed
 
+    private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
+        usuarioController.crearUsuario();
+    }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarUsuario;
+    public javax.swing.JButton btnAgregarUsuario;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
-    public javax.swing.JComboBox<String> cboEstado;
+    public javax.swing.JComboBox<Estado> cboEstado;
     public javax.swing.JComboBox<String> cboRol;
     public javax.swing.JComboBox<String> cboTurno;
     private javax.swing.JLabel jLabel1;
