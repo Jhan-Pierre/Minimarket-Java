@@ -4,6 +4,8 @@ import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 
 import Controlador.UsuarioControllerList;
 import Utilidades.IPanelListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PanelUsuario extends javax.swing.JPanel {
     private UsuarioControllerList controlador;
@@ -13,10 +15,15 @@ public class PanelUsuario extends javax.swing.JPanel {
         this.panelListener = panelListener;
         initComponents();
         inicializar();
+        txtBuscarUsuario.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                controlador.buscarUsuarios(txtBuscarUsuario.getText());
+            }
+        });
     }
     
-    private void inicializar() {
-        
+    public void inicializar() {
         controlador = new UsuarioControllerList(this);
         controlador.actualizarVista();
     }
