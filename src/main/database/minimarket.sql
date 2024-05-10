@@ -174,7 +174,7 @@ BEGIN
     SET p_user_id = v_user_id;
     SET p_hashed_password = v_hashed_password;
     SET p_is_active = v_is_active = 1;
-END ;;
+END ;; //
 
 DELIMITER //
 CREATE PROCEDURE sp_obtener_permisos_por_rol(
@@ -191,7 +191,7 @@ BEGIN
         INNER JOIN tb_rol_permiso rp ON p.id = rp.permiso_id
         WHERE rp.rol_id = v_rol_id;
     END IF;
-END;
+END; //
 
 -- call sp_obtener_permisos_por_rol(1)
 
@@ -203,7 +203,7 @@ begin
 	SELECT u.id, u.correo, concat(u.nombre, ' ', u.apellido) as nombre, u.rol_id
     FROM tb_usuario AS u
     WHERE u.correo = p_correo;
-end;
+end; //
 -- ##################################################################################################
 -- Zona segura
 -- ##################################################################################################
@@ -792,15 +792,6 @@ begin
 	select id, nombre from tb_estado;
 end //
 
-
-
-delimiter //
-create procedure sp_buscar_usuario_por_codigo(in iduser int)
-begin
-	select * from tb_usuario
-    where id = iduser;
-end //
-
 delimiter //
 create procedure sp_mostrar_usuario_por_codigo(in iduser int)
 begin
@@ -1122,7 +1113,7 @@ INSERT INTO tb_producto (nombre, precio_compra, precio_venta, stock_disponible, 
 -- Insert para los pedidos y sus detalles
 -- pedido 1
 INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
-VALUES ('2024-04-11', 15.50, 9, 2);
+VALUES ('2024-04-11', 15.50, 2, 2);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (2, 3.50, 1, 2);
@@ -1132,7 +1123,7 @@ VALUES (1, 2.50, 1, 5);
 
 -- pedido 2
 INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
-VALUES ('2024-04-10', 22.00, 8, 4);
+VALUES ('2024-04-10', 22.00, 3, 4);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (3, 1.80, 2, 7);
@@ -1145,7 +1136,7 @@ VALUES (1, 10.00, 2, 12);
 
 -- pedido 3
 INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
-VALUES ('2024-04-09', 10.20, 7, 1);
+VALUES ('2024-04-09', 10.20, 3, 1);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (5, 2.50, 3, 1);
@@ -1155,7 +1146,7 @@ VALUES (2, 1.20, 3, 3);
 
 -- pedido 4
 INSERT INTO tb_pedido (fecha, costoTotal, usuario_id, proveedor_id)
-VALUES ('2024-04-08', 18.70, 9, 3);
+VALUES ('2024-04-08', 18.70, 2, 3);
 
 INSERT INTO tb_detalle_pedido (cantidad, precioUnitario, pedido_id, producto_id)
 VALUES (1, 5.00, 4, 6);
@@ -1180,7 +1171,7 @@ insert into tb_metodo_pago (metodo_pago) values
 
 -- Insertar venta 1
 INSERT INTO tb_venta (fecha_hora, impuesto, total, tipo_comprobante_id, metodo_pago_id, usuario_id)
-VALUES ('2024-04-12 09:30:00', 1.50, 18.99, 1, 2, 9);
+VALUES ('2024-04-12 09:30:00', 1.50, 18.99, 1, 2, 2);
 
 -- Detalles de la venta 1
 INSERT INTO tb_detalle_venta (precio_unitario, subtotal, cantidad, producto_id, id_venta)
@@ -1191,7 +1182,7 @@ VALUES (1.75, 1.75, 1, 11, 1);
 
 -- Insertar venta 2
 INSERT INTO tb_venta (fecha_hora, impuesto, total, tipo_comprobante_id, metodo_pago_id, usuario_id)
-VALUES ('2024-04-12 12:45:00', 2.20, 10.24, 1, 3, 8);
+VALUES ('2024-04-12 12:45:00', 2.20, 10.24, 1, 3, 3);
 
 -- Detalles de la venta 2
 INSERT INTO tb_detalle_venta (precio_unitario, subtotal, cantidad, producto_id, id_venta)
