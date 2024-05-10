@@ -38,13 +38,17 @@ public class UsuarioController {
         String resultado = modelo.validarUsuario(email, password);
         
         if (resultado.equals("Exito")) {
-            Set<String> permisosUsuario = modelo.obtenerPermisosPorUsuario(email);
-             
+            // recuperar la inforamcion basica del usuario loeado
             Usuario usuarioLogeado = modelo.obtenerUsuarioLogeado(email);
             SesionUsuario.getInstancia().setUsuarioLogeado(usuarioLogeado);
-            FrmDashboard dashboard = new FrmDashboard(permisosUsuario);
-            dashboard.lblUsuario.setText(usuarioLogeado.getNombre());
-            dashboard.setVisible(true);
+            
+            // enviar al dashboard, los permisos que tiene el rol del usuario logueado
+            Set<String> permisosUsuario = modelo.obtenerPermisosPorUsuario(usuarioLogeado.getRolId());
+             FrmDashboard dashboard2 = new FrmDashboard(permisosUsuario);
+              
+            dashboard2.lblUsuario.setText(usuarioLogeado.getNombre());
+            
+            dashboard2.setVisible(true);
             vista.dispose(); // Cerrar el FrmLogin
         }else{
             vista.lblErrorLogin.setText(resultado);

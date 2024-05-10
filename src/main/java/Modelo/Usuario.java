@@ -5,18 +5,18 @@ public class Usuario {
     private String nombre;
     private String email;
     private String password;
-    private String rol;
+    private int rol_id;
     
     public Usuario(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public Usuario(Long id, String nombre, String email, String rol) {
+    public Usuario(Long id, String nombre, String email, int rol_id) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.rol = rol;
+        this.rol_id = rol_id;
     }
 
 
@@ -36,12 +36,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getRol() {
-        return rol;
+    public int getRolId() {
+        return rol_id;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRolId(int rol_id) {
+        this.rol_id = rol_id;
     }
 
     // Getters y setters
