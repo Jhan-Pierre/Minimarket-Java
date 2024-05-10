@@ -25,7 +25,7 @@ public class PanelUsuario extends javax.swing.JPanel {
     
     public void inicializar() {
         controlador = new UsuarioControllerList(this);
-        controlador.actualizarVista();
+        controlador.cargarUsuariosEnTabla(); // Cambiado para cargar los usuarios al iniciar
     }
     
     private void abrirPanelUsuarioCrear() {
@@ -36,8 +36,25 @@ public class PanelUsuario extends javax.swing.JPanel {
         panelListener.abrirPanel(PANEL_USUARIO_CREAR);
     }
 
-    public PanelUsuario() {}
+    public PanelUsuario() {
+        initComponents();
+        inicializar(); // Llamar inicializar en el constructor por defecto
+    }
 
+    public void resetPanel() {
+        txtBuscarUsuario.setText("");
+        controlador.cargarUsuariosEnTabla();
+    }
+    
+    //Cuando el panel usuario sea visible se resetea el contenido
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,9 +128,7 @@ public class PanelUsuario extends javax.swing.JPanel {
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
          abrirPanelUsuarioCrear();
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
-
-    
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarUsuario;
     private javax.swing.JLabel jLabel1;
