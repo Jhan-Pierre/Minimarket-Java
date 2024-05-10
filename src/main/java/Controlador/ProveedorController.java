@@ -91,15 +91,15 @@ public class ProveedorController implements IButtonClickListener {
 
     public void crearProveedor() {
         String nombre = vistaProveedorCrear.txtNombre.getText();
-        String ruc = vistaProveedorCrear.txtRuc.getText();
-        String descripcion = vistaProveedorCrear.txtDescripcion.getText();
+        //String ruc = vistaProveedorCrear.txtRuc.getText();
+        //String descripcion = vistaProveedorCrear.txtDescripcion.getText();
         String telefono = vistaProveedorCrear.txtTelefono.getText();
         String correo = vistaProveedorCrear.txtCorreo.getText();
-        String direccion = vistaProveedorCrear.txtDireccion.getText();
+        //String direccion = vistaProveedorCrear.txtDireccion.getText();
         int idEstado = vistaProveedorCrear.cboEstado.getSelectedIndex(); // Obtener el ID del estado seleccionado
 
         // Llamar al método del modelo para crear el proveedor
-        System.out.println(nombre + ruc + descripcion + telefono + correo + direccion + idEstado);
+        //System.out.println(nombre + ruc + descripcion + telefono + correo + direccion + idEstado);
         //modelo.crearProveedor(nombre, ruc, descripcion, telefono, correo, direccion, idEstado);
     }
 }
