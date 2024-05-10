@@ -67,7 +67,7 @@ public class CRUDusuario {
         }
     }
     
-    public Set<String> obtenerPermisosPorUsuario(String email) {
+    public Set<String> obtenerPermisosPorUsuario(int rol_id) {
         Set<String> permisos = new HashSet<>();
         Connection cnx = conexion.getConexion();
         if (cnx == null) {
@@ -75,8 +75,8 @@ public class CRUDusuario {
             return permisos;
         }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_obtener_permisos_por_usuario(?)}")) {
-            stmt.setString(1, email);
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_obtener_permisos_por_rol(?)}")) {
+            stmt.setInt(1, rol_id);
 
             boolean hasResults = stmt.execute();
             if (hasResults) {
@@ -114,8 +114,8 @@ public class CRUDusuario {
                 Long id = rs.getLong("id");
                 String nombre = rs.getString("nombre");
                 String correo = rs.getString("correo");
-                String rol = rs.getString("rol");
-                usuario = new Usuario(id, nombre, correo, rol);
+                int rol_id = rs.getInt("rol_id");
+                usuario = new Usuario(id, nombre, correo, rol_id);
             }
         } catch (SQLException e) {
             Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al obtener usuario logeado", e);
