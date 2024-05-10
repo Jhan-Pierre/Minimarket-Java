@@ -94,7 +94,7 @@ public class ProveedorController implements IButtonClickListener {
         //String ruc = vistaProveedorCrear.txtRuc.getText();
         //String descripcion = vistaProveedorCrear.txtDescripcion.getText();
         String telefono = vistaProveedorCrear.txtTelefono.getText();
-        String correo = vistaProveedorCrear.txtCorreo.getText();
+        String correo = vistaProveedorCrear.txtDescripcion.getText();
         //String direccion = vistaProveedorCrear.txtDireccion.getText();
         int idEstado = vistaProveedorCrear.cboEstado.getSelectedIndex(); // Obtener el ID del estado seleccionado
 
