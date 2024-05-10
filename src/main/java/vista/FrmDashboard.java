@@ -140,7 +140,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements PanelListe
         btnCliente.setBorderPainted(false);
         btnCliente.setFocusPainted(false);
 
-        btnCerrarSesion.setBackground(new java.awt.Color(255, 51, 51));
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 102, 102));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setText("Cerrar Sesión");
@@ -217,7 +217,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements PanelListe
 
         lblUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        lblUsuario.setText("Usuario Iniciado Seciom");
+        lblUsuario.setText("Usuario Iniciado Sesión");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -225,7 +225,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements PanelListe
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 725, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 729, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
                 .addGap(20, 20, 20))
         );
