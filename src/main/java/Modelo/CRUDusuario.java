@@ -3,6 +3,7 @@ package Modelo;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 //import java.sql.PreparedStatement;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,9 @@ import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CRUDusuario {
@@ -127,5 +130,39 @@ public class CRUDusuario {
             }
         }
         return usuario;
+    }
+    
+     public List<Usuario> listarUsuarios() {
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        Connection cnx = conexion.getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return listaUsuarios;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_usuario()}")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String correo = rs.getString("correo");
+                String nombre = rs.getString("nombre");
+                String telefono = rs.getString("telefono");
+                Date fechaAlta = rs.getDate("fecha_alta");
+                String rolNombre = rs.getString("rol"); // Asegúrate de cambiar este nombre si es necesario para evitar conflictos con la columna 'nombre' de 'tb_usuario'
+                String estado = rs.getString("estado");
+                
+                Usuario usuario = new Usuario(id, correo, nombre, telefono, fechaAlta, rolNombre, estado);
+                listaUsuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al listar usuarios", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return listaUsuarios;
     }
 }
