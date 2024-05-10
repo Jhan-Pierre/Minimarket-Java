@@ -1,21 +1,25 @@
 package Utilidades;
 
+
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class ButtonColumn extends AbstractCellEditor implements TableCellRenderer, TableCellEditor, ActionListener {
+    private final IButtonClickListener listener;
+    
     JTable table;
     JButton renderButton;
     JButton editButton;
     String text;
 
-    public ButtonColumn(JTable table, int column) {
+    public ButtonColumn(JTable table, int column, IButtonClickListener listener) {
         super();
         this.table = table;
-        renderButton = new JButton();
+        this.listener = listener;
 
+        renderButton = new JButton();
         editButton = new JButton();
         editButton.setFocusPainted(false);
         editButton.addActionListener(this);
@@ -24,6 +28,7 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
         columnModel.getColumn(column).setCellRenderer(this);
         columnModel.getColumn(column).setCellEditor(this);
     }
+
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -58,8 +63,8 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
     public void actionPerformed(ActionEvent e) {
         fireEditingStopped();
         int row = table.getSelectedRow();
-        int idColumn = 0; // Asume que la columna del ID es la primera
-        Long id = (Long) table.getModel().getValueAt(row, idColumn);
-        System.out.println(e.getActionCommand() + " : " + id);
+        int column = table.getSelectedColumn();
+        String buttonText = e.getActionCommand();
+        listener.buttonClicked(row, column, buttonText);
     }
 }

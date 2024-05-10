@@ -4,6 +4,7 @@ import Modelo.CRUDusuario;
 import Modelo.SesionUsuario;
 import Modelo.Usuario;
 import Utilidades.ButtonColumn;
+import Utilidades.IButtonClickListener;
 import java.util.List;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
@@ -11,7 +12,7 @@ import vista.FrmLogin;
 import vista.FrmDashboard;
 import vista.PanelUsuario;
 
-public class UsuarioController {
+public class UsuarioController implements IButtonClickListener{
     private FrmLogin vista;
     private CRUDusuario modelo;
     private FrmDashboard dashboard;
@@ -100,9 +101,31 @@ public class UsuarioController {
         }
 
         // Crear los botones en las columnas correspondientes
-        new ButtonColumn(vistaUsuario.tbUsuario, 7); // Ver detalles
-        new ButtonColumn(vistaUsuario.tbUsuario, 8); // Editar
-        new ButtonColumn(vistaUsuario.tbUsuario, 9); // Eliminar
+        new ButtonColumn(vistaUsuario.tbUsuario, 7, this); // Ver detalles
+        new ButtonColumn(vistaUsuario.tbUsuario, 8, this); // Editar
+        new ButtonColumn(vistaUsuario.tbUsuario, 9, this); // Eliminar
+    }
+
+     @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        Long id = (Long) vistaUsuario.tbUsuario.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case "Ver detalles" -> abrirDetallesUsuario(id);
+            case "Editar" -> abrirEditarUsuario(id);
+            case "Eliminar" -> eliminarUsuario(id);
+        }
+    }
+
+    private void abrirDetallesUsuario(Long id) {
+        System.out.println("detalle: " + id);
+    }
+
+    private void abrirEditarUsuario(Long id) {
+        System.out.println("editar: " + id);
+    }
+
+    private void eliminarUsuario(Long id) {
+        System.out.println("eliminar: " + id);
     }
 
 }
