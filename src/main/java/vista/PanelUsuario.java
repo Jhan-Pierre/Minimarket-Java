@@ -1,5 +1,7 @@
 package vista;
 
+import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
+
 import Controlador.UsuarioController;
 
 public class PanelUsuario extends javax.swing.JPanel {
@@ -18,7 +20,7 @@ public class PanelUsuario extends javax.swing.JPanel {
     }
     
     private void abrirOtroPanel() {
-        panelListener.abrirPanel("UsuarioCrear");
+        panelListener.abrirPanel(PANEL_USUARIO_CREAR);
     }
     
     public PanelUsuario() {}

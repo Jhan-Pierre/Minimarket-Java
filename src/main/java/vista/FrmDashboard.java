@@ -1,9 +1,6 @@
 package vista;
 
-import static Utilidades.Constantes.PANEL_DASHBOARD;
-import static Utilidades.Constantes.PANEL_PRODUCTO;
-import static Utilidades.Constantes.PANEL_USUARIO;
-import static Utilidades.Constantes.PANEL_USUARIO_CREAR;
+import static Constantes.ConstantesPaneles.*;
 
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
