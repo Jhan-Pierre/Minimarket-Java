@@ -735,7 +735,7 @@ begin
     inner join tb_estado e on u.estado_id = e.id
     where u.nombre like concat('%', p_nombre, '%')
     order by u.fecha_actualizado;
-end;
+end; //
 
 
 -- call sp_buscar_usuario_por_nombre("a")
@@ -765,7 +765,7 @@ BEGIN
     VALUES (p_correo, p_password, p_telefono, p_nombre, p_apellido, NOW(), now(), p_rol_id, p_estado_id, p_turno_id);
 
     COMMIT;
-END;
+END; //
 
 delimiter //
 create procedure sp_buscar_usuario_por_codigo(in iduser int)
