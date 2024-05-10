@@ -7,6 +7,7 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
+import java.awt.Component;
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
     
@@ -29,6 +30,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         configurarAccesoSegunRol(permisosUsuario); // Llama al método aquí con los permisos
     }
     
+    public PanelUsuario getPanelUsuario() {
+        return this.panelUsuario; // Asegúrate de que panelUsuario es un atributo de la clase
+    }
     //Evita que muestren botones a los que no se deberia tener acceso por el rol
     public void configurarAccesoSegunRol(Set<String> permisosUsuario) {
         btnUsuario.setVisible(permisosUsuario.contains("ver_usuario"));
@@ -61,12 +65,20 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     }
     
     private void configurarListeners() {
-        // Añadimos los listeners a los botones
-        btnDashboard.addActionListener(e -> vista.show(PanelPadre, "Dashboard"));
+        btnDashboard.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_DASHBOARD);
+        });
 
-        btnUsuario.addActionListener(e -> vista.show(PanelPadre, "Usuario"));
+        btnUsuario.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_USUARIO);
+            panelUsuario.resetPanel(); // Restablece el panel Usuario
+        });
 
-        btnProducto.addActionListener(e -> vista.show(PanelPadre, "Producto"));
+        btnProducto.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_PRODUCTO);
+            panelProducto.resetPanel(); // Restablece el panel Producto
+        });
+        
     }
    
     @SuppressWarnings("unchecked")
