@@ -3,6 +3,7 @@ package Controlador;
 import Modelo.CRUDrol;
 import Modelo.Rol;
 import java.util.List;
+import javax.swing.JComboBox;
 import vista.PanelUsuarioCrear;
 
 public class RolController {
@@ -15,12 +16,13 @@ public class RolController {
     }
     
     public void cargarRolesEnComboBox() {
+        JComboBox<Rol> cboEstado = vista.cboRol; 
         vista.cboRol.removeAllItems(); //Limpiar el cboRol
 
-        List<Rol> listaRoles = modelo.listarRol();
+        List<Rol> listaEstado = modelo.listarRol();
 
-        for (Rol rol : listaRoles) {
-            vista.cboRol.addItem(rol.getNombre());
+        for (Rol rol : listaEstado) {
+            cboEstado.addItem(rol);
         }
     }
     

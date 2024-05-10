@@ -1,25 +1,32 @@
 package vista;
 
+import static Utilidades.Constantes.PANEL_DASHBOARD;
+import static Utilidades.Constantes.PANEL_PRODUCTO;
+import static Utilidades.Constantes.PANEL_USUARIO;
+import static Utilidades.Constantes.PANEL_USUARIO_CREAR;
+
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Set;
+import javax.swing.JPanel;
 
-public final class FrmDashboard extends javax.swing.JFrame {
+public final class FrmDashboard extends javax.swing.JFrame implements PanelListener {
     
     // Declaración de tus paneles
     PanelDashboard panelDashboard;
-    
     PanelUsuario panelUsuario;
     PanelUsuarioCrear panelUsuarioCrear;
-    
     PanelProducto panelProducto;
     CardLayout vista;
     
+    @Override
+    public void abrirPanel(String nombrePanel) {
+        vista.show(PanelPadre, nombrePanel);
+    }
+    
     public FrmDashboard(Set<String> permisosUsuario) {
         initComponents();
-        inicializarPaneles();
+        configurarPaneles();
         configurarListeners();
         configurarAccesoSegunRol(permisosUsuario); // Llama al método aquí con los permisos
     }
@@ -30,25 +37,31 @@ public final class FrmDashboard extends javax.swing.JFrame {
         btnProducto.setVisible(permisosUsuario.contains("ver_producto"));
     }
     
-    private void inicializarPaneles() {
+    private void configurarPaneles() {
         panelDashboard = new PanelDashboard();
-        
-        panelUsuario = new PanelUsuario();
+        panelUsuario = new PanelUsuario(this);
         panelUsuarioCrear = new PanelUsuarioCrear();
-        panelUsuario.setPanelPadre(this);
-        
         panelProducto = new PanelProducto();
+        inicializarPaneles();
+    }
+    
+    
+    private void inicializarPaneles() {
         // Usamos CardLayout para cambiar entre paneles
         vista = new CardLayout();
         PanelPadre.setLayout(vista);
 
         // Añadimos los paneles a PanelPadre
-        PanelPadre.add(panelDashboard, "Dashboard");
-        PanelPadre.add(panelUsuario, "Usuario");
-        PanelPadre.add(panelUsuarioCrear, "UsuarioCrear");
-        PanelPadre.add(panelProducto, "Producto");
+        agregarPanel(panelDashboard, PANEL_DASHBOARD);
+        agregarPanel(panelUsuario, PANEL_USUARIO);
+        agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
+        agregarPanel(panelProducto, PANEL_PRODUCTO);
     }
-
+    
+    private void agregarPanel(JPanel panel, String nombre) {
+        PanelPadre.add(panel, nombre);
+    }
+    
     private void configurarListeners() {
         // Añadimos los listeners a los botones
         btnDashboard.addActionListener(e -> vista.show(PanelPadre, "Dashboard"));
