@@ -1,11 +1,11 @@
 package Controlador;
 
-import Modelo.CRUDusuario;
 import Modelo.Estado;
 import Modelo.Rol;
 import Modelo.SesionUsuario;
 import Modelo.Turno;
 import Modelo.Usuario;
+import Modelo.UsuarioModelo;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import java.util.List;
@@ -17,67 +17,62 @@ import vista.PanelUsuario;
 import vista.PanelUsuarioCrear;
 
 public class UsuarioController implements IButtonClickListener{
-    private FrmLogin vista;
-    private CRUDusuario modelo;
-    private FrmDashboard dashboard;
+    private UsuarioModelo usuarioModelo;
+    private FrmLogin vistaLogin;
+    private FrmDashboard vistaDashboard;
     private PanelUsuario vistaUsuario;
     private PanelUsuarioCrear vistaUsuarioCrear;
-    
-    public UsuarioController(FrmLogin vista) {
-        this.vista = vista;
-        this.modelo = new CRUDusuario();
+
+    public UsuarioController() {
+        this.usuarioModelo = new UsuarioModelo();
     }
-    
-    public UsuarioController(PanelUsuarioCrear vista) {
-        this.modelo = new CRUDusuario();
-        this.vistaUsuarioCrear = vista;
+
+    public void setVistaLogin(FrmLogin vistaLogin) {
+        this.vistaLogin = vistaLogin;
     }
-    
-    public UsuarioController(PanelUsuario vista) {
-        this.vistaUsuario = vista;
-        this.modelo = new CRUDusuario();
+
+    public void setVistaDashboard(FrmDashboard vistaDashboard) {
+        this.vistaDashboard = vistaDashboard;
     }
-    
-    public void setDashboard(FrmDashboard dashboard) {
-        this.dashboard = dashboard;
+
+    public void setVistaUsuario(PanelUsuario vistaUsuario) {
+        this.vistaUsuario = vistaUsuario;
     }
-    
-    public void abrirDashboard() {
-        if (dashboard != null) {
-            dashboard.setVisible(true);
-        }
+
+    public void setVistaUsuarioCrear(PanelUsuarioCrear vistaUsuarioCrear) {
+        this.vistaUsuarioCrear = vistaUsuarioCrear;
     }
 
     public void iniciar() {
-        this.vista.btnIngresar.addActionListener(e -> validarLogin());
+        if (vistaLogin != null) {
+            vistaLogin.btnIngresar.addActionListener(e -> validarLogin());
+        }
     }
 
     private void validarLogin() {
-        String email = vista.txtEmail.getText();
-        String password = new String(vista.txtPassword.getPassword());
+        String email = vistaLogin.txtEmail.getText();
+        String password = new String(vistaLogin.txtPassword.getPassword());
+        String resultado = usuarioModelo.validarUsuario(email, password);
 
-        String resultado = modelo.validarUsuario(email, password);
-        
         if (resultado.equals("Exito")) {
-            // recuperar la inforamcion basica del usuario loeado
-            Usuario usuarioLogeado = modelo.obtenerUsuarioLogeado(email);
+            Usuario usuarioLogeado = usuarioModelo.obtenerUsuarioLogeado(email);
             SesionUsuario.getInstancia().setUsuarioLogeado(usuarioLogeado);
-            
-            // enviar al dashboard, los permisos que tiene el rol del usuario logueado
-            Set<String> permisosUsuario = modelo.obtenerPermisosPorUsuario(usuarioLogeado.getRolId());
-             FrmDashboard dashboard2 = new FrmDashboard(permisosUsuario);
-              
-            dashboard2.lblUsuario.setText(usuarioLogeado.getNombre());
-            
-            dashboard2.setVisible(true);
-            vista.dispose(); // Cerrar el FrmLogin
-        }else{
-            vista.lblErrorLogin.setText(resultado);
+            Set<String> permisosUsuario = usuarioModelo.obtenerPermisosPorUsuario(usuarioLogeado.getRolId());
+
+            // Crear instancia del FrmDashboard y pasar los permisos
+            FrmDashboard frmDashboard = new FrmDashboard(permisosUsuario);
+            frmDashboard.lblUsuario.setText(usuarioLogeado.getNombre());
+            frmDashboard.setVisible(true);
+
+            // Cerrar el formulario de inicio de sesión
+            vistaLogin.dispose();
+        } else {
+            vistaLogin.lblErrorLogin.setText(resultado);
         }
     }
     
     public void cargarUsuariosEnTabla() {
-        List<Usuario> listaUsuarios = modelo.listarUsuarios();
+        List<Usuario> listaUsuarios = usuarioModelo.listarUsuarios();
 
         // Crear modelo de tabla y establecerlo en la tabla
         DefaultTableModel model = new DefaultTableModel();
@@ -116,7 +111,7 @@ public class UsuarioController implements IButtonClickListener{
         new ButtonColumn(vistaUsuario.tbUsuario, 9, this); // Eliminar
     }
 
-     @Override
+    @Override
     public void buttonClicked(int row, int column, String buttonText) {
         Long id = (Long) vistaUsuario.tbUsuario.getModel().getValueAt(row, 0);
         switch (buttonText) {
@@ -143,10 +138,7 @@ public class UsuarioController implements IButtonClickListener{
         int turnoId = turnoSeleccionado.getId(); // Obtener el ID del turno seleccionado
 
         // Llamar al método del modelo para crear el usuario
-        //System.out.println(correo + password + telefono + nombre + apellido + rolId + estadoId + turnoId);
-        modelo.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
-       // Actualizar la tabla de usuarios
-
+        usuarioModelo.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
     }
     
     private void abrirDetallesUsuario(Long id) {

@@ -6,8 +6,9 @@ import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
+import Utilidades.IPanelListener;
 
-public final class FrmDashboard extends javax.swing.JFrame implements PanelListener {
+public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
     
     // Declaración de tus paneles
     PanelDashboard panelDashboard;
@@ -37,7 +38,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements PanelListe
     private void configurarPaneles() {
         panelDashboard = new PanelDashboard();
         panelUsuario = new PanelUsuario(this);
-        panelUsuarioCrear = new PanelUsuarioCrear();
+        panelUsuarioCrear = new PanelUsuarioCrear(this);
         panelProducto = new PanelProducto();
         inicializarPaneles();
     }
@@ -67,8 +68,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements PanelListe
 
         btnProducto.addActionListener(e -> vista.show(PanelPadre, "Producto"));
     }
-    
-
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

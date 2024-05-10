@@ -3,26 +3,33 @@ package vista;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 
 import Controlador.UsuarioController;
+import Utilidades.IPanelListener;
 
 public class PanelUsuario extends javax.swing.JPanel {
     private UsuarioController controlador;
-    private PanelListener panelListener;
+    private IPanelListener panelListener;
     
-    public PanelUsuario(PanelListener panelListener) {
+    public PanelUsuario(IPanelListener panelListener) {
         this.panelListener = panelListener;
         initComponents();
         inicializar();
     }
     
     private void inicializar() {
-        controlador = new UsuarioController(this);
+        
+        controlador = new UsuarioController();
+        controlador.setVistaUsuario(this); // Configurar la vista en el controlador
         controlador.cargarUsuariosEnTabla();
     }
     
-    private void abrirOtroPanel() {
+    private void abrirPanelUsuarioCrear() {
+        // Crear una instancia de PanelUsuarioCrear con una referencia al PanelListener
+        PanelUsuarioCrear panelUsuarioCrear = new PanelUsuarioCrear(panelListener);
+
+        // Solicitar al PanelListener que abra PanelUsuarioCrear
         panelListener.abrirPanel(PANEL_USUARIO_CREAR);
     }
-    
+
     public PanelUsuario() {}
 
     @SuppressWarnings("unchecked")
@@ -96,7 +103,7 @@ public class PanelUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
-         abrirOtroPanel();
+         abrirPanelUsuarioCrear();
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
     
