@@ -1,10 +1,10 @@
 package vista;
 
-import Controlador.UsuarioController;
+import Controlador.UsuarioControllerLogin;
 
 public class FrmLogin extends javax.swing.JFrame {
 
-    private UsuarioController controlador;
+    private UsuarioControllerLogin controladorLogin;
     
     public FrmLogin() {
         initComponents();
@@ -15,9 +15,7 @@ public class FrmLogin extends javax.swing.JFrame {
             System.out.println("No se encontró la imagen en la ubicación especificada.");
         }
         
-        controlador = new UsuarioController();
-        controlador.setVistaLogin(this); // Configurar la vista en el controlador
-        controlador.iniciar();
+        controladorLogin = new UsuarioControllerLogin(this);
     }
 
     @SuppressWarnings("unchecked")

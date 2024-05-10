@@ -2,11 +2,11 @@ package vista;
 
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 
-import Controlador.UsuarioController;
+import Controlador.UsuarioControllerList;
 import Utilidades.IPanelListener;
 
 public class PanelUsuario extends javax.swing.JPanel {
-    private UsuarioController controlador;
+    private UsuarioControllerList controlador;
     private IPanelListener panelListener;
     
     public PanelUsuario(IPanelListener panelListener) {
@@ -17,9 +17,8 @@ public class PanelUsuario extends javax.swing.JPanel {
     
     private void inicializar() {
         
-        controlador = new UsuarioController();
-        controlador.setVistaUsuario(this); // Configurar la vista en el controlador
-        controlador.cargarUsuariosEnTabla();
+        controlador = new UsuarioControllerList(this);
+        controlador.actualizarVista();
     }
     
     private void abrirPanelUsuarioCrear() {

@@ -3,21 +3,21 @@ package vista;
 import Controlador.EstadoController;
 import Controlador.RolController;
 import Controlador.TurnoController;
-import Controlador.UsuarioController;
+import Controlador.UsuarioControllerCreate;
 import Modelo.Estado;
 import Modelo.Rol;
 import Modelo.Turno;
 import Utilidades.IPanelListener;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
-    private UsuarioController controlador;
+    private UsuarioControllerCreate controlador;
     private IPanelListener panelListener;
       
     public PanelUsuarioCrear(IPanelListener panelListener) {
         this.panelListener = panelListener;
         initComponents();
         
-        controlador = new UsuarioController();
+        controlador = new UsuarioControllerCreate();
         controlador.setVistaUsuarioCrear(this); // Configurar la vista en el controlador
         
         TurnoController turnoController = new TurnoController(this);
@@ -70,22 +70,12 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         lblApellido.setText("Apellido");
 
         txtApellido.setPreferredSize(new java.awt.Dimension(150, 22));
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
-            }
-        });
 
         lblNombre1.setText("Contraseña");
 
         lblApellido1.setText("Confirma contraseña");
 
         txtConfirmarContraseña.setPreferredSize(new java.awt.Dimension(150, 22));
-        txtConfirmarContraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConfirmarContraseñaActionPerformed(evt);
-            }
-        });
 
         lblTurno.setText("Turno");
 
@@ -202,14 +192,6 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
                 .addGap(74, 74, 74))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
-    private void txtConfirmarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmarContraseñaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConfirmarContraseñaActionPerformed
 
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
         controlador.crearUsuario();
