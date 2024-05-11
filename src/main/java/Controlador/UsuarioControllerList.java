@@ -1,18 +1,17 @@
 package Controlador;
 
 import Modelo.Usuario;
-import Modelo.UsuarioModelo;
+import Modelo.CRUDusuario;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 
 public class UsuarioControllerList{
-    private final UsuarioModelo usuarioModelo;
+    private final CRUDusuario usuarioModelo;
     
     public UsuarioControllerList() {
-        this.usuarioModelo = new UsuarioModelo();
+        this.usuarioModelo = new CRUDusuario();
     }
-
     
      public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
         List<Usuario> listaUsuarios = usuarioModelo.buscarUsuarioPorNombre(textoBusqueda);
@@ -22,7 +21,7 @@ public class UsuarioControllerList{
         for (Usuario usuario : listaUsuarios) {
             Object[] row = new Object[]{
                 usuario.getId(),
-                usuario.getEmail(),
+                usuario.getCorreo(),
                 usuario.getNombre(),
                 usuario.getTelefono(),
                 usuario.getFechaAlta(),
@@ -36,9 +35,5 @@ public class UsuarioControllerList{
         }
         return model;
     }
-    
-    public List<Usuario> buscarUsuarios(String texto) {
-        List<Usuario> listaUsuarios = usuarioModelo.buscarUsuarioPorNombre(texto);
-        return listaUsuarios;
-    }
+ 
 }

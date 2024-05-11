@@ -6,7 +6,7 @@ public class Usuario {
     private Long id;
     private String nombre;
     private String apellido;
-    private String email;
+    private String correo;
     private String telefono;
     private Date fechaAlta;
     private String password;
@@ -16,21 +16,21 @@ public class Usuario {
     private int estado_id;
     private int turno_id;
     
-    public Usuario(int idUsuario, String email, String password, String telefono1, String apellido, int rol_id1, int turno_id, int estado_id) {
-        this.email = email;
+    public Usuario(int idUsuario, String correo, String password, String telefono1, String apellido, int rol_id1, int turno_id, int estado_id) {
+        this.correo = correo;
         this.password = password;
     }
 
-    public Usuario(Long id, String nombre, String email, int rol_id) {
+    public Usuario(Long id, String nombre, String correo, int rol_id) {
         this.id = id;
         this.nombre = nombre;
-        this.email = email;
+        this.correo = correo;
         this.rol_id = rol_id;
     }
 
     public Usuario(Long id, String correo, String nombre, String telefono, Date fechaAlta, String rolNombre, String estado) {
         this.id = id;
-        this.email = correo;
+        this.correo = correo;
         this.nombre = nombre;
         this.telefono = telefono;
         this.fechaAlta = fechaAlta;
@@ -39,10 +39,10 @@ public class Usuario {
     }
 
     //Constructor para el buscar usuario por id
-    public Usuario(String nombre, String apellido, String email, String telefono, int rol_id, int estado_id, int turno_id) {
+    public Usuario(String nombre, String apellido, String correo, String telefono, int rol_id, int estado_id, int turno_id) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.email = email;
+        this.correo = correo;
         this.telefono = telefono;
         this.rol_id = rol_id;
         this.estado_id = estado_id;
@@ -139,12 +139,12 @@ public class Usuario {
     }
 
     // Getters y setters
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getPassword() {
