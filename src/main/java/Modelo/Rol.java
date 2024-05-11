@@ -14,6 +14,7 @@ public class Rol implements Identificable {
         this.nombre = nombre;
     }
 
+    @Override
     public int getId() {
         return id;
     }
