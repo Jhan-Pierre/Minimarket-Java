@@ -306,6 +306,43 @@ public class CRUDusuario extends Conexion {
         }
         return null;
     }
+    
+    public Usuario mostrarUsuarioPorCodigo(Long id){
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return null;
+        }
+        
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_mostrar_usuario_por_codigo(?)}")) {
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String correo = rs.getString("correo");
+                String telefono = rs.getString("telefono");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                Date fecha_alta = rs.getDate("fecha_alta");
+                Date fecha_actualizado = rs.getDate("fecha_actualizado");
+                String rol = rs.getString("rol");
+                String turno = rs.getString("turno");
+                String estado = rs.getString("estado");
+
+                Usuario usuario = new Usuario(correo, telefono, nombre, apellido,fecha_alta, fecha_actualizado, rol, turno, estado);
+                return usuario;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al buscar usuario por código", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return null;
+    }
+    
     public String eliminarUsuario(Long id) {
         String mensaje = "";
         Connection cnx = getConexion();

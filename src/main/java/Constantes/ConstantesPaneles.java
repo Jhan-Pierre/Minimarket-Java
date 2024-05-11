@@ -6,5 +6,6 @@ public class ConstantesPaneles {
     public static final String PANEL_USUARIO = "Usuario";
     public static final String PANEL_USUARIO_CREAR = "UsuarioCrear";
     public static final String PANEL_USUARIO_EDITAR = "UsuarioEditar";
+    public static final String PANEL_USUARIO_SHOW = "UsuarioMostrar";
     public static final String PANEL_PRODUCTO = "Producto";
 }

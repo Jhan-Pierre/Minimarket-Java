@@ -2,6 +2,7 @@ package vista;
 
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_EDITAR;
+import static Constantes.ConstantesPaneles.PANEL_USUARIO_SHOW;
 import Controlador.UsuarioControllerDelete;
 
 import Controlador.UsuarioControllerList;
@@ -54,7 +55,9 @@ public class PanelUsuario extends javax.swing.JPanel implements IButtonClickList
     }
     
     private void abrirDetallesUsuario(Long id) {
-         System.out.println("Detalles: " + id);
+        if (panelListener != null) {
+            panelListener.abrirPanel(PANEL_USUARIO_SHOW, id);
+        }
     }
 
     private void abrirEditarUsuario(Long id) {
