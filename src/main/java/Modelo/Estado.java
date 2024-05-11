@@ -1,6 +1,8 @@
 package Modelo;
 
-public class Estado {
+import Utilidades.Identificable;
+
+public class Estado implements Identificable {
     private int id;
     private String nombre;
 

@@ -1,6 +1,8 @@
 package Modelo;
 
-public class Rol {
+import Utilidades.Identificable;
+
+public class Rol implements Identificable {
     private int id;
     private String nombre;
 

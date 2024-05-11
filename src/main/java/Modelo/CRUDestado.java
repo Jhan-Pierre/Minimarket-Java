@@ -14,7 +14,7 @@ public class CRUDestado extends Conexion{
         List<Estado> listaEstado = new ArrayList<>();
         Connection cnx = getConexion();
         
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_estado_usuario()}")){
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_estado()}")){
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

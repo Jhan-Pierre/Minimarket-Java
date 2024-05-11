@@ -10,6 +10,8 @@ import Modelo.Rol;
 import Modelo.Turno;
 import Modelo.Usuario;
 import Utilidades.IPanelListener;
+import Utilidades.Identificable;
+import javax.swing.JComboBox;
 
 public class PanelUsuarioEdit extends javax.swing.JPanel {
     private UsuarioControllerEdit controlador;
@@ -56,35 +58,28 @@ public class PanelUsuarioEdit extends javax.swing.JPanel {
     }
     
     private Rol obtenerRolPorId(int rolId) {
-        for (int i = 0; i < cboRol.getItemCount(); i++) {
-            Rol rol = cboRol.getItemAt(i);
-            if (rol.getId() == rolId) {
-                return rol;
-            }
-        }
-        return null; // Si no se encuentra el rol con el ID especificado
-    }
-    
-    private Estado obtenerEstadoPorId(int estadoId) {
-        for (int i = 0; i < cboEstado.getItemCount(); i++) {
-            Estado estado = cboEstado.getItemAt(i);
-            if (estado.getId() == estadoId) {
-                return estado;
-            }
-        }
-        return null; // Si no se encuentra el estado con el ID especificado
-    }
-    
-    private Turno obtenerTurnoPorId(int turnoId) {
-        for (int i = 0; i < cboTurno.getItemCount(); i++) {
-            Turno turno = cboTurno.getItemAt(i);
-            if (turno.getId() == turnoId) {
-                return turno;
-            }
-        }
-        return null; // Si no se encuentra el turno con el ID especificado
+        return obtenerPorId(cboRol, rolId);
     }
 
+    private Estado obtenerEstadoPorId(int estadoId) {
+        return obtenerPorId(cboEstado, estadoId);
+    }
+
+    private Turno obtenerTurnoPorId(int turnoId) {
+        return obtenerPorId(cboTurno, turnoId);
+    }
+
+    // Obtener el Id de caulquier objeto
+    private <T extends Identificable> T obtenerPorId(JComboBox<T> comboBox, int id) {
+        for (int i = 0; i < comboBox.getItemCount(); i++) {
+            T item = comboBox.getItemAt(i);
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null; // Si no se encuentra el item con el ID especificado
+    }
+    
     private void inicializar(){
         initComponents();
         controlador = new UsuarioControllerEdit();

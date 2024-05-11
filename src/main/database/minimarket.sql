@@ -794,7 +794,7 @@ begin
 end //
 
 delimiter //
-create procedure sp_listar_estado_usuario()
+create procedure sp_listar_estado()
 begin
 	select id, nombre from tb_estado;
 end //
@@ -820,7 +820,6 @@ end //
 
 -- CALL sp_registrar_usuario('usuaradsio@example.com', 'contraseña123', '123451889', 'Juan', 'torres', 2, 1, 1);
 -- select * from tb_usuario
-
 DELIMITER //
 CREATE PROCEDURE sp_editar_usuario(
     IN p_id BIGINT,
@@ -835,14 +834,14 @@ CREATE PROCEDURE sp_editar_usuario(
 )
 BEGIN
     UPDATE tb_usuario
-    SET correo = p_correo,
-        password = p_password,
-        telefono = p_telefono,
-        nombre = p_nombre,
-        apellido = p_apellido,
-        rol_id = p_rol_id,
-        estado_id = p_estado_id,
-        turno_id = p_turno_id,
+    SET correo = COALESCE(p_correo, correo),
+        password = COALESCE(p_password, password),
+        telefono = COALESCE(p_telefono, telefono),
+        nombre = COALESCE(p_nombre, nombre),
+        apellido = COALESCE(p_apellido, apellido),
+        rol_id = COALESCE(p_rol_id, rol_id),
+        estado_id = COALESCE(p_estado_id, estado_id),
+        turno_id = COALESCE(p_turno_id, turno_id),
         fecha_actualizado = NOW()
     WHERE id = p_id;
 END //
