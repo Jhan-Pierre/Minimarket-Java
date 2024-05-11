@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Proveedor;
 
 import Modelo.Estado;
 import vista.PanelProveedorCrear;

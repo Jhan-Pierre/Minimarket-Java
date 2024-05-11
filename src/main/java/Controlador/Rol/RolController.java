@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Rol;
 
 import Modelo.CRUDrol;
 import Modelo.Rol;

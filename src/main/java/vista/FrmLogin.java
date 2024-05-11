@@ -1,6 +1,6 @@
 package vista;
 
-import Controlador.UsuarioControllerLogin;
+import Controlador.Usuario.UsuarioControllerLogin;
 
 public class FrmLogin extends javax.swing.JFrame {
 

@@ -1,5 +1,6 @@
-package Controlador;
+package Controlador.Usuario;
 
+import Controlador.GlobalPermisos;
 import Modelo.SesionUsuario;
 import Modelo.Usuario;
 import java.util.Set;
