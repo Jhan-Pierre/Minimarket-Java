@@ -9,9 +9,11 @@ public class Usuario {
     private String correo;
     private String telefono;
     private Date fechaAlta;
+    private Date fecha_actualizado;
     private String password;
     private String rol;
     private String estado;
+    private String turno;
     private int rol_id;
     private int estado_id;
     private int turno_id;
@@ -47,6 +49,19 @@ public class Usuario {
         this.rol_id = rol_id;
         this.estado_id = estado_id;
         this.turno_id = turno_id;
+    }
+
+    //Constructor para el mostrar usuario por id
+    public Usuario(String correo,String telefono,String nombre,String apellido, Date fecha_alta, Date fecha_actualizado, String rol, String turno, String estado) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.fechaAlta = fecha_alta;
+        this.fecha_actualizado = fecha_actualizado;
+        this.rol = rol;
+        this.estado = estado;
+        this.turno = turno;
     }
 
     public String getApellido() {
@@ -89,6 +104,14 @@ public class Usuario {
         this.fechaAlta = fechaAlta;
     }
 
+    public Date getFecha_actualizado() {
+        return fecha_actualizado;
+    }
+
+    public void setFecha_actualizado(Date fecha_actualizado) {
+        this.fecha_actualizado = fecha_actualizado;
+    }
+    
     public String getRol() {
         return rol;
     }
@@ -154,4 +177,14 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+    
+    
 }

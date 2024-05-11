@@ -799,24 +799,27 @@ begin
 	select id, nombre from tb_estado;
 end //
 
-delimiter //
-create procedure sp_mostrar_usuario_por_codigo(in iduser int)
-begin
-	select u.id,
-		   u.correo,
-           u.contraseña,
+DELIMITER //
+CREATE PROCEDURE sp_mostrar_usuario_por_codigo(IN iduser INT)
+BEGIN
+    SELECT u.id,
+           u.correo,
            u.telefono,
            u.nombre,
-           u.apellido,
-           t.nombre as tipo,
-           tu.nombre as turno,
-           e.nombre as estado
-	from tb_usuario u
-    inner join tb_tipo_usuario t on u.rol_id = t.id
-    inner join tb_turno tu on u.turno_id = tu.id
-    inner join tb_estado e on u.estado_id = e.id
-    where u.id = iduser;
-end //
+           IFNULL(u.apellido, '') AS apellido,
+           fecha_alta,
+           fecha_actualizado,
+           r.nombre AS rol,
+           IFNULL(tu.nombre, 'Sin turno') AS turno,
+           e.nombre AS estado
+    FROM tb_usuario u
+    INNER JOIN tb_rol r ON u.rol_id = r.id
+    LEFT JOIN tb_turno tu ON u.turno_id = tu.id
+    INNER JOIN tb_estado e ON u.estado_id = e.id
+    WHERE u.id = iduser;
+END //
+
+
 
 -- CALL sp_registrar_usuario('usuaradsio@example.com', 'contraseña123', '123451889', 'Juan', 'torres', 2, 1, 1);
 -- select * from tb_usuario

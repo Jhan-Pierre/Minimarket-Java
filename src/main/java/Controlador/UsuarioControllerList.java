@@ -13,6 +13,7 @@ public class UsuarioControllerList{
         this.usuarioModelo = new CRUDusuario();
     }
     
+    //Funcion para buscar de acuerdo al nombre del usuario
      public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
         List<Usuario> listaUsuarios = usuarioModelo.buscarUsuarioPorNombre(textoBusqueda);
         String[] columnNames = {"ID", "Correo", "Nombre", "Telefono", "Fecha Alta", "Rol", "Estado", "Ver detalles", "Editar", "Eliminar"};
