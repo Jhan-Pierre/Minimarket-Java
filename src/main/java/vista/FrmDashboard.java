@@ -23,14 +23,53 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     
     PanelProducto panelProducto;
     public static CardLayout vista;
-    private static FrmDashboard instance;
-    
-    public static FrmDashboard getInstance() {
-        if (instance == null) {
-            instance = new FrmDashboard(); // Crear una instancia si no existe
-        }
-        return instance;
+
+    public FrmDashboard() {
+        initComponents();
+        configurarPaneles();
+        configurarListeners();
+        configurarAccesoSegunRol(GlobalPermisos.getPermisos()); // Utiliza la clase global aquí
     }
+    
+    private void configurarPaneles() {
+        panelDashboard = new PanelDashboard();
+        panelUsuario = new PanelUsuario(this);
+        panelUsuarioCrear = new PanelUsuarioCrear(this);
+        panelUsuarioEdit = new PanelUsuarioEdit(this);
+        panelUsuarioShow = new PanelUsuarioShow(this);
+        panelProducto = new PanelProducto();
+        inicializarPaneles();
+    }
+    
+    private void inicializarPaneles() {
+        // Usamos CardLayout para cambiar entre paneles
+        vista = new CardLayout();
+        PanelPadre.setLayout(vista);
+
+        // Añadimos los paneles a PanelPadre
+        agregarPanel(panelDashboard, PANEL_DASHBOARD);
+        agregarPanel(panelUsuario, PANEL_USUARIO);
+        agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
+        agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
+        agregarPanel(panelProducto, PANEL_PRODUCTO);
+    }
+
+    private void configurarListeners() {
+        btnDashboard.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_DASHBOARD);
+        });
+
+        btnUsuario.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_USUARIO);
+            panelUsuario.resetPanel(); // Restablece el panel Usuario
+        });
+
+        btnProducto.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_PRODUCTO);
+            panelProducto.resetPanel(); // Restablece el panel Producto
+        });
+    }
+    
     @Override
     public void abrirPanel(String nombrePanel) {
         vista.show(PanelPadre, nombrePanel);
@@ -56,13 +95,6 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         }
     }   
     
-    public FrmDashboard() {
-        initComponents();
-        configurarPaneles();
-        configurarListeners();
-        configurarAccesoSegunRol(GlobalPermisos.getPermisos()); // Utiliza la clase global aquí
-    }
-    
     public PanelUsuario getPanelUsuario() {
         return this.panelUsuario; // Asegúrate de que panelUsuario es un atributo de la clase
     }
@@ -71,52 +103,11 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnUsuario.setVisible(permisosUsuario.contains("ver_usuario"));
         btnProducto.setVisible(permisosUsuario.contains("ver_producto"));
     }
-    
-    private void configurarPaneles() {
-        panelDashboard = new PanelDashboard();
-        panelUsuario = new PanelUsuario(this);
-        panelUsuarioCrear = new PanelUsuarioCrear(this);
-        panelUsuarioEdit = new PanelUsuarioEdit(this);
-        panelUsuarioShow = new PanelUsuarioShow(this);
-        panelProducto = new PanelProducto();
-        inicializarPaneles();
-    }
-    
-    
-    private void inicializarPaneles() {
-        // Usamos CardLayout para cambiar entre paneles
-        vista = new CardLayout();
-        PanelPadre.setLayout(vista);
-
-        // Añadimos los paneles a PanelPadre
-        agregarPanel(panelDashboard, PANEL_DASHBOARD);
-        agregarPanel(panelUsuario, PANEL_USUARIO);
-        agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
-        agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
-        agregarPanel(panelProducto, PANEL_PRODUCTO);
-    }
-    
+   
     private void agregarPanel(JPanel panel, String nombre) {
         PanelPadre.add(panel, nombre);
     }
-    
-    private void configurarListeners() {
-        btnDashboard.addActionListener(e -> {
-            vista.show(PanelPadre, PANEL_DASHBOARD);
-        });
 
-        btnUsuario.addActionListener(e -> {
-            vista.show(PanelPadre, PANEL_USUARIO);
-            panelUsuario.resetPanel(); // Restablece el panel Usuario
-        });
-
-        btnProducto.addActionListener(e -> {
-            vista.show(PanelPadre, PANEL_PRODUCTO);
-            panelProducto.resetPanel(); // Restablece el panel Producto
-        });
-        
-    }
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
