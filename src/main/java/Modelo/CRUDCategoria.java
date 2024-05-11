@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CRUDCategoriaProducto extends Conexion {
+public class CRUDCategoria extends Conexion {
 
     public List<CategoriaProducto> listarCategorias() {
         List<CategoriaProducto> listaCategorias = new ArrayList<>();
         Connection cnx = getConexion();
         if (cnx == null) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
             return listaCategorias;
         }
 
@@ -29,12 +29,12 @@ public class CRUDCategoriaProducto extends Conexion {
                 listaCategorias.add(categoria);
             }
         } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al listar categorías", e);
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al listar categorías", e);
         } finally {
             try {
                 cnx.close();
             } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
             }
         }
         return listaCategorias;
@@ -44,7 +44,7 @@ public class CRUDCategoriaProducto extends Conexion {
         List<CategoriaProducto> categoriasEncontradas = new ArrayList<>();
         Connection cnx = getConexion();
         if (cnx == null) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
             return categoriasEncontradas;
         }
 
@@ -59,12 +59,12 @@ public class CRUDCategoriaProducto extends Conexion {
                 categoriasEncontradas.add(categoria);
             }
         } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al buscar categorías por nombre", e);
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al buscar categorías por nombre", e);
         } finally {
             try {
                 cnx.close();
             } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
             }
         }
         return categoriasEncontradas;
@@ -82,13 +82,13 @@ public class CRUDCategoriaProducto extends Conexion {
             stmt.execute();
             return "Categoría agregada correctamente.";
         } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al agregar categoría", e);
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al agregar categoría", e);
             return "Error: " + e.getMessage();
         } finally {
             try {
                 cnx.close();
             } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
             }
         }
     }
@@ -106,37 +106,37 @@ public class CRUDCategoriaProducto extends Conexion {
             stmt.execute();
             return "Categoría actualizada correctamente.";
         } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al actualizar categoría", e);
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al actualizar categoría", e);
             return "Error: " + e.getMessage();
         } finally {
             try {
                 cnx.close();
             } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
             }
         }
     }
 
-    public String eliminarCategoria(int idCategoria) {
-        Connection cnx = getConexion();
-        if (cnx == null) {
-            return "No se pudo establecer conexión con la base de datos.";
-        }
+    public String eliminarCategoria(Long idCategoria) {
+    Connection cnx = getConexion();
+    if (cnx == null) {
+        return "No se pudo establecer conexión con la base de datos.";
+    }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_categoria(?)}")) {
-            stmt.setInt(1, idCategoria);
+    try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_categoria(?)}")) {
+        stmt.setLong(1, idCategoria);
 
-            stmt.execute();
-            return "Categoría eliminada correctamente.";
+        stmt.execute();
+        return "Categoría eliminada correctamente.";
+    } catch (SQLException e) {
+        Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al eliminar categoría", e);
+        return "Error: " + e.getMessage();
+    } finally {
+        try {
+            cnx.close();
         } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al eliminar categoría", e);
-            return "Error: " + e.getMessage();
-        } finally {
-            try {
-                cnx.close();
-            } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoriaProducto.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
-            }
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
         }
     }
+}
 }

@@ -46,7 +46,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnCliente" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnCategoria" alignment="1" max="32767" attributes="0"/>
                       <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnProveedor" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnProducto" alignment="1" max="32767" attributes="0"/>
@@ -71,7 +71,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton4" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnCliente" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btnCategoria" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace pref="145" max="32767" attributes="0"/>
                   <Component id="btnCerrarSesion" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -165,7 +165,7 @@
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCliente">
+        <Component class="javax.swing.JButton" name="btnCategoria">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -181,6 +181,9 @@
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCategoriaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCerrarSesion">
           <Properties>

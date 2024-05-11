@@ -4,6 +4,8 @@ import vista.Usuario.PanelUsuarioShow;
 import vista.Usuario.PanelUsuarioEdit;
 import vista.Usuario.PanelUsuario;
 import vista.Usuario.PanelUsuarioCrear;
+import vista.Categoria.PanelCategoria;
+
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
 
@@ -13,6 +15,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
 
+
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
     // Declaración de tus paneles
     PanelDashboard panelDashboard;
@@ -20,7 +23,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioCrear panelUsuarioCrear;
     PanelUsuarioEdit panelUsuarioEdit;
     PanelUsuarioShow panelUsuarioShow;
-    
+    PanelCategoria panelCategoria;
     PanelProducto panelProducto;
     public static CardLayout vista;
 
@@ -38,6 +41,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelUsuarioShow = new PanelUsuarioShow(this);
         panelProducto = new PanelProducto();
+        panelCategoria = new PanelCategoria(this);
         inicializarPaneles();
     }
     
@@ -52,6 +56,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
+        agregarPanel(panelCategoria, PANEL_CATEGORIA); //
     }
 
     private void configurarListeners() {
@@ -68,6 +73,11 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             vista.show(PanelPadre, PANEL_PRODUCTO);
             panelProducto.resetPanel(); // Restablece el panel Producto
         });
+        
+        btnCategoria.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_CATEGORIA); // Muestra el panel de categoría al hacer clic en btnCategoria
+            //panelCategoria.resetPanel();
+    });
     }
     
     @Override
@@ -118,7 +128,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnProducto = new javax.swing.JButton();
         btnProveedor = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        btnCliente = new javax.swing.JButton();
+        btnCategoria = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         PanelPadre = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -171,13 +181,18 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         jButton4.setBorderPainted(false);
         jButton4.setFocusPainted(false);
 
-        btnCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCliente.setForeground(new java.awt.Color(255, 153, 0));
-        btnCliente.setText("Categorias");
-        btnCliente.setToolTipText("");
-        btnCliente.setBorder(null);
-        btnCliente.setBorderPainted(false);
-        btnCliente.setFocusPainted(false);
+        btnCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCategoria.setForeground(new java.awt.Color(255, 153, 0));
+        btnCategoria.setText("Categorias");
+        btnCategoria.setToolTipText("");
+        btnCategoria.setBorder(null);
+        btnCategoria.setBorderPainted(false);
+        btnCategoria.setFocusPainted(false);
+        btnCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriaActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 102, 102));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -202,7 +217,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             .addGroup(PanelControlesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCategoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -224,7 +239,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -293,11 +308,15 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCategoriaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelControles;
     public javax.swing.JPanel PanelPadre;
+    private javax.swing.JButton btnCategoria;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton btnProveedor;
