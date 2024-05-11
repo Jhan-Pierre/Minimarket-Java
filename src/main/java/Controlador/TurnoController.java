@@ -1,29 +1,22 @@
 package Controlador;
 
 import Modelo.CRUDturno;
-import Modelo.Estado;
 import Modelo.Turno;
-import vista.PanelUsuarioCrear;
 import java.util.List;
 import javax.swing.JComboBox;
 
 public class TurnoController {
     
-    private PanelUsuarioCrear vista;
     private CRUDturno modelo;
     
-    public TurnoController(PanelUsuarioCrear vista) {
-        this.vista = vista;
+    public TurnoController() {
         this.modelo = new CRUDturno();
     }
     
-    public void cargarTurnosEnComboBox() {
-         JComboBox<Turno> cboTurno = vista.cboTurno; // ComboBox que contiene objetos de tipo Turno
-
-        vista.cboTurno.removeAllItems(); //Limpiar el cboTurno
-
+    public void cargarTurnosEnComboBox(JComboBox<Turno> cboTurno) {
+        cboTurno.removeAllItems(); // Limpiar el ComboBox
         List<Turno> listaTurnos = modelo.listarTurno();
-
+        System.out.println(listaTurnos);
         for (Turno turno : listaTurnos) {
             cboTurno.addItem(turno);
         }

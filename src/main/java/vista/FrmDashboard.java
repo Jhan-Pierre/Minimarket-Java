@@ -15,6 +15,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelDashboard panelDashboard;
     PanelUsuario panelUsuario;
     PanelUsuarioCrear panelUsuarioCrear;
+    PanelUsuarioEdit panelUsuarioEdit;
     PanelProducto panelProducto;
     CardLayout vista;
     
@@ -43,6 +44,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelDashboard = new PanelDashboard();
         panelUsuario = new PanelUsuario(this);
         panelUsuarioCrear = new PanelUsuarioCrear(this);
+        panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelProducto = new PanelProducto();
         inicializarPaneles();
     }
@@ -57,6 +59,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelDashboard, PANEL_DASHBOARD);
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
+        agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
     }
     

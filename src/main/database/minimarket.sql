@@ -770,7 +770,14 @@ END; //
 delimiter //
 create procedure sp_buscar_usuario_por_codigo(in iduser int)
 begin
-	select * from tb_usuario
+	select  correo,
+           telefono,
+           nombre,
+           apellido,
+           rol_id,
+           turno_id,
+           estado_id
+    from tb_usuario
     where id = iduser;
 end //
 
@@ -811,52 +818,34 @@ begin
     where u.id = iduser;
 end //
 
-delimiter //
-create procedure sp_filtrar_usuario(in valor varchar(80))
-begin
-	select u.id,
-		   u.correo,
-           u.contraseña,
-           u.telefono,
-           u.nombre,
-           u.apellido,
-           t.nombre as tipo,
-           tu.nombre as turno,
-           e.nombre as estado
-	from tb_usuario u
-    inner join tb_tipo_usuario t on u.rol_id = t.id
-    inner join tb_turno tu on u.turno_id = tu.id
-    inner join tb_estado e on u.estado_id = e.id
-    where u.nombre like concat(valor, '%');
-end //
-
 -- CALL sp_registrar_usuario('usuaradsio@example.com', 'contraseña123', '123451889', 'Juan', 'torres', 2, 1, 1);
 -- select * from tb_usuario
 
-delimiter //
-create procedure sp_editar_usuario(
-    in usuario_id int,
-    in correo_usuario varchar(60),
-    in contraseña_usuario varchar(20),
-    in telefono_usuario char(9),
-    in nombre_usuario varchar(80),
-    in apellido_usuario varchar(80),
-    in rol_id int,
-    in turno_id int,
-    in estado_id_usuario int
+DELIMITER //
+CREATE PROCEDURE editar_usuario(
+    IN p_id BIGINT,
+    IN p_correo VARCHAR(60),
+    IN p_password VARCHAR(200),
+    IN p_telefono CHAR(9),
+    IN p_nombre VARCHAR(80),
+    IN p_apellido VARCHAR(80),
+    IN p_rol_id INT,
+    IN p_estado_id INT,
+    IN p_turno_id INT
 )
-begin
-    update tb_usuario
-    set correo = correo_usuario,
-        contraseña = contraseña_usuario,
-        telefono = telefono_usuario,
-        nombre = nombre_usuario,
-        apellido = apellido_usuario,
-        rol_id = rol_id,
-        turno_id = turno_id,
-        estado_id = estado_id_usuario
-    where id = usuario_id;
-end //
+BEGIN
+    UPDATE tb_usuario
+    SET correo = p_correo,
+        password = p_password,
+        telefono = p_telefono,
+        nombre = p_nombre,
+        apellido = p_apellido,
+        rol_id = p_rol_id,
+        estado_id = p_estado_id,
+        turno_id = p_turno_id,
+        fecha_actualizado = NOW()
+    WHERE id = p_id;
+END //
 
 delimiter //
 create procedure sp_actualizar_estado_usuario(in iduser int, in idest int)
@@ -1016,6 +1005,8 @@ END //
 -- Zona segura
 -- ##################################################################################################
 -- Inserts
+-- insertar Turnos
+INSERT INTO tb_turno VALUES (1, 'mañana'), (2, 'tarde'), (3,'noche');
 
 -- insertar estados
 INSERT INTO tb_estado VALUES (1,'activo'),(3,'eliminado'),(2,'inactivo');

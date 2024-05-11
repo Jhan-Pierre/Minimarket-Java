@@ -4,24 +4,20 @@ import Modelo.CRUDestado;
 import Modelo.Estado;
 import java.util.List;
 import javax.swing.JComboBox;
-import vista.PanelUsuarioCrear;
 
 public class EstadoController {
-    private PanelUsuarioCrear vista;
     private CRUDestado modelo;
     
-    public EstadoController(PanelUsuarioCrear vista) {
-        this.vista = vista;
+    public EstadoController() {
         this.modelo = new CRUDestado();
     }
     
-    public void cargarEstados() {
-        JComboBox<Estado> cboEstado = vista.cboEstado; // ComboBox que contiene objetos de tipo Estado
-        cboEstado.removeAllItems(); // Limpiar el cboEstado
+    public void cargarEstadosEnComboBox(JComboBox<Estado> cboEstado) {
+        cboEstado.removeAllItems(); // Limpiar el ComboBox
 
-        List<Estado> listaEstado = modelo.listarEstado();
+        List<Estado> listaEstados = modelo.listarEstado();
 
-        for (Estado estado : listaEstado) {
+        for (Estado estado : listaEstados) {
             cboEstado.addItem(estado);
         }
     }

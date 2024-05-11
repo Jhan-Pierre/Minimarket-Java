@@ -232,4 +232,79 @@ public class CRUDusuario extends Conexion {
         }
         return listaUsuarios;
     }
+    
+    public void editarUsuario(Long id, String correo, String password, String telefono, String nombre, String apellido, int rol_id, int estado_id, int turno_id) {
+        // Hashear la contraseña si se proporciona una nueva contraseña
+        String hashedPassword = null;
+        if (password != null && !password.isEmpty()) {
+            hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        }
+
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_editar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
+            stmt.setLong(1, id);
+            stmt.setString(2, correo);
+            if (hashedPassword != null) {
+                stmt.setString(3, hashedPassword); // Usar la contraseña hasheada si se proporciona una nueva contraseña
+            } else {
+                stmt.setNull(3, Types.VARCHAR); // Mantener la contraseña existente si no se proporciona una nueva contraseña
+            }
+            stmt.setString(4, telefono);
+            stmt.setString(5, nombre);
+            stmt.setString(6, apellido);
+            stmt.setInt(7, rol_id);
+            stmt.setInt(8, estado_id);
+            stmt.setInt(9, turno_id);
+
+            stmt.execute();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al editar usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+    }
+    
+    public Usuario buscarUsuarioPorCodigo(long idUsuario) {
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return null;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_buscar_usuario_por_codigo(?)}")) {
+            stmt.setLong(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String correo = rs.getString("correo");
+                String telefono = rs.getString("telefono");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                int rol_id = rs.getInt("rol_id");
+                int turno_id = rs.getInt("turno_id");
+                int estado_id = rs.getInt("estado_id");
+
+                Usuario usuario = new Usuario(correo, nombre, telefono, apellido, rol_id, turno_id, estado_id);
+                return usuario;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al buscar usuario por código", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return null;
+    }
+    
 }

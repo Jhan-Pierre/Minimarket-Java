@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Usuario {
     private Long id;
     private String nombre;
+    private String apellido;
     private String email;
     private String telefono;
     private Date fechaAlta;
@@ -12,8 +13,10 @@ public class Usuario {
     private String rol;
     private String estado;
     private int rol_id;
+    private int estado_id;
+    private int turno_id;
     
-    public Usuario(String email, String password) {
+    public Usuario(int idUsuario, String email, String password, String telefono1, String apellido, int rol_id1, int turno_id, int estado_id) {
         this.email = email;
         this.password = password;
     }
@@ -35,6 +38,41 @@ public class Usuario {
         this.estado = estado;
     }
 
+    //Constructor para el buscar usuario por id
+    public Usuario(String nombre, String apellido, String email, String telefono, int rol_id, int estado_id, int turno_id) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.telefono = telefono;
+        this.rol_id = rol_id;
+        this.estado_id = estado_id;
+        this.turno_id = turno_id;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getEstado_id() {
+        return estado_id;
+    }
+
+    public void setEstado_id(int estado_id) {
+        this.estado_id = estado_id;
+    }
+
+    public int getTurno_id() {
+        return turno_id;
+    }
+
+    public void setTurno_id(int turno_id) {
+        this.turno_id = turno_id;
+    }
+    
     public String getTelefono() {
         return telefono;
     }

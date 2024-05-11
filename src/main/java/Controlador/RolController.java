@@ -4,27 +4,21 @@ import Modelo.CRUDrol;
 import Modelo.Rol;
 import java.util.List;
 import javax.swing.JComboBox;
-import vista.PanelUsuarioCrear;
 
 public class RolController {
-    private PanelUsuarioCrear vista;
     private CRUDrol modelo;
     
-    public RolController(PanelUsuarioCrear vista) {
-        this.vista = vista;
+    public RolController() {
         this.modelo = new CRUDrol();
     }
     
-    public void cargarRolesEnComboBox() {
-        JComboBox<Rol> cboEstado = vista.cboRol; 
-        vista.cboRol.removeAllItems(); //Limpiar el cboRol
+    public void cargarRolesEnComboBox(JComboBox<Rol> cboRol) {
+        cboRol.removeAllItems(); // Limpiar el ComboBox
 
-        List<Rol> listaEstado = modelo.listarRol();
+        List<Rol> listaRoles = modelo.listarRol();
 
-        for (Rol rol : listaEstado) {
-            cboEstado.addItem(rol);
+        for (Rol rol : listaRoles) {
+            cboRol.addItem(rol);
         }
     }
-    
-    
 }
