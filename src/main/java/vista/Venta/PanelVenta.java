@@ -1,11 +1,81 @@
 package vista.Venta;
 
-public class PanelVenta extends javax.swing.JPanel {
+import Controlador.Venta.VentaControllerList;
+import Utilidades.ButtonColumn;
+import Utilidades.IButtonClickListener;
+import Utilidades.IPanelListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.table.DefaultTableModel;
 
-    public PanelVenta() {
+public class PanelVenta extends javax.swing.JPanel implements IButtonClickListener{
+    public IPanelListener panelListener;
+    private VentaControllerList controladorList;
+    
+    public PanelVenta(IPanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
+        this.iniciarlizar();
+        //Hacer una busque cada vez que se escribe en txt buscar
+        txtBuscarVenta.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                buscarUsuarios(txtBuscarVenta.getText());
+            }
+        });
     }
 
+    public void iniciarlizar(){
+        controladorList = new VentaControllerList();
+        
+        buscarUsuarios("");
+    }
+    
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        Long id = (Long) tbVenta.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case "Ver detalles" -> abrirDetallesUsuario(id);
+            case "Editar" -> abrirEditarUsuario(id);
+            case "Eliminar" -> eliminarUsuario(id);
+        }
+    }
+    
+    public void buscarUsuarios(String texto) {
+        DefaultTableModel model = controladorList.obtenerModeloTabla(texto);
+        tbVenta.setModel(model);
+        new ButtonColumn(tbVenta, 7, this);
+        new ButtonColumn(tbVenta, 8, this);
+        new ButtonColumn(tbVenta, 9, this);
+
+    }
+    
+    private void abrirDetallesUsuario(Long id) {
+        System.out.println("abrir:" + id);    
+    }
+
+    private void abrirEditarUsuario(Long id) {
+        System.out.println("editar:" + id);    
+    }
+
+    private void eliminarUsuario(Long id) {
+        System.out.println("eliminar:" + id);    
+    }
+    
+    public void resetPanel() {
+        txtBuscarVenta.setText("");
+        buscarUsuarios("");
+    }
+    
+    //Cuando el panel usuario sea visible se resetea el contenido
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,4 +153,5 @@ public class PanelVenta extends javax.swing.JPanel {
     public javax.swing.JTable tbVenta;
     private javax.swing.JTextField txtBuscarVenta;
     // End of variables declaration//GEN-END:variables
+
 }

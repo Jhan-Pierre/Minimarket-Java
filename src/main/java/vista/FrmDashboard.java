@@ -12,6 +12,7 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
+import vista.Categoria.PanelCategoria;
 import vista.Venta.PanelVenta;
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
@@ -22,8 +23,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioEdit panelUsuarioEdit;
     PanelUsuarioShow panelUsuarioShow;
     
-    PanelProducto panelProducto;
+    PanelCategoria panelCategoria;
     
+    PanelProducto panelProducto;
     
     PanelVenta panelVenta;
     
@@ -43,9 +45,11 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelUsuarioShow = new PanelUsuarioShow(this);
         
+        panelCategoria = new PanelCategoria();
+        
         panelProducto = new PanelProducto();
         
-        panelVenta = new PanelVenta();
+        panelVenta = new PanelVenta(this);
         
         inicializarPaneles();
     }
@@ -60,6 +64,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
+        //agregarPanel(panelCategoria, PANEL_CATEGORIA);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
         agregarPanel(panelVenta, PANEL_VENTA);
     }

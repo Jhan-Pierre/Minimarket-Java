@@ -604,6 +604,17 @@ begin
 end; //
 
 delimiter //
+CREATE PROCEDURE sp_buscar_venta_por_nombre_usuario(IN nombre VARCHAR(160))
+BEGIN
+    SELECT v.id, v.fecha_hora, v.impuesto, v.total, c.comprobante, mp.metodo_pago, CONCAT(u.nombre, ' ', u.apellido) AS usuario
+    FROM tb_venta v
+    INNER JOIN tb_tipo_comprobante c ON v.tipo_comprobante_id = c.id
+    INNER JOIN tb_metodo_pago mp ON v.metodo_pago_id = mp.id
+    INNER JOIN tb_usuario u ON v.usuario_id = u.id
+    WHERE u.nombre LIKE CONCAT('%', nombre, '%'); -- Búsqueda aproximada por nombre
+END; //
+
+delimiter //
 create procedure sp_buscar_venta_por_codigo(in codventa int)
 begin
 	select v.id, v.fecha_hora, v.impuesto, v.total, c.comprobante, mp.metodo_pago, concat(u.nombre, ' ', u.apellido) as usuario

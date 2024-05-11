@@ -86,7 +86,6 @@ public class PanelUsuario extends javax.swing.JPanel implements IButtonClickList
         buscarUsuarios("");
     }
     
-
     private void abrirPanelUsuarioCrear() {
         // Solicitar al PanelListener que abra PanelUsuarioCrear
         this.panelListener.abrirPanel(PANEL_USUARIO_CREAR);
