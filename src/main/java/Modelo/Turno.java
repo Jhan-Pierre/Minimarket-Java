@@ -1,6 +1,8 @@
 package Modelo;
 
-public class Turno {
+import Utilidades.Identificable;
+
+public class Turno implements Identificable {
     private int id;
     private String nombre;
 
