@@ -1,4 +1,4 @@
-package vista;
+package vista.Usuario;
 
 import Controlador.Estado.EstadoController;
 import Controlador.Rol.RolController;

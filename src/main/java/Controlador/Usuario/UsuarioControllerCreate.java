@@ -1,7 +1,7 @@
 package Controlador.Usuario;
 
 import Modelo.CRUDusuario;
-import vista.PanelUsuarioCrear;
+import vista.Usuario.PanelUsuarioCrear;
 
 public class UsuarioControllerCreate {
     private CRUDusuario usuarioModelo;

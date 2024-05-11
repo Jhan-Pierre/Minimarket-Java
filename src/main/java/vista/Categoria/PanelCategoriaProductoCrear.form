@@ -338,7 +338,7 @@
                       <Component id="txtCategoriaId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtNombreCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="235" max="32767" attributes="0"/>
+                  <EmptySpace pref="238" max="32767" attributes="0"/>
                   <Component id="btnAgregarCategoria" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               </Group>

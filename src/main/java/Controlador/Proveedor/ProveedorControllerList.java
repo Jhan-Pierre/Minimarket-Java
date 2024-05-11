@@ -14,7 +14,7 @@ import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import vista.PanelProveedor;
+import vista.Proveedor.PanelProveedor;
 
 public class ProveedorControllerList implements IButtonClickListener {
 //    private final ProveedorModelo proveedorModelo;

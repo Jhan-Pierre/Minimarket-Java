@@ -1,4 +1,4 @@
-package vista;
+package vista.Usuario;
 
 import Controlador.Usuario.UsuarioControllerShow;
 import Modelo.Usuario;
