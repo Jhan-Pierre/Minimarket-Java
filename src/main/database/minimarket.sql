@@ -77,8 +77,8 @@ create table tb_categoria_producto(
 create table tb_producto(
 	id bigint not null auto_increment primary key,
     nombre varchar(100) not null unique,
-    precio_compra float not null,
-    precio_venta float not null,
+    precio_compra decimal(10,2) not null,
+    precio_venta decimal(10,2) not null,
     stock_disponible int not null,
     codigoBarras varchar(50) not null unique,
     categoria_producto_id int,
@@ -90,7 +90,7 @@ create table tb_producto(
 create table tb_pedido(
 	id int not null auto_increment primary key, 
     fecha date not null,
-    costoTotal float not null,
+    costoTotal decimal(10,2) not null,
     usuario_id bigint,
     proveedor_id int,
     foreign key (usuario_id) references tb_usuario (id),
@@ -119,8 +119,8 @@ create table tb_metodo_pago(
 create table tb_venta(
 	id int not null auto_increment primary key, 
     fecha_hora datetime not null,
-    impuesto float,
-    total float not null,
+    impuesto decimal(10,2),
+    total decimal(10,2) not null,
     tipo_comprobante_id int,
     metodo_pago_id int,
     usuario_id bigint,
@@ -131,8 +131,8 @@ create table tb_venta(
 
 create table tb_detalle_venta(
 	id int not null auto_increment primary key, 
-    precio_unitario float not null,
-    subtotal float not null,
+    precio_unitario decimal(10,2) not null,
+    subtotal decimal(10,2) not null,
     cantidad int,
     producto_id bigint,
     id_venta int,
@@ -142,9 +142,9 @@ create table tb_detalle_venta(
 
 create table tb_cesta_temporal(
 	id int not null auto_increment primary key,
-    precio_unitario float not null,
+    precio_unitario decimal(10,2) not null,
     cantidad int not null,
-    subtotal float not null,
+    subtotal decimal(10,2) not null,
     usuario_id bigint not null,
     producto_id bigint not null,
     foreign key (usuario_id) references tb_usuario (id),
@@ -218,7 +218,7 @@ CREATE PROCEDURE sp_registrar_cesta_temporal(
 BEGIN
     DECLARE v_producto_id INT;
     DECLARE v_producto_nombre VARCHAR(100);
-    DECLARE v_producto_precio_venta FLOAT;
+    DECLARE v_producto_precio_venta decimal(10,2);
     DECLARE v_cantidad_existente INT;
 
     -- Obtener el ID del producto según el código de barras
@@ -251,7 +251,7 @@ create procedure sp_editar_cesta_temporal_cantidad (
     in p_nombre_producto varchar(100)
 )
 begin
-	declare v_precio_unitario float;
+	declare v_precio_unitario decimal(10,2);
     declare v_producto_id int;
     
 	-- Obtener el ID del producto según el nombre
@@ -504,8 +504,8 @@ end; //
 delimiter //
 create procedure sp_registrar_producto(
     in p_nombre varchar(100),
-    in p_precio_compra float,
-    in p_precio_venta float,
+    in p_precio_compra decimal(10,2),
+    in p_precio_venta decimal(10,2),
     in p_stock_disponible int,
     in p_codigo_barras varchar(100),
     in p_categoria_producto_id int,
@@ -521,8 +521,8 @@ delimiter //
 create procedure sp_editar_producto(
     in p_id int,
     in p_nombre varchar(255),
-    in p_precio_compra float,
-    in p_precio_venta float,
+    in p_precio_compra decimal(10,2),
+    in p_precio_venta decimal(10,2),
     in p_stock_disponible int,
     in p_codigo_barras varchar(255),
     in p_categoria_producto_id int,
@@ -648,8 +648,8 @@ end; //
 
 delimiter //
 create procedure sp_registrar_venta(
-	in p_impuesto float,
-    in p_total float,
+	in p_impuesto decimal(10,2),
+    in p_total decimal(10,2),
     in p_tipo_comprobante_id int,
     in p_metodo_pago_id int,
     in p_usuario_id int
@@ -892,7 +892,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sp_insertar_pedido(
     IN p_fecha DATE,
-    IN p_costoTotal FLOAT,
+    IN p_costoTotal decimal(10,2),
     IN p_usuario_id INT,
     IN p_proveedor_id INT
 )
@@ -907,7 +907,7 @@ DELIMITER //
 CREATE PROCEDURE sp_editar_pedido(
     IN p_pedido_id INT,
     IN p_fecha DATE,
-    IN p_costoTotal FLOAT,
+    IN p_costoTotal decimal(10,2),
     IN p_usuario_id INT,
     IN p_proveedor_id INT
 )
@@ -969,7 +969,7 @@ DELIMITER //
 
 CREATE PROCEDURE sp_registrar_pedido(
     IN p_fecha DATE,
-    IN p_costoTotal FLOAT,
+    IN p_costoTotal decimal(10,2),
     IN p_usuario_id INT,
     IN p_proveedor_id INT
 )
