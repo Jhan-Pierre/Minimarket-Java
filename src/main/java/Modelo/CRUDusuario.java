@@ -130,40 +130,7 @@ public class CRUDusuario extends Conexion {
         }
         return usuario;
     }
-    
-    public List<Usuario> listarUsuarios() {
-        List<Usuario> listaUsuarios = new ArrayList<>();
-        Connection cnx = getConexion();
-        if (cnx == null) {
-            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
-            return listaUsuarios;
-        }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_usuario()}")) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Long id = rs.getLong("id");
-                String correo = rs.getString("correo");
-                String nombre = rs.getString("nombre");
-                String telefono = rs.getString("telefono");
-                Date fechaAlta = rs.getDate("fecha_alta");
-                String rolNombre = rs.getString("rol"); // Asegúrate de cambiar este nombre si es necesario para evitar conflictos con la columna 'nombre' de 'tb_usuario'
-                String estado = rs.getString("estado");
-                
-                Usuario usuario = new Usuario(id, correo, nombre, telefono, fechaAlta, rolNombre, estado);
-                listaUsuarios.add(usuario);
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al listar usuarios", e);
-        } finally {
-            try {
-                cnx.close();
-            } catch (SQLException e) {
-                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
-            }
-        }
-        return listaUsuarios;
-    }
      
     public void crearUsuario(String correo, String password, String telefono, String nombre, String apellido, int rol_id, int estado_id, int turno_id) {
         // Hashear la contraseña

@@ -12,6 +12,8 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
+import vista.Categoria.PanelCategoria;
+import vista.Venta.PanelVenta;
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
     // Declaración de tus paneles
@@ -21,7 +23,12 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioEdit panelUsuarioEdit;
     PanelUsuarioShow panelUsuarioShow;
     
+    PanelCategoria panelCategoria;
+    
     PanelProducto panelProducto;
+    
+    PanelVenta panelVenta;
+    
     public static CardLayout vista;
 
     public FrmDashboard() {
@@ -37,7 +44,13 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioCrear = new PanelUsuarioCrear(this);
         panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelUsuarioShow = new PanelUsuarioShow(this);
+        
+        panelCategoria = new PanelCategoria();
+        
         panelProducto = new PanelProducto();
+        
+        panelVenta = new PanelVenta(this);
+        
         inicializarPaneles();
     }
     
@@ -51,7 +64,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
+        //agregarPanel(panelCategoria, PANEL_CATEGORIA);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
+        agregarPanel(panelVenta, PANEL_VENTA);
     }
 
     private void configurarListeners() {
@@ -67,6 +82,10 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnProducto.addActionListener(e -> {
             vista.show(PanelPadre, PANEL_PRODUCTO);
             panelProducto.resetPanel(); // Restablece el panel Producto
+        });
+    
+        btnVenta.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_VENTA);
         });
     }
     
@@ -117,7 +136,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnUsuario = new javax.swing.JButton();
         btnProducto = new javax.swing.JButton();
         btnProveedor = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnVenta = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         PanelPadre = new javax.swing.JPanel();
@@ -163,13 +182,13 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnProveedor.setBorderPainted(false);
         btnProveedor.setFocusPainted(false);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 153, 0));
-        jButton4.setText("Ventas");
-        jButton4.setToolTipText("");
-        jButton4.setBorder(null);
-        jButton4.setBorderPainted(false);
-        jButton4.setFocusPainted(false);
+        btnVenta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVenta.setForeground(new java.awt.Color(255, 153, 0));
+        btnVenta.setText("Ventas");
+        btnVenta.setToolTipText("");
+        btnVenta.setBorder(null);
+        btnVenta.setBorderPainted(false);
+        btnVenta.setFocusPainted(false);
 
         btnCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCliente.setForeground(new java.awt.Color(255, 153, 0));
@@ -203,7 +222,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
                 .addContainerGap()
                 .addGroup(PanelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -222,7 +241,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
@@ -302,7 +321,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnUsuario;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     public javax.swing.JLabel lblUsuario;

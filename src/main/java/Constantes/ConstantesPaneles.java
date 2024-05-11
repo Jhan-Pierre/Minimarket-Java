@@ -8,4 +8,7 @@ public class ConstantesPaneles {
     public static final String PANEL_USUARIO_EDITAR = "UsuarioEditar";
     public static final String PANEL_USUARIO_SHOW = "UsuarioMostrar";
     public static final String PANEL_PRODUCTO = "Producto";
+    
+    public static final String PANEL_CATEGORIA = "Categoria";
+    public static final String PANEL_VENTA = "Venta";
 }
