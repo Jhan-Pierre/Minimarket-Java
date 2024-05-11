@@ -2,49 +2,25 @@ package Controlador;
 
 import Modelo.Usuario;
 import Modelo.UsuarioModelo;
-import Utilidades.ButtonColumn;
-import Utilidades.IButtonClickListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import vista.PanelUsuario;
 
-public class UsuarioControllerList implements IButtonClickListener {
+
+public class UsuarioControllerList{
     private final UsuarioModelo usuarioModelo;
-    private final PanelUsuario vistaUsuario;
-
-    public UsuarioControllerList(PanelUsuario vistaUsuario) {
-        this.vistaUsuario = vistaUsuario;
+    
+    public UsuarioControllerList() {
         this.usuarioModelo = new UsuarioModelo();
     }
 
-    public void actualizarVista() {
-        cargarUsuariosEnTabla();
-    }
     
-    public void cargarUsuariosEnTabla() {
-        List<Usuario> listaUsuarios = usuarioModelo.listarUsuarios();
+     public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
+        List<Usuario> listaUsuarios = usuarioModelo.buscarUsuarioPorNombre(textoBusqueda);
+        String[] columnNames = {"ID", "Correo", "Nombre", "Telefono", "Fecha Alta", "Rol", "Estado", "Ver detalles", "Editar", "Eliminar"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-        // Crear modelo de tabla y establecerlo en la tabla
-        DefaultTableModel model = new DefaultTableModel();
-        vistaUsuario.tbUsuario.setModel(model);
-
-        // Añadir columnas al modelo de la tabla
-        model.addColumn("ID");
-        model.addColumn("Correo");
-        model.addColumn("Nombre");
-        model.addColumn("Telefono");
-        model.addColumn("Fecha Alta");
-        model.addColumn("Rol");
-        model.addColumn("Estado");
-
-        // Añadir columnas de botones
-        model.addColumn("Ver detalles");
-        model.addColumn("Editar");
-        model.addColumn("Eliminar");
-
-        // Añadir filas al modelo de la tabla
         for (Usuario usuario : listaUsuarios) {
-            model.addRow(new Object[]{
+            Object[] row = new Object[]{
                 usuario.getId(),
                 usuario.getEmail(),
                 usuario.getNombre(),
@@ -52,58 +28,17 @@ public class UsuarioControllerList implements IButtonClickListener {
                 usuario.getFechaAlta(),
                 usuario.getRol(),
                 usuario.getEstado(),
-                "Ver detalles", "Editar", "Eliminar"
-            });
+                "Ver detalles",
+                "Editar",
+                "Eliminar"
+            };
+            model.addRow(row);
         }
-
-        // Crear los botones en las columnas correspondientes
-        new ButtonColumn(vistaUsuario.tbUsuario, 7, this); // Ver detalles
-        new ButtonColumn(vistaUsuario.tbUsuario, 8, this); // Editar
-        new ButtonColumn(vistaUsuario.tbUsuario, 9, this); // Eliminar
+        return model;
     }
     
-    @Override
-    public void buttonClicked(int row, int column, String buttonText) {
-        Long id = (Long) vistaUsuario.tbUsuario.getModel().getValueAt(row, 0);
-        switch (buttonText) {
-            case "Ver detalles" -> abrirDetallesUsuario(id);
-            case "Editar" -> abrirEditarUsuario(id);
-            case "Eliminar" -> eliminarUsuario(id);
-        }
-    }
-    
-    public void buscarUsuarios(String texto) {
+    public List<Usuario> buscarUsuarios(String texto) {
         List<Usuario> listaUsuarios = usuarioModelo.buscarUsuarioPorNombre(texto);
-        actualizarTablaConUsuarios(listaUsuarios);
-    }
-
-    private void actualizarTablaConUsuarios(List<Usuario> listaUsuarios) {
-        DefaultTableModel model = (DefaultTableModel) vistaUsuario.tbUsuario.getModel();
-        model.setRowCount(0); // Limpiar la tabla antes de añadir los nuevos resultados
-
-        for (Usuario usuario : listaUsuarios) {
-            model.addRow(new Object[]{
-                usuario.getId(),
-                usuario.getEmail(),
-                usuario.getNombre(),
-                usuario.getTelefono(),
-                usuario.getFechaAlta(),
-                usuario.getRol(),
-                usuario.getEstado(),
-                "Ver detalles", "Editar", "Eliminar"
-            });
-        }
-    }
-    
-    private void abrirDetallesUsuario(Long id) {
-        System.out.println("detalle: " + id);
-    }
-
-    private void abrirEditarUsuario(Long id) {
-        System.out.println("editar: " + id);
-    }
-
-    private void eliminarUsuario(Long id) {
-        System.out.println("eliminar: " + id);
+        return listaUsuarios;
     }
 }

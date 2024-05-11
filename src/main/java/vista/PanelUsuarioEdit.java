@@ -15,12 +15,18 @@ public class PanelUsuarioEdit extends javax.swing.JPanel {
     
     public PanelUsuarioEdit(IPanelListener panelListener) {
         this.panelListener = panelListener;
-        initComponents();
-        
-        controlador = new UsuarioControllerEdit();
-
+        this.inicializar();
     }
 
+    public PanelUsuarioEdit() {
+        this.inicializar();
+    }
+
+    private void inicializar(){
+        initComponents();
+        controlador = new UsuarioControllerEdit();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -3,13 +3,17 @@ package vista;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 
 import Controlador.UsuarioControllerList;
+import Utilidades.ButtonColumn;
+import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.table.DefaultTableModel;
 
-public class PanelUsuario extends javax.swing.JPanel {
+
+public class PanelUsuario extends javax.swing.JPanel implements IButtonClickListener  {
     private UsuarioControllerList controlador;
-    private IPanelListener panelListener;
+    public IPanelListener panelListener;
     
     public PanelUsuario(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -18,32 +22,55 @@ public class PanelUsuario extends javax.swing.JPanel {
         txtBuscarUsuario.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                controlador.buscarUsuarios(txtBuscarUsuario.getText());
+                buscarUsuarios(txtBuscarUsuario.getText());
             }
         });
     }
     
-    public void inicializar() {
-        controlador = new UsuarioControllerList(this);
-        controlador.cargarUsuariosEnTabla(); // Cambiado para cargar los usuarios al iniciar
+    public void buscarUsuarios(String texto) {
+        DefaultTableModel model = controlador.obtenerModeloTabla(texto);
+        tbUsuario.setModel(model);
+        new ButtonColumn(tbUsuario, 7, this);
+        new ButtonColumn(tbUsuario, 8, this);
+        new ButtonColumn(tbUsuario, 9, this);
+
     }
     
-    private void abrirPanelUsuarioCrear() {
-        // Crear una instancia de PanelUsuarioCrear con una referencia al PanelListener
-        PanelUsuarioCrear panelUsuarioCrear = new PanelUsuarioCrear(panelListener);
-
-        // Solicitar al PanelListener que abra PanelUsuarioCrear
-        panelListener.abrirPanel(PANEL_USUARIO_CREAR);
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        Long id = (Long) tbUsuario.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case "Ver detalles" -> abrirDetallesUsuario(id);
+            case "Editar" -> abrirEditarUsuario(id);
+            case "Eliminar" -> eliminarUsuario(id);
+        }
+    }
+    
+    private void abrirDetallesUsuario(Long id) {
+         System.out.println("Detalles: " + id);
     }
 
-    public PanelUsuario() {
-        initComponents();
-        inicializar(); // Llamar inicializar en el constructor por defecto
+    private void abrirEditarUsuario(Long id) {
+        System.out.println("Editar: " + id);
+    }
+
+    private void eliminarUsuario(Long id) {
+        System.out.println("eliminar: " + id);
+    }
+    private void inicializar() {
+        controlador = new UsuarioControllerList();
+        buscarUsuarios("");
+    }
+    
+
+    private void abrirPanelUsuarioCrear() {
+        // Solicitar al PanelListener que abra PanelUsuarioCrear
+        this.panelListener.abrirPanel(PANEL_USUARIO_CREAR);
     }
 
     public void resetPanel() {
         txtBuscarUsuario.setText("");
-        controlador.cargarUsuariosEnTabla();
+        buscarUsuarios("");
     }
     
     //Cuando el panel usuario sea visible se resetea el contenido

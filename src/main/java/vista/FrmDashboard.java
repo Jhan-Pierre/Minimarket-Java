@@ -7,7 +7,6 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
-import java.awt.Component;
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
     

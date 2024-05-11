@@ -761,7 +761,7 @@ BEGIN
     START TRANSACTION;
 
     -- Insertar el nuevo usuario
-    INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, id_turno)
+    INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, turno_id)
     VALUES (p_correo, p_password, p_telefono, p_nombre, p_apellido, NOW(), now(), p_rol_id, p_estado_id, p_turno_id);
 
     COMMIT;

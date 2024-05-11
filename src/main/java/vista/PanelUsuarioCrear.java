@@ -8,6 +8,7 @@ import Modelo.Estado;
 import Modelo.Rol;
 import Modelo.Turno;
 import Utilidades.IPanelListener;
+import static Constantes.ConstantesPaneles.PANEL_USUARIO;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
     private UsuarioControllerCreate controlador;
@@ -29,6 +30,7 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         RolController rolController = new RolController();
         rolController.cargarRolesEnComboBox(cboRol);   
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -194,7 +196,27 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
-        controlador.crearUsuario();
+        String correo = txtCorreo.getText();
+        String password = txtContraseña.getText();
+        String telefono = txtTelefono.getText();
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+
+        Rol rolSelecionado = (Rol) cboRol.getSelectedItem();
+        int rolId = rolSelecionado.getId();
+
+        Estado estadoSeleccionado = (Estado) cboEstado.getSelectedItem();
+        int estadoId = estadoSeleccionado.getId();
+
+        Turno turnoSeleccionado = (Turno) cboTurno.getSelectedItem();
+        int turnoId = turnoSeleccionado.getId();
+
+        // Llamar al método del controlador para crear el usuario
+        controlador.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
+        
+
+        panelListener.abrirPanel(PANEL_USUARIO);
+
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
 
