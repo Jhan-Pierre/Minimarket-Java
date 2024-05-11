@@ -1,4 +1,4 @@
-package vista;
+package vista.Proveedor;
 
 public class PanelProveedor extends javax.swing.JPanel {
 

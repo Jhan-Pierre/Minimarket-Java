@@ -1,7 +1,7 @@
 package Controlador.Proveedor;
 
 import Modelo.Estado;
-import vista.PanelProveedorCrear;
+import vista.Proveedor.PanelProveedorCrear;
 import Modelo.Proveedor;
 
 public class ProveedorControllerCreate {

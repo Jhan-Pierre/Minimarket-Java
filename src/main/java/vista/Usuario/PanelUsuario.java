@@ -1,4 +1,4 @@
-package vista;
+package vista.Usuario;
 
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_EDITAR;

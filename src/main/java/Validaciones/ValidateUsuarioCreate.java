@@ -1,6 +1,6 @@
 package Validaciones;
 
-import vista.PanelUsuarioCrear;
+import vista.Usuario.PanelUsuarioCrear;
 import javax.swing.JLabel;
 
 public class ValidateUsuarioCreate {

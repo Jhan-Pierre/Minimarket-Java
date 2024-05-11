@@ -1,5 +1,5 @@
 
-package vista;
+package vista.Categoria;
 
 public class PanelCategoriaProducto extends javax.swing.JFrame {
 

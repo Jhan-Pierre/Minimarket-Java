@@ -1,4 +1,4 @@
-package vista;
+package vista.Usuario;
 
 import static Constantes.ConstantesPaneles.PANEL_USUARIO;
 import Controlador.Estado.EstadoController;

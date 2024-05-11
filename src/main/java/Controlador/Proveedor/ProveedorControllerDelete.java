@@ -10,7 +10,7 @@ package Controlador.Proveedor;
  */
 
 import Modelo.Proveedor;
-import vista.PanelProveedor;
+import vista.Proveedor.PanelProveedor;
 import javax.swing.JOptionPane;
 
 public class ProveedorControllerDelete {

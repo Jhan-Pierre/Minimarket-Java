@@ -1,5 +1,9 @@
 package vista;
 
+import vista.Usuario.PanelUsuarioShow;
+import vista.Usuario.PanelUsuarioEdit;
+import vista.Usuario.PanelUsuario;
+import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
 
