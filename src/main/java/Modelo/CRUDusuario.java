@@ -306,5 +306,30 @@ public class CRUDusuario extends Conexion {
         }
         return null;
     }
-    
+    public String eliminarUsuario(Long id) {
+        String mensaje = "";
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return mensaje;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_usuario(?)}")) {
+            stmt.setLong(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                mensaje = rs.getString("mensaje");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al eliminar usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return mensaje;
+    }
 }
