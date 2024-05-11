@@ -846,6 +846,24 @@ BEGIN
     WHERE id = p_id;
 END //
 
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_usuario(
+    IN p_id BIGINT
+)
+BEGIN
+    DECLARE exit handler for sqlexception
+    BEGIN
+        -- Manejar el error de clave externa
+        SELECT 'El usuario no puede ser eliminado debido a que cuenta con registros asociados a su ID' AS mensaje;
+    END;
+
+    -- Eliminar el usuario y manejar cualquier error que ocurra
+    DELETE FROM tb_usuario WHERE id = p_id;
+
+    SELECT 'Usuario eliminado exitosamente' AS mensaje;
+END //
+-- call sp_eliminar_usuario(3)
+
 delimiter //
 create procedure sp_actualizar_estado_usuario(in iduser int, in idest int)
 begin

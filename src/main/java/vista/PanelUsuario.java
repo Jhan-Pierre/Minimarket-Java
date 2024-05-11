@@ -2,6 +2,7 @@ package vista;
 
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_EDITAR;
+import Controlador.UsuarioControllerDelete;
 
 import Controlador.UsuarioControllerList;
 import Controlador.UsuarioControllerLogin;
@@ -10,14 +11,14 @@ import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class PanelUsuario extends javax.swing.JPanel implements IButtonClickListener {
     private UsuarioControllerList controlador;
     public IPanelListener panelListener;
-    private PanelUsuarioEdit panelEditar;
-    private UsuarioControllerLogin ctrLogin;
+    private UsuarioControllerDelete ctrDelete;
     
     public PanelUsuario(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -63,10 +64,24 @@ public class PanelUsuario extends javax.swing.JPanel implements IButtonClickList
     }
 
     private void eliminarUsuario(Long id) {
-        System.out.println("eliminar: " + id);
+        // Mostrar un JOptionPane de confirmación
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        // Verificar si el usuario confirmó la eliminación
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Llamar al controlador para eliminar el usuario
+            String mensaje = ctrDelete.eliminarUsuario(id);
+
+            // Mostrar el mensaje de confirmación o error
+            JOptionPane.showMessageDialog(this, mensaje);
+
+            // Actualizar la tabla después de eliminar el usuario
+            buscarUsuarios("");
+        }
     }
     private void inicializar() {
         controlador = new UsuarioControllerList();
+        ctrDelete = new UsuarioControllerDelete();
         buscarUsuarios("");
     }
     
