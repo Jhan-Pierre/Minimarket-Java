@@ -33,4 +33,13 @@ public class UsuarioModelo {
     public void crearUsuario(String correo, String password, String telefono, String nombre, String apellido, int rolId, int estadoId, int turnoId) {
         crudUsuario.crearUsuario(correo, password, telefono, nombre, apellido, rolId, estadoId, turnoId);
     }
+    
+    public void editarUsuario(Long id, String correo, String password, String telefono, String nombre, String apellido, int rol_id, int estado_id, int turno_id){
+        crudUsuario.editarUsuario(id, correo, password, telefono, nombre, apellido, rol_id, estado_id, turno_id);
+    }
+ 
+    public Usuario buscarUsuarioPorCodigo(long id){
+        return crudUsuario.buscarUsuarioPorCodigo(id);
+    }
+    
 }

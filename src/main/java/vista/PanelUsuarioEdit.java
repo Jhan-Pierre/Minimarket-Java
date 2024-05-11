@@ -3,49 +3,30 @@ package vista;
 import Controlador.EstadoController;
 import Controlador.RolController;
 import Controlador.TurnoController;
-import Controlador.UsuarioControllerCreate;
+import Controlador.UsuarioControllerEdit;
 import Modelo.Estado;
 import Modelo.Rol;
 import Modelo.Turno;
 import Utilidades.IPanelListener;
 
-public class PanelUsuarioCrear extends javax.swing.JPanel {
-    private UsuarioControllerCreate controlador;
+public class PanelUsuarioEdit extends javax.swing.JPanel {
+    private UsuarioControllerEdit controlador;
     public IPanelListener panelListener;
-      
-    public PanelUsuarioCrear(IPanelListener panelListener) {
+    
+    public PanelUsuarioEdit(IPanelListener panelListener) {
         this.panelListener = panelListener;
         initComponents();
         
-        controlador = new UsuarioControllerCreate();
-        controlador.setVistaUsuarioCrear(this); // Configurar la vista en el controlador
-        
-        TurnoController turnoController = new TurnoController();
-        turnoController.cargarTurnosEnComboBox(cboTurno); 
-        
-        EstadoController estadoController = new EstadoController();
-        estadoController.cargarEstadosEnComboBox(cboEstado);
-        
-        RolController rolController = new RolController();
-        rolController.cargarRolesEnComboBox(cboRol);   
+        controlador = new UsuarioControllerEdit();
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        cboTurno = new javax.swing.JComboBox<>();
-        lblNombre = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        lblApellido = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
         lblNombre1 = new javax.swing.JLabel();
+        btnEditarUsuario = new javax.swing.JButton();
         txtContraseña = new javax.swing.JTextField();
         lblApellido1 = new javax.swing.JLabel();
         txtConfirmarContraseña = new javax.swing.JTextField();
@@ -54,24 +35,26 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         lblTelefono = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox<>();
         lblEstado = new javax.swing.JLabel();
+        cboTurno = new javax.swing.JComboBox<>();
+        lblNombre = new javax.swing.JLabel();
+        txtCorreo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblApellido = new javax.swing.JLabel();
         cboRol = new javax.swing.JComboBox<>();
+        txtApellido = new javax.swing.JTextField();
         lblRol = new javax.swing.JLabel();
-        btnAgregarUsuario = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 490));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Crear Usuario");
-
-        lblNombre.setText("Nombre");
-
-        jLabel3.setText("Correo");
-
-        lblApellido.setText("Apellido");
-
-        txtApellido.setPreferredSize(new java.awt.Dimension(150, 22));
-
         lblNombre1.setText("Contraseña");
+
+        btnEditarUsuario.setText("Editar");
+        btnEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarUsuarioActionPerformed(evt);
+            }
+        });
 
         lblApellido1.setText("Confirma contraseña");
 
@@ -83,23 +66,23 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
 
         lblEstado.setText("Estado");
 
-        lblRol.setText("Rol");
+        lblNombre.setText("Nombre");
 
-        btnAgregarUsuario.setText("Agregar");
-        btnAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarUsuarioActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Correo");
+
+        lblApellido.setText("Apellido");
+
+        txtApellido.setPreferredSize(new java.awt.Dimension(150, 22));
+
+        lblRol.setText("Rol");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(91, 91, 91)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -125,8 +108,7 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNombre1)
-                                    .addComponent(btnAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblNombre1))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblApellido1)
@@ -139,14 +121,16 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblRol)
                             .addComponent(cboRol, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(382, 382, 382))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(42, 42, 42)
+                .addGap(124, 124, 124)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblRol)
@@ -187,27 +171,22 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
                         .addComponent(lblEstado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
-                .addComponent(btnAgregarUsuario)
-                .addGap(74, 74, 74))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(btnEditarUsuario)
+                .addGap(62, 62, 62))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
-        controlador.crearUsuario();
-    }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
+    private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
+        
+    }//GEN-LAST:event_btnEditarUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnAgregarUsuario;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
+    public javax.swing.JButton btnEditarUsuario;
     public javax.swing.JComboBox<Estado> cboEstado;
     public javax.swing.JComboBox<Rol> cboRol;
     public javax.swing.JComboBox<Turno> cboTurno;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblApellido1;
@@ -224,5 +203,4 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-
 }
