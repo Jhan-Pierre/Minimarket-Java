@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Categoria;
 
 import Modelo.CategoriaProducto;
 import Modelo.CRUDCategoriaProducto;

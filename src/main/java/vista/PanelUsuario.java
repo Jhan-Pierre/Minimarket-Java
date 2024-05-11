@@ -3,10 +3,9 @@ package vista;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_EDITAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_SHOW;
-import Controlador.UsuarioControllerDelete;
-
-import Controlador.UsuarioControllerList;
-import Controlador.UsuarioControllerLogin;
+import Controlador.Usuario.UsuarioControllerDelete;
+import Controlador.Usuario.UsuarioControllerList;
+import Controlador.Usuario.UsuarioControllerLogin;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;

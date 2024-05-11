@@ -1,6 +1,6 @@
 package vista;
 
-import Controlador.UsuarioControllerShow;
+import Controlador.Usuario.UsuarioControllerShow;
 import Modelo.Usuario;
 import Utilidades.IPanelListener;
 

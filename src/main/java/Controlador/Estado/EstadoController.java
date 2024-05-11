@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Estado;
 
 import Modelo.CRUDestado;
 import Modelo.Estado;

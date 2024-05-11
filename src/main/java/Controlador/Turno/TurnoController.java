@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Turno;
 
 import Modelo.CRUDturno;
 import Modelo.Turno;

@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Usuario;
 
 import Modelo.CRUDusuario;
 import Modelo.Usuario;
