@@ -14,7 +14,11 @@ public class EstadoController {
     
     public void cargarEstadosEnComboBox(JComboBox<Estado> cboEstado) {
         cboEstado.removeAllItems(); // Limpiar el ComboBox
-
+        
+        // Crear y agregar el ítem inicial para 'Seleccionar rol'
+        Estado seleccionarRol = new Estado(0, "Seleccionar Estado");
+        cboEstado.addItem(seleccionarRol);
+        
         List<Estado> listaEstados = modelo.listarEstado();
 
         for (Estado estado : listaEstados) {

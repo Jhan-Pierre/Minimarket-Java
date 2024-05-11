@@ -12,8 +12,8 @@ import static Constantes.ConstantesPaneles.PANEL_USUARIO;
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
     private UsuarioControllerCreate controlador;
-    public IPanelListener panelListener;
-      
+    public IPanelListener panelListener;  
+    
     public PanelUsuarioCrear(IPanelListener panelListener) {
         this.panelListener = panelListener;
         initComponents();
@@ -219,6 +219,35 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
+    // Cuando el panel sea visible se resetea el contenido
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
+    }
+    
+    public void resetPanel() {
+        // Resetea los campos de texto
+        txtCorreo.setText("");
+        txtContraseña.setText("");
+        txtConfirmarContraseña.setText("");
+        txtTelefono.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+
+        // Resetea los combobox seleccionando el primer ítem
+        if (cboRol.getItemCount() > 0) {
+            cboRol.setSelectedIndex(0);
+        }
+        if (cboEstado.getItemCount() > 0) {
+            cboEstado.setSelectedIndex(0);
+        }
+        if (cboTurno.getItemCount() > 0) {
+            cboTurno.setSelectedIndex(0);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregarUsuario;
