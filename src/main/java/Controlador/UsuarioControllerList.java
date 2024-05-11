@@ -1,17 +1,22 @@
 package Controlador;
 
+import static Constantes.ConstantesPaneles.PANEL_USUARIO_EDITAR;
+
 import Modelo.Usuario;
 import Modelo.UsuarioModelo;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
+import Utilidades.IPanelListener;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import vista.PanelUsuario;
+import vista.PanelUsuarioEdit;
 
 public class UsuarioControllerList implements IButtonClickListener {
     private final UsuarioModelo usuarioModelo;
     private final PanelUsuario vistaUsuario;
-
+    
     public UsuarioControllerList(PanelUsuario vistaUsuario) {
         this.vistaUsuario = vistaUsuario;
         this.usuarioModelo = new UsuarioModelo();
@@ -96,11 +101,11 @@ public class UsuarioControllerList implements IButtonClickListener {
     }
     
     private void abrirDetallesUsuario(Long id) {
-        System.out.println("detalle: " + id);
+         System.out.println("Detalles: " + id);
     }
 
     private void abrirEditarUsuario(Long id) {
-        System.out.println("editar: " + id);
+        
     }
 
     private void eliminarUsuario(Long id) {

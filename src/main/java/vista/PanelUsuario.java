@@ -7,9 +7,10 @@ import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+
 public class PanelUsuario extends javax.swing.JPanel {
     private UsuarioControllerList controlador;
-    private IPanelListener panelListener;
+    public IPanelListener panelListener;
     
     public PanelUsuario(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -29,11 +30,8 @@ public class PanelUsuario extends javax.swing.JPanel {
     }
     
     private void abrirPanelUsuarioCrear() {
-        // Crear una instancia de PanelUsuarioCrear con una referencia al PanelListener
-        PanelUsuarioCrear panelUsuarioCrear = new PanelUsuarioCrear(panelListener);
-
         // Solicitar al PanelListener que abra PanelUsuarioCrear
-        panelListener.abrirPanel(PANEL_USUARIO_CREAR);
+        this.panelListener.abrirPanel(PANEL_USUARIO_CREAR);
     }
 
     public PanelUsuario() {
