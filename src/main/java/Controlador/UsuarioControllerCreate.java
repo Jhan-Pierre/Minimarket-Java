@@ -1,14 +1,14 @@
 package Controlador;
 
-import Modelo.UsuarioModelo;
+import Modelo.CRUDusuario;
 import vista.PanelUsuarioCrear;
 
 public class UsuarioControllerCreate {
-    private UsuarioModelo usuarioModelo;
+    private CRUDusuario usuarioModelo;
     private PanelUsuarioCrear vistaUsuarioCrear;
     
     public UsuarioControllerCreate() {
-        this.usuarioModelo = new UsuarioModelo();
+        this.usuarioModelo = new CRUDusuario();
     }
     
     public void setVistaUsuarioCrear(PanelUsuarioCrear vistaUsuarioCrear) {

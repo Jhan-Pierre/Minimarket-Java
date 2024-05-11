@@ -822,7 +822,7 @@ end //
 -- select * from tb_usuario
 
 DELIMITER //
-CREATE PROCEDURE editar_usuario(
+CREATE PROCEDURE sp_editar_usuario(
     IN p_id BIGINT,
     IN p_correo VARCHAR(60),
     IN p_password VARCHAR(200),

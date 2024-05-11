@@ -1,6 +1,7 @@
 package vista;
 
 import static Constantes.ConstantesPaneles.*;
+import Controlador.GlobalPermisos;
 
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
@@ -9,25 +10,43 @@ import javax.swing.JPanel;
 import Utilidades.IPanelListener;
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
-    
     // Declaración de tus paneles
     PanelDashboard panelDashboard;
     PanelUsuario panelUsuario;
     PanelUsuarioCrear panelUsuarioCrear;
     PanelUsuarioEdit panelUsuarioEdit;
     PanelProducto panelProducto;
-    CardLayout vista;
+    public static CardLayout vista;
+    private static FrmDashboard instance;
     
+    public static FrmDashboard getInstance() {
+        if (instance == null) {
+            instance = new FrmDashboard(); // Crear una instancia si no existe
+        }
+        return instance;
+    }
     @Override
     public void abrirPanel(String nombrePanel) {
         vista.show(PanelPadre, nombrePanel);
     }
     
-    public FrmDashboard(Set<String> permisosUsuario) {
+    @Override
+    public void abrirPanel(String panelName, Long id) {
+        if (PANEL_USUARIO_EDITAR.equals(panelName)) {
+            if (panelUsuarioEdit == null) {
+                panelUsuarioEdit = new PanelUsuarioEdit(this);
+            }
+            panelUsuarioEdit.BuscarUsuarioPorId(id);
+            PanelPadre.add(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
+            vista.show(PanelPadre, PANEL_USUARIO_EDITAR);
+        }
+    }   
+    
+    public FrmDashboard() {
         initComponents();
         configurarPaneles();
         configurarListeners();
-        configurarAccesoSegunRol(permisosUsuario); // Llama al método aquí con los permisos
+        configurarAccesoSegunRol(GlobalPermisos.getPermisos()); // Utiliza la clase global aquí
     }
     
     public PanelUsuario getPanelUsuario() {

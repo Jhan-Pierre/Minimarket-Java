@@ -5,15 +5,16 @@ import Modelo.Usuario;
 import java.util.Set;
 import vista.FrmDashboard;
 import vista.FrmLogin;
-import Modelo.UsuarioModelo;
+import Modelo.CRUDusuario;
 
 public class UsuarioControllerLogin {
     private final FrmLogin vistaLogin;
-    private final UsuarioModelo usuarioModelo;
-    
+    private final CRUDusuario usuarioModelo;
+    private Set<String> permisosUsuario;
+
     public UsuarioControllerLogin(FrmLogin vistaLogin) {
         this.vistaLogin = vistaLogin;
-        this.usuarioModelo = new UsuarioModelo();
+        this.usuarioModelo = new CRUDusuario();
         inicializar();
     }
     
@@ -30,15 +31,20 @@ public class UsuarioControllerLogin {
         if (resultado.equals("Exito")) {
             Usuario usuarioLogeado = usuarioModelo.obtenerUsuarioLogeado(email);
             SesionUsuario.getInstancia().setUsuarioLogeado(usuarioLogeado);
-            
-            Set<String> permisosUsuario = usuarioModelo.obtenerPermisosPorUsuario(usuarioLogeado.getRolId());
+
+            permisosUsuario = usuarioModelo.obtenerPermisosPorUsuario(usuarioLogeado.getRolId());
+            GlobalPermisos.setPermisos(permisosUsuario); //Guardar los permisos de manera global
 
             // Crear instancia del FrmDashboard y pasar los permisos
-            FrmDashboard frmDashboard = new FrmDashboard(permisosUsuario);
+            FrmDashboard frmDashboard = new FrmDashboard();
             frmDashboard.lblUsuario.setText(usuarioLogeado.getNombre());
             frmDashboard.setVisible(true);
         } else {
             vistaLogin.lblErrorLogin.setText(resultado);
         }
+    }
+    
+    public Set<String> obtenerPermisosUsuario() {
+        return permisosUsuario;
     }
 }

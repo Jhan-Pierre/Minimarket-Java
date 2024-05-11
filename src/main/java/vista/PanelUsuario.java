@@ -1,8 +1,10 @@
 package vista;
 
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
+import static Constantes.ConstantesPaneles.PANEL_USUARIO_EDITAR;
 
 import Controlador.UsuarioControllerList;
+import Controlador.UsuarioControllerLogin;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
@@ -11,14 +13,18 @@ import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
 
 
-public class PanelUsuario extends javax.swing.JPanel implements IButtonClickListener  {
+public class PanelUsuario extends javax.swing.JPanel implements IButtonClickListener {
     private UsuarioControllerList controlador;
     public IPanelListener panelListener;
+    private PanelUsuarioEdit panelEditar;
+    private UsuarioControllerLogin ctrLogin;
     
     public PanelUsuario(IPanelListener panelListener) {
         this.panelListener = panelListener;
         initComponents();
         inicializar();
+        
+        //Hacer una busque cada vez que se escribe en txt buscar
         txtBuscarUsuario.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -51,7 +57,9 @@ public class PanelUsuario extends javax.swing.JPanel implements IButtonClickList
     }
 
     private void abrirEditarUsuario(Long id) {
-        System.out.println("Editar: " + id);
+        if (panelListener != null) {
+            panelListener.abrirPanel(PANEL_USUARIO_EDITAR, id);
+        }
     }
 
     private void eliminarUsuario(Long id) {

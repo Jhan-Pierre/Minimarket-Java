@@ -292,7 +292,7 @@ public class CRUDusuario extends Conexion {
                 int turno_id = rs.getInt("turno_id");
                 int estado_id = rs.getInt("estado_id");
 
-                Usuario usuario = new Usuario(correo, nombre, telefono, apellido, rol_id, turno_id, estado_id);
+                Usuario usuario = new Usuario(nombre, apellido, correo, telefono, rol_id, estado_id, turno_id);
                 return usuario;
             }
         } catch (SQLException e) {
