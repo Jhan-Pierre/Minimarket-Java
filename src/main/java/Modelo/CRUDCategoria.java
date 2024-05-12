@@ -117,14 +117,14 @@ public class CRUDCategoria extends Conexion {
         }
     }
 
-    public String eliminarCategoria(int idCategoria) {
+        public String eliminarCategoria(Long idCategoria) {
         Connection cnx = getConexion();
         if (cnx == null) {
             return "No se pudo establecer conexión con la base de datos.";
         }
 
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_categoria(?)}")) {
-            stmt.setInt(1, idCategoria);
+           // stmt.setInt(1, idCategoria);
 
             stmt.execute();
             return "Categoría eliminada correctamente.";

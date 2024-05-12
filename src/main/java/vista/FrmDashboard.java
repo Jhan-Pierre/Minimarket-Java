@@ -12,7 +12,7 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
-import vista.Categoria.PanelCategoria;
+//import vista.Categoria.PanelCategoria;
 import vista.Venta.PanelVenta;
 import vista.Venta.PanelVentaCreate;
 
@@ -25,7 +25,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioEdit panelUsuarioEdit;
     PanelUsuarioShow panelUsuarioShow;
     
-    PanelCategoria panelCategoria;
+    //PanelCategoria panelCategoria;
     
     PanelProducto panelProducto;
     
@@ -48,7 +48,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelUsuarioShow = new PanelUsuarioShow(this);
         
-        panelCategoria = new PanelCategoria();
+        //panelCategoria = new PanelCategoria(this);
         
         panelProducto = new PanelProducto();
         
@@ -142,7 +142,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnProducto = new javax.swing.JButton();
         btnProveedor = new javax.swing.JButton();
         btnVenta = new javax.swing.JButton();
-        btnCliente = new javax.swing.JButton();
+        btnCategoria = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         PanelPadre = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -195,13 +195,13 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnVenta.setBorderPainted(false);
         btnVenta.setFocusPainted(false);
 
-        btnCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCliente.setForeground(new java.awt.Color(255, 153, 0));
-        btnCliente.setText("Categorias");
-        btnCliente.setToolTipText("");
-        btnCliente.setBorder(null);
-        btnCliente.setBorderPainted(false);
-        btnCliente.setFocusPainted(false);
+        btnCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCategoria.setForeground(new java.awt.Color(255, 153, 0));
+        btnCategoria.setText("Categorias");
+        btnCategoria.setToolTipText("");
+        btnCategoria.setBorder(null);
+        btnCategoria.setBorderPainted(false);
+        btnCategoria.setFocusPainted(false);
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 102, 102));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -226,7 +226,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             .addGroup(PanelControlesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCategoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -248,7 +248,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -320,8 +320,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelControles;
     public javax.swing.JPanel PanelPadre;
+    private javax.swing.JButton btnCategoria;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton btnProveedor;
