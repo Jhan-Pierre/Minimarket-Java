@@ -1,19 +1,17 @@
 package Modelo;
 
-import java.math.BigDecimal;
-
 public class CestaTemporal {
     
     private int id;
-    private BigDecimal precio_unitario;
+    private Double precio_unitario;
     private int cantidad;
-    private BigDecimal subtotal;
-    private BigDecimal usuario_id;
-    private BigDecimal producto_id;
+    private Double subtotal;
+    private Double usuario_id;
+    private Double producto_id;
     private String Producto;
-    private BigDecimal precio_venta;
+    private Double precio_venta;
 
-    public CestaTemporal(int cantidad, BigDecimal subtotal, String producto, BigDecimal precio_venta) {
+    public CestaTemporal(int cantidad, Double subtotal, String producto, Double precio_venta) {
         this.cantidad = cantidad;
         this.subtotal = subtotal;
         this.Producto = producto;
@@ -28,11 +26,11 @@ public class CestaTemporal {
         this.id = id;
     }
 
-    public BigDecimal getPrecio_unitario() {
+    public Double getPrecio_unitario() {
         return precio_unitario;
     }
 
-    public void setPrecio_unitario(BigDecimal precio_unitario) {
+    public void setPrecio_unitario(Double precio_unitario) {
         this.precio_unitario = precio_unitario;
     }
 
@@ -44,27 +42,27 @@ public class CestaTemporal {
         this.cantidad = cantidad;
     }
 
-    public BigDecimal getSubtotal() {
+    public Double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(BigDecimal subtotal) {
+    public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
     }
 
-    public BigDecimal getUsuario_id() {
+    public Double getUsuario_id() {
         return usuario_id;
     }
 
-    public void setUsuario_id(BigDecimal usuario_id) {
+    public void setUsuario_id(Double usuario_id) {
         this.usuario_id = usuario_id;
     }
 
-    public BigDecimal getProducto_id() {
+    public Double getProducto_id() {
         return producto_id;
     }
 
-    public void setProducto_id(BigDecimal producto_id) {
+    public void setProducto_id(Double producto_id) {
         this.producto_id = producto_id;
     }
 
@@ -76,11 +74,11 @@ public class CestaTemporal {
         this.Producto = Producto;
     }
 
-    public BigDecimal getPrecio_venta() {
+    public Double getPrecio_venta() {
         return precio_venta;
     }
 
-    public void setPrecio_venta(BigDecimal precio_venta) {
+    public void setPrecio_venta(Double precio_venta) {
         this.precio_venta = precio_venta;
     }
      
