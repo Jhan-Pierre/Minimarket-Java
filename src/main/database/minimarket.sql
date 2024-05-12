@@ -210,6 +210,25 @@ end; //
 -- ##################################################################################################
 -- Zona experimental
 -- ##################################################################################################
+delimiter //
+create procedure sp_exite_codigo_barras(
+	in p_codigo_barras varchar(50),
+	out p_valido boolean
+)
+begin 
+	declare contador int;
+    
+    -- Verificar si el código de barras existe en la tabla 'products'
+    SELECT COUNT(*) INTO contador FROM tb_producto WHERE codigoBarras = p_codigo_barras;
+
+    -- Si el contador es mayor que 0, el código de barras es válido
+    IF contador > 0 THEN
+        SET p_valido = TRUE;
+    ELSE
+        SET p_valido = FALSE;
+    END IF;
+end; //
+
 DELIMITER //
 CREATE PROCEDURE sp_registrar_cesta_temporal(
     IN p_usuario_id bigint,

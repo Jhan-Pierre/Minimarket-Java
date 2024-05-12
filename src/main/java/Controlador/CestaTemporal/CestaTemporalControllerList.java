@@ -43,4 +43,8 @@ public class CestaTemporalControllerList {
         this.modelo.eliminarItemCestaTemporal(id, producto);
     }
     
+    public boolean existeCodigoBarras(String codigoBarras){
+        return this.modelo.existeCodigoBarras(codigoBarras);
+    }
+    
 }
