@@ -19,7 +19,7 @@ public class CRUDProveedor extends Conexion {
             return;
         }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_crear_proveedor(?, ?, ?, ?, ?, ?, ?)}")) {
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_registrar_proveedor(?, ?, ?, ?, ?, ?, ?)}")) {
             stmt.setString(1, nombre);
             stmt.setString(2, ruc);
             stmt.setString(3, descripcion);
@@ -99,7 +99,7 @@ public class CRUDProveedor extends Conexion {
         return mensaje;
     }
     
-    public Proveedor mostrarProveedorPorCodigo(Long id) {
+   /* public Proveedor mostrarProveedorPorCodigo(Long id) {
         Connection cnx = getConexion();
         if (cnx == null) {
             Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
@@ -131,7 +131,7 @@ public class CRUDProveedor extends Conexion {
             }
         }
         return null;
-    }
+    }*/
     public List<Proveedor> buscarProveedorPorNombre(String nombre) {
         List<Proveedor> listaProveedores = new ArrayList<>();
         Connection cnx = getConexion();
@@ -147,14 +147,13 @@ public class CRUDProveedor extends Conexion {
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 String nombreProveedor = rs.getString("nombre");
-                String ruc = rs.getString("ruc");
-                String descripcion = rs.getString("descripcion");
+                String ruc = rs.getString("ruc");               
                 String telefono = rs.getString("telefono");
                 String correo = rs.getString("correo");
-                String direccion = rs.getString("direccion");
-                int idEstado = rs.getInt("id_estado");
+                
+                String estado = rs.getString("estado");
 
-                Proveedor proveedor = new Proveedor(id, nombreProveedor, ruc, descripcion, telefono, correo, direccion, idEstado);
+                Proveedor proveedor = new Proveedor(id, nombreProveedor, ruc, telefono, correo, estado);
                 listaProveedores.add(proveedor);
             }
         } catch (SQLException e) {
@@ -180,15 +179,16 @@ public class CRUDProveedor extends Conexion {
             stmt.setLong(1, idProveedor);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                Long id = rs.getLong("id");
                 String nombre = rs.getString("nombre");
                 String ruc = rs.getString("ruc");
-                String descripcion = rs.getString("descripcion");
-                String telefono = rs.getString("telefono");
                 String correo = rs.getString("correo");
-                String direccion = rs.getString("direccion");
-                int idEstado = rs.getInt("id_estado");
+                String telefono = rs.getString("telefono");
+                
+                String estado = rs.getString("estado");
+                
 
-                Proveedor proveedor = new Proveedor(idProveedor, nombre, ruc, descripcion, telefono, correo, direccion, idEstado);
+                Proveedor proveedor = new Proveedor(id, nombre, ruc, telefono, correo, estado);
                 return proveedor;
             }
         } catch (SQLException e) {
@@ -203,37 +203,4 @@ public class CRUDProveedor extends Conexion {
         return null;
     }
     
-    public List<Proveedor> listarProveedores() {
-        List<Proveedor> listaProveedores = new ArrayList<>();
-        Connection cnx = getConexion();
-        if (cnx == null) {
-            Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
-            return listaProveedores;
-        }
-
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_proveedor()}")) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Long id = rs.getLong("id");
-                String nombre = rs.getString("nombre");
-                String ruc = rs.getString("ruc");
-                String correo = rs.getString("correo");
-                String telefono = rs.getString("telefono");
-                String direccion = rs.getString("direccion");
-                String descripcion = rs.getString("descripcion");
-
-                Proveedor proveedor = new Proveedor(id, nombre, ruc, descripcion, telefono, correo, direccion, 0);
-                listaProveedores.add(proveedor);
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "Error al listar proveedores", e);
-        } finally {
-            try {
-                cnx.close();
-            } catch (SQLException e) {
-                Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
-            }
-        }
-        return listaProveedores;
-    }
 }

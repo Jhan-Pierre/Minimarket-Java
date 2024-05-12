@@ -324,19 +324,21 @@ end; //
 -- Procedimientos alamcenados para Proveedor
 -- *****************************************************************************************************************
 delimiter //
+
 create procedure sp_listar_proveedor()
 begin
-    select p.id, p.nombre, p.ruc, p.correo, e.nombre as estado
+    select p.id, p.nombre, p.ruc, p.correo, p.telefono, e.nombre as estado
     from tb_proveedor p
     inner join tb_estado e ON p.estado_id = e.id;
 end //
+
 
 -- call sp_listar_proveedor();
 
 delimiter //
 create procedure sp_buscar_proveedor_por_codigo(in codproveedor int)
 begin
-	select p.id, p.nombre, p.ruc, p.descripcion,p.telefono, p.correo, p.direccion, e.nombre as estado
+	select p.id, p.nombre, p.ruc,p.telefono, p.correo, e.nombre as estado
     from tb_proveedor p
     inner join tb_estado e on p.estado_id = e.id
     where p.id = codproveedor;
@@ -346,11 +348,22 @@ delimiter //
 
 create procedure sp_buscar_proveedor_por_nombre(in nombre_proveedor varchar(80))
 begin
-	select p.id, p.nombre, p.ruc, p.descripcion, p.telefono, p.correo, p.direccion, e.nombre as estado
+	select p.id, p.nombre, p.ruc, p.telefono, p.correo, e.nombre as estado
     from tb_proveedor p
     inner join tb_estado e on p.estado_id = e.id
-    where p.nombre = nombre_proveedor;
+    where p.nombre like concat('%', nombre_proveedor, '%');
 end; //
+
+delimiter //
+
+create procedure sp_eliminar_proveedor(in proveedor_id int)
+begin
+  delete from tb_proveedor where id = proveedor_id;
+
+  SELECT CASE WHEN ROW_COUNT() > 0 THEN 'Proveedor eliminado exitosamente' ELSE 'Proveedor no encontrado' END AS mensaje;
+end;
+
+
 
 
 
