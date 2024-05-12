@@ -20,7 +20,6 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         initComponents();
         
         controlador = new UsuarioControllerCreate();
-        controlador.setVistaUsuarioCrear(this); // Configurar la vista en el controlador
         
         TurnoController turnoController = new TurnoController();
         turnoController.cargarTurnosEnComboBox(cboTurno); 
