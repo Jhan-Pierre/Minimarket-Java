@@ -15,8 +15,7 @@ public class CestaTemporalControllerList {
     
     public DefaultTableModel consultarCestaTemporalPorIdUsuario(Long id) {
         List<CestaTemporal> listaCestaTemporal = this.modelo.consultarCestaTemporalPorIdUsuario(id);
-        System.out.println(listaCestaTemporal);
-        String[] columnNames = {"Producto","Precio Unitario", "Cantidad", "SubTotal"};
+        String[] columnNames = {"Producto","Precio Unitario", "Cantidad", "SubTotal", ELIMINAR};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (CestaTemporal cestaTemporal : listaCestaTemporal) {
@@ -25,10 +24,14 @@ public class CestaTemporalControllerList {
                 cestaTemporal.getPrecio_unitario(),
                 cestaTemporal.getCantidad(),
                 cestaTemporal.getSubtotal(),
-
+                ELIMINAR
             };
             model.addRow(row);
         }
         return model;
+    }
+    
+    public void registrarCestaTemporal(Long id, String codigoBarras){
+        this.modelo.registrarCestaTemporal(id, codigoBarras);
     }
 }

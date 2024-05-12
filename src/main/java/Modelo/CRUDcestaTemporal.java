@@ -45,4 +45,28 @@ public class CRUDcestaTemporal extends Conexion{
         }   
         return listaCestaTemporal;
     }
+    
+    public void registrarCestaTemporal(Long id, String codigoBarras){
+        
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+        
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_registrar_cesta_temporal(?, ?)}")) {
+            stmt.setLong(1, id);
+            stmt.setString(2, codigoBarras);
+            stmt.execute();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al agregar categoría", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        
+    }
+    
 }
