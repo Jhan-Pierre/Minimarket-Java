@@ -91,4 +91,25 @@ public class CRUDcestaTemporal extends Conexion{
         }
     }
     
+    public void eliminarItemCestaTemporal(Long id, String producto){
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_item_cesta_temporal(?, ?)}")) {
+            stmt.setLong(1, id);
+            stmt.setString(2, producto);
+            ResultSet rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al eliminar usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+    }
+    
 }
