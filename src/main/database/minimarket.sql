@@ -356,18 +356,6 @@ end; //
 
 delimiter //
 
-create procedure sp_eliminar_proveedor(in proveedor_id int)
-begin
-  delete from tb_proveedor where id = proveedor_id;
-
-  SELECT CASE WHEN ROW_COUNT() > 0 THEN 'Proveedor eliminado exitosamente' ELSE 'Proveedor no encontrado' END AS mensaje;
-end;
-
-
-
-
-
-
 delimiter //
 create procedure sp_registrar_proveedor(
     in nombre VARCHAR(100),
@@ -458,8 +446,23 @@ begin
 	select * from tb_estado;
 end //
 
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_proveedor(
+    IN p_id BIGINT
+)
+BEGIN
+    DECLARE exit handler for sqlexception
+    BEGIN
+        -- Manejar el error de clave externa
+        SELECT 'El Proveedor no puede ser eliminado debido a que cuenta con registros asociados a su ID' AS mensaje;
+    END;
 
+    -- Eliminar el usuario y manejar cualquier error que ocurra
+    DELETE FROM tb_proveedor WHERE id = p_id;
 
+    SELECT 'Proveedor eliminado exitosamente' AS mensaje;
+END // 
+call sp_eliminar_proveedor '8';
 -- *****************************************************************************************************************
 -- *****************************************************************************************************************
 -- Procedimientos alamcenados para Productos
@@ -598,7 +601,7 @@ begin
 end; //
 
 delimiter //
-create procedure sp_eliminar_producto(
+create procedure sp_eliminarsp_eliminar_usuariosp_eliminar_usuario_producto(
     in p_id int
 )
 begin
