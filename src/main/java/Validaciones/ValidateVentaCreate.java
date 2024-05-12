@@ -1,10 +1,13 @@
 package Validaciones;
 
+import Controlador.CestaTemporal.CestaTemporalControllerList;
 import vista.Venta.PanelVentaCreate;
 
 public class ValidateVentaCreate {
     
-     public static boolean validarCampos(PanelVentaCreate vista) {
+    
+    
+    public static boolean validarCampos(PanelVentaCreate vista) {
         // Limpiar los mensajes de error anteriores
         limpiarMensajesError(vista);
 
@@ -57,11 +60,18 @@ public class ValidateVentaCreate {
 
     public static boolean validarCestaTemporal(PanelVentaCreate vista){
         limpiarMensajesError(vista);
-        
+         
         boolean camposValidos = true;
         if (vista.txtCodigoBarras.getText().isEmpty()) {
             vista.errorCodigoBarras.setText("El codigo de barras es requerido");
             camposValidos = false;
+        }else{
+            CestaTemporalControllerList cestaTemporalController = new CestaTemporalControllerList();
+            boolean existe = cestaTemporalController.existeCodigoBarras(vista.txtCodigoBarras.getText());
+            if(!existe){
+                vista.errorCodigoBarras.setText("El codigo de barras no existe");
+                camposValidos = false;
+            }
         }
         return camposValidos;
     } 
@@ -73,5 +83,6 @@ public class ValidateVentaCreate {
         vista.errorTipoComprobante.setText("");
         vista.errorMetodoPago.setText("");
         vista.errorCodigoBarras.setText("");
+        vista.errorTipoComprobante.setText("");
     }
 }
