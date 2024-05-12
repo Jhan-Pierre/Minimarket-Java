@@ -501,6 +501,17 @@ begin
     select * from tb_categoria_producto;
 end; //
 
+DELIMITER //
+
+CREATE PROCEDURE sp_buscar_categoria_por_nombre(
+    IN nombre_categoria VARCHAR(60)
+)
+BEGIN
+    SELECT * FROM tb_categoria_producto
+    WHERE nombre LIKE CONCAT('%', nombre_categoria, '%');
+END//
+
+
 delimiter //
 create procedure sp_registrar_producto(
     in p_nombre varchar(100),

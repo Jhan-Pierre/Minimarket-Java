@@ -12,7 +12,7 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
-//import vista.Categoria.PanelCategoria;
+import vista.Categoria.PanelCategoria;
 import vista.Venta.PanelVenta;
 
 
@@ -24,7 +24,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioEdit panelUsuarioEdit;
     PanelUsuarioShow panelUsuarioShow;
     
-    //PanelCategoria panelCategoria;
+    PanelCategoria panelCategoria;
     
     PanelProducto panelProducto;
     
@@ -46,7 +46,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelUsuarioShow = new PanelUsuarioShow(this);
         
-        //panelCategoria = new PanelCategoria(this);
+        panelCategoria = new PanelCategoria(this);
         
         panelProducto = new PanelProducto();
         
@@ -65,7 +65,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
-        //agregarPanel(panelCategoria, PANEL_CATEGORIA);
+        agregarPanel(panelCategoria, PANEL_CATEGORIA);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
         agregarPanel(panelVenta, PANEL_VENTA);
     }
@@ -88,6 +88,11 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnVenta.addActionListener(e -> {
             vista.show(PanelPadre, PANEL_VENTA);
         });
+        
+        btnCategoria.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_CATEGORIA); // Muestra el panel de categoría al hacer clic en btnCategoria
+            //panelCategoria.resetPanel();
+    });
         
     }
     
