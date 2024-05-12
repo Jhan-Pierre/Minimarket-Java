@@ -1,31 +1,63 @@
 package vista.Venta;
 
+import Controlador.CestaTemporal.CestaTemporalControllerList;
 import Controlador.MetodoPago.MetodoPagoControllerList;
 import Controlador.TipoComprobante.TipoComprobanteControllerList;
 import Controlador.Venta.VentaControllerCreate;
 import Modelo.MetodoPago;
 import Modelo.TipoComprobante;
+import Utilidades.ButtonColumn;
 import Utilidades.IPanelListener;
+import javax.swing.table.DefaultTableModel;
 
+import Modelo.SesionUsuario;
+import Utilidades.IButtonClickListener;
 
-public class PanelVentaCreate extends javax.swing.JPanel {
+public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClickListener {
     public IPanelListener panelListener;  
     VentaControllerCreate controlador;
+    CestaTemporalControllerList controladorList;
     
     public PanelVentaCreate(IPanelListener panelListener) {
         this.panelListener = panelListener;
         initComponents();
         this.controlador = new VentaControllerCreate();
-        
+        this.controladorList = new CestaTemporalControllerList();
         MetodoPagoControllerList metodoPago = new MetodoPagoControllerList();
         metodoPago.cargarMetodoPagoEnComboBox(cboMetodoPago);
         
         TipoComprobanteControllerList tipoComprobante = new TipoComprobanteControllerList();
         tipoComprobante.cargarTipoCOmprobanteEnComboBox(cboTipoComprobante);
+        
+        buscarUsuarios();
     }
 
-    
+    public void buscarUsuarios() {
+        // Obtener el ID del usuario logueado
+        Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId();
+        System.out.println(idUsuario);
+        // Consultar la cesta temporal por el ID de usuario (con el valor predeterminado si es necesario)
+        DefaultTableModel model = controladorList.consultarCestaTemporalPorIdUsuario(idUsuario);
 
+        // Establecer el modelo en la tabla
+        tbVenta.setModel(model);
+
+        // Agregar una nueva columna de botón a la tabla
+        //new ButtonColumn(tbVenta, 4, this);
+    }
+    
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        String producto =  (String) tbVenta.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case "Eliminar" -> eliminarProductoCestaTemporal(producto);
+        }
+    }
+    
+    private void eliminarProductoCestaTemporal(String producto) {
+        System.out.println(producto);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -160,4 +192,6 @@ public class PanelVentaCreate extends javax.swing.JPanel {
     public javax.swing.JTextField txtIGV;
     public javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+    
 }

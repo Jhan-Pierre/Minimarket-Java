@@ -15,7 +15,7 @@ public class VentaControllerList {
     }
     
     //Funcion para buscar de acuerdo el nombre del usuario que realizo venta
-     public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
+    public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
         List<Venta> listaVentas = this.modelo.buscarVentaPorUsuario(textoBusqueda);
         String[] columnNames = {"ID","Usuario", "fecha_hora", "Impuesto", "Total", "Metodo", "Comprobante", VER_DETALLES, EDITAR, ELIMINAR};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);

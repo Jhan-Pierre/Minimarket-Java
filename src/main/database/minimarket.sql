@@ -244,6 +244,8 @@ BEGIN
     END IF;
 END //
 
+-- call sp_registrar_cesta_temporal(3, '9022345678901')
+
 delimiter //
 create procedure sp_editar_cesta_temporal_cantidad (
 	in p_usuario_id int,
@@ -273,7 +275,7 @@ begin
     inner join tb_producto p on ct.producto_id = p.id
     where ct.usuario_id = p_idusuario;
 end //
-
+-- call sp_consultar_cesta_temporal_usuario(3)
 delimiter //
 create procedure sp_eliminar_item_cesta_temporal(
 	in p_usuario_id int,
