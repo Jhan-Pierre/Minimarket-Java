@@ -323,6 +323,18 @@ begin
     where p.id = codproveedor;
 end; //
 -- call sp_buscar_proveedor_por_codigo('12');
+delimiter //
+
+create procedure sp_buscar_proveedor_por_nombre(in nombre_proveedor varchar(80))
+begin
+	select p.id, p.nombre, p.ruc, p.descripcion, p.telefono, p.correo, p.direccion, e.nombre as estado
+    from tb_proveedor p
+    inner join tb_estado e on p.estado_id = e.id
+    where p.nombre = nombre_proveedor;
+end; //
+
+
+
 
 delimiter //
 create procedure sp_registrar_proveedor(

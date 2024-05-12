@@ -71,7 +71,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
-              <Component id="btnAgregarProveedor" min="-2" pref="128" max="-2" attributes="0"/>
+              <Component id="btnEditarProveedor" min="-2" pref="128" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -134,7 +134,7 @@
                   </Group>
               </Group>
               <EmptySpace pref="11" max="32767" attributes="0"/>
-              <Component id="btnAgregarProveedor" min="-2" max="-2" attributes="0"/>
+              <Component id="btnEditarProveedor" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -164,10 +164,13 @@
         <Property name="text" type="java.lang.String" value="Direccion: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAgregarProveedor">
+    <Component class="javax.swing.JButton" name="btnEditarProveedor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar"/>
+        <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarProveedorActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDireccion">
       <AuxValues>

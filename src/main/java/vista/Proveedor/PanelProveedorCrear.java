@@ -1,9 +1,28 @@
 package vista.Proveedor;
 
-public class PanelProveedorCrear extends javax.swing.JPanel {
+//import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR;
+import Controlador.Estado.EstadoController;
+import Controlador.Proveedor.ProveedorControllerCreate;
+//import Modelo.Estado;
+import Utilidades.IPanelListener;
 
-    public PanelProveedorCrear() {
+
+public class PanelProveedorCrear extends javax.swing.JPanel {
+    private ProveedorControllerCreate controlador;
+    public IPanelListener panelListener;  
+    
+    public PanelProveedorCrear(IPanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
+        
+        controlador = new ProveedorControllerCreate();
+        //controlador.setVistaProveedorCrear(this); // Configurar la vista en el controlador
+        
+        controlador = new ProveedorControllerCreate();
+        //controlador.setVistaProveedorCrear(this); // Configurar la vista en el controlador
+        
+        //EstadoController estadoController = new EstadoController();
+        //estadoController.cargarEstadosEnComboBox(cboEstado);   
     }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +67,11 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
         lblDireccion.setText("Direccion: ");
 
         btnAgregarProveedor.setText("Agregar");
+        btnAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProveedorActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Nuevo Proveedor");
@@ -156,6 +180,55 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRucActionPerformed
 
+    private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
+        // TODO add your handling code here:
+        /*if(validarCampos(this)){
+            
+            String nombre = txtNombre.getText();
+            String ruc = txtRuc.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+            String direccion = txtDireccion.getText();
+            String descripcion = txtDescripcion.getText();
+            
+
+            Estado estadoSeleccionado = (Estado) cboEstado.getSelectedItem();
+            int estadoId = estadoSeleccionado.getId();
+
+
+            // Llamar al método del controlador para crear el proveedor
+            controlador.crearProveedor(nombre, ruc, telefono, correo, direccion, descripcion, estadoId);
+
+
+            panelListener.abrirPanel(PANEL_PROVEEDOR);
+        }*/
+    
+
+    }//GEN-LAST:event_btnAgregarProveedorActionPerformed
+    // Cuando el panel sea visible se resetea el contenido
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
+    }
+    
+    public void resetPanel() {
+        //limpiarMensajesError(this);
+        // Resetea los campos de texto
+        txtNombre.setText("");
+        txtRuc.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtDescripcion.setText("");
+        
+        // Resetea el combobox seleccionando el primer ítem
+        if (cboEstado.getItemCount() > 0) {
+            cboEstado.setSelectedIndex(0);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProveedor;

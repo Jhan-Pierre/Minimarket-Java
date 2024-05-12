@@ -7,6 +7,11 @@ import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
 
+import vista.Proveedor.PanelProveedorShow;
+import vista.Proveedor.PanelProveedorEdit;
+import vista.Proveedor.PanelProveedor;
+import vista.Proveedor.PanelProveedorCrear;
+
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.util.Set;
@@ -25,6 +30,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioCrear panelUsuarioCrear;
     PanelUsuarioEdit panelUsuarioEdit;
     PanelUsuarioShow panelUsuarioShow;
+    
+    PanelProveedor panelProveedor;
     
     PanelCategoria panelCategoria;
     
@@ -56,6 +63,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioEdit = new PanelUsuarioEdit(this);
         panelUsuarioShow = new PanelUsuarioShow(this);
         
+        panelProveedor = new PanelProveedor(this);
+        
         panelCategoria = new PanelCategoria(this);
         
         panelProducto = new PanelProducto();
@@ -81,6 +90,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelVenta, PANEL_VENTA);
         agregarPanel(panelventaCreate, PANEL_VENTA_CREAR);
         agregarPanel(panelPedido, PANEL_PEDIDO);
+        
+        agregarPanel(panelProveedor, PANEL_PROVEEDOR);
     }
 
     private void configurarListeners() {
@@ -111,6 +122,12 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             vista.show(PanelPadre, PANEL_PEDIDO); // Muestra el panel de categoría al hacer clic en btnCategoria
             //panelCategoria.resetPanel();
         });
+        
+        btnProveedor.addActionListener(e -> {
+            vista.show(PanelPadre, PANEL_PROVEEDOR); // Muestra el panel de categoría al hacer clic en btnCategoria
+            //panelCategoria.resetPanel();
+        });
+        
         
     }
     
@@ -207,6 +224,11 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnProveedor.setBorder(null);
         btnProveedor.setBorderPainted(false);
         btnProveedor.setFocusPainted(false);
+        btnProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProveedorActionPerformed(evt);
+            }
+        });
 
         btnVenta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVenta.setForeground(new java.awt.Color(255, 153, 0));
@@ -388,6 +410,10 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         int y = evt.getYOnScreen();
         setLocation(x - mouseX, y - mouseY);
     }//GEN-LAST:event_jPanel3MouseDragged
+
+    private void btnProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProveedorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelControles;
