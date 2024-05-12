@@ -39,4 +39,8 @@ public class CestaTemporalControllerList {
         this.modelo.eliminarCestaTemporalUsuario(id);
     }
     
+    public void eliminarItemCestaTemporal(Long id, String producto){
+        this.modelo.eliminarItemCestaTemporal(id, producto);
+    }
+    
 }

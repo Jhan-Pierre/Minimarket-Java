@@ -60,7 +60,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     }
     
     private void eliminarProductoCestaTemporal(String producto) {
-        System.out.println(producto);
+        eliminarItemCestaTemporal(producto);
     }
     
     private void registrarCestaTemporal(){
@@ -103,6 +103,11 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     
     private void eliminarCestaTemporalUsuario(){
         this.controladorList.eliminarCestaTemporalUsuario(this.idUsuario);
+        resetPanel();
+    }
+    
+    private void eliminarItemCestaTemporal(String producto){
+        this.controladorList.eliminarItemCestaTemporal(idUsuario, producto);
         resetPanel();
     }
     
