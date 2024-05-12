@@ -9,7 +9,7 @@ public class CategoriaControllerDelete {
         this.categoriaModelo = new CRUDCategoria();
     }
     
-    public String eliminarCategoria(int idCategoria) {
-        return categoriaModelo.eliminarCategoria(idCategoria);
+    public String eliminarCategoria(Long id) {
+        return categoriaModelo.eliminarCategoria(id);
     }  
 }
