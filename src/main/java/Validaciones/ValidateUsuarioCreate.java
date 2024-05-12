@@ -1,7 +1,6 @@
 package Validaciones;
 
 import vista.Usuario.PanelUsuarioCrear;
-import javax.swing.JLabel;
 
 public class ValidateUsuarioCreate {
     public static boolean validarCampos(PanelUsuarioCrear vista) {
@@ -9,7 +8,7 @@ public class ValidateUsuarioCreate {
         limpiarMensajesError(vista);
 
         boolean camposValidos = true;
-
+    
         // Verificar campo de correo
         if (vista.txtCorreo.getText().isEmpty()) {
             vista.errorCorreo.setText("El correo es requerido");
