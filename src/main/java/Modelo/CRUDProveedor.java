@@ -202,4 +202,38 @@ public class CRUDProveedor extends Conexion {
         }
         return null;
     }
+    
+    public List<Proveedor> listarProveedores() {
+        List<Proveedor> listaProveedores = new ArrayList<>();
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return listaProveedores;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_proveedor()}")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String nombre = rs.getString("nombre");
+                String ruc = rs.getString("ruc");
+                String correo = rs.getString("correo");
+                String telefono = rs.getString("telefono");
+                String direccion = rs.getString("direccion");
+                String descripcion = rs.getString("descripcion");
+
+                Proveedor proveedor = new Proveedor(id, nombre, ruc, descripcion, telefono, correo, direccion, 0);
+                listaProveedores.add(proveedor);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "Error al listar proveedores", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return listaProveedores;
+    }
 }

@@ -3,13 +3,13 @@ package Controlador.Proveedor;
 import Modelo.CRUDProveedor;
 
 public class ProveedorControllerDelete {
-    private final CRUDProveedor usuarioModelo;
+    private final CRUDProveedor proveedorModelo;
     
     public ProveedorControllerDelete(){
-        this.usuarioModelo = new CRUDProveedor();
+        this.proveedorModelo = new CRUDProveedor();
     }
     
-    public String eliminarUsuario(Long id) {
-        return usuarioModelo.eliminarProveedor(id);
+    public String eliminarProveedor(Long id) {
+        return proveedorModelo.eliminarProveedor(id);
     }  
 }
