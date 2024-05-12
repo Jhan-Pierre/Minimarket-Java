@@ -22,4 +22,9 @@ public class ConstantesPaneles {
     public static final String PANEL_PRODUCTO_EDITAR = "ProductoEditar";
     public static final String PANEL_PRODUCTO_SHOW = "ProductoMostrar";
     
+    public static final String PANEL_PROVEEDOR = "Proveedor";
+    public static final String PANEL_PROVEEDOR_CREAR = "ProveedorCrear";
+    public static final String PANEL_PROVEEDOR_EDITAR = "ProveedorEditar";
+    public static final String PANEL_PROVEEDOR_SHOW = "ProveedorMostrar";
+    
 }
