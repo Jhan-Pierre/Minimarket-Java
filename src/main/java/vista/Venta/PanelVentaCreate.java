@@ -17,6 +17,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     public IPanelListener panelListener;  
     VentaControllerCreate controlador;
     CestaTemporalControllerList controladorList;
+    private Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId(); // Obtener el ID del usuario logueado
     
     public PanelVentaCreate(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -33,22 +34,20 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     }
 
     public void buscarUsuarios() {
-        // Obtener el ID del usuario logueado
-        Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId();
-        System.out.println(idUsuario);
+        //System.out.println(idUsuario);
         // Consultar la cesta temporal por el ID de usuario (con el valor predeterminado si es necesario)
-        DefaultTableModel model = controladorList.consultarCestaTemporalPorIdUsuario(idUsuario);
+        DefaultTableModel model = controladorList.consultarCestaTemporalPorIdUsuario(this.idUsuario);
 
         // Establecer el modelo en la tabla
         tbVenta.setModel(model);
 
         // Agregar una nueva columna de botón a la tabla
-        //new ButtonColumn(tbVenta, 4, this);
+        new ButtonColumn(tbVenta, 4, this);  
     }
     
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
-        String producto =  (String) tbVenta.getModel().getValueAt(row, 0);
+        String producto =  (String) tbVenta.getModel().getValueAt(row, 0); //Cuando se pulse el boton, recupera la inforamcion de la columna 0, de la fila donde si de click
         switch (buttonText) {
             case "Eliminar" -> eliminarProductoCestaTemporal(producto);
         }
@@ -56,6 +55,12 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     
     private void eliminarProductoCestaTemporal(String producto) {
         System.out.println(producto);
+    }
+    
+    private void registrarCestaTemporal(){
+        controladorList.registrarCestaTemporal(idUsuario, txtCodigoBarras.getText());
+        txtCodigoBarras.setText("");
+        buscarUsuarios();
     }
     
     @SuppressWarnings("unchecked")
@@ -74,6 +79,9 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         cboTipoComprobante = new javax.swing.JComboBox<>();
         lblRol = new javax.swing.JLabel();
         errorEstado = new javax.swing.JLabel();
+        txtCodigoBarras = new javax.swing.JTextField();
+        btnAgregarProducto = new javax.swing.JButton();
+        btnRegistrarVenta = new javax.swing.JButton();
 
         tbVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,33 +117,56 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         errorEstado.setForeground(new java.awt.Color(255, 51, 51));
         errorEstado.setInheritsPopupMenu(false);
 
+        btnAgregarProducto.setText("Agregar");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
+
+        btnRegistrarVenta.setText("Registrar");
+        btnRegistrarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarVentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAgregarProducto)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtIGV, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNombre))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblApellido)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(15, 15, 15))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cboMetodoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblEstado))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblRol)
+                                .addComponent(cboTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIGV, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNombre))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblApellido)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboMetodoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEstado))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRol)
-                            .addComponent(cboTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnRegistrarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(291, 291, 291)
@@ -147,11 +178,13 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
-                    .addComponent(lblApellido))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblApellido)
+                    .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarProducto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -165,8 +198,10 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboTipoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboMetodoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(256, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(42, 42, 42)
+                        .addComponent(btnRegistrarVenta)
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(265, 265, 265)
@@ -177,8 +212,18 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarVentaActionPerformed
+
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        registrarCestaTemporal();
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnRegistrarVenta;
     public javax.swing.JComboBox<MetodoPago> cboMetodoPago;
     public javax.swing.JComboBox<TipoComprobante> cboTipoComprobante;
     public javax.swing.JLabel errorEstado;
@@ -189,6 +234,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRol;
     public javax.swing.JTable tbVenta;
+    private javax.swing.JTextField txtCodigoBarras;
     public javax.swing.JTextField txtIGV;
     public javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables

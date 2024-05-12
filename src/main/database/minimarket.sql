@@ -212,7 +212,7 @@ end; //
 -- ##################################################################################################
 DELIMITER //
 CREATE PROCEDURE sp_registrar_cesta_temporal(
-    IN p_usuario_id INT,
+    IN p_usuario_id bigint,
     IN p_codigobarras VARCHAR(50)
 )
 BEGIN
