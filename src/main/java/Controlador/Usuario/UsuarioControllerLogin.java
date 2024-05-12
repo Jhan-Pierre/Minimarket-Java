@@ -40,6 +40,9 @@ public class UsuarioControllerLogin {
             FrmDashboard frmDashboard = new FrmDashboard();
             frmDashboard.lblUsuario.setText(usuarioLogeado.getNombre());
             frmDashboard.setVisible(true);
+            
+            // Cerrar la ventana de login
+            vistaLogin.dispose();
         } else {
             vistaLogin.lblErrorLogin.setText(resultado);
         }
