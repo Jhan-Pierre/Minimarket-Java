@@ -2,20 +2,22 @@ package Modelo;
 
 import Utilidades.Identificable;
 
-public class Estado implements Identificable {
+public class TipoComprobante implements Identificable {
     private int id;
     private String nombre;
 
-    public Estado() {}
-
-    public Estado(int id, String nombre) {
+    public TipoComprobante(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
-    
+
     @Override
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {

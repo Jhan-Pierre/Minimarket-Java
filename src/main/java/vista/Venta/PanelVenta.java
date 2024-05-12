@@ -1,5 +1,6 @@
 package vista.Venta;
 
+import static Constantes.ConstantesPaneles.PANEL_VENTA_CREAR;
 import Controlador.Venta.VentaControllerList;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
@@ -76,6 +77,10 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
         }
     }
     
+    private void abrirPanelUsuarioCrear() {
+        this.panelListener.abrirPanel(PANEL_VENTA_CREAR);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -142,7 +147,7 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVentaActionPerformed
-        //abrirPanelUsuarioCrear();
+        abrirPanelUsuarioCrear();
     }//GEN-LAST:event_btnAgregarVentaActionPerformed
 
 
