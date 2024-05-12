@@ -280,6 +280,16 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         getContentPane().add(PanelPadre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 900, 490));
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel3MouseDragged(evt);
+            }
+        });
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel3MousePressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -343,6 +353,17 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         int y = evt.getYOnScreen();
         setLocation(x - mouseX, y - mouseY);
     }//GEN-LAST:event_jLabel1MouseDragged
+
+    private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_jPanel3MousePressed
+
+    private void jPanel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        setLocation(x - mouseX, y - mouseY);
+    }//GEN-LAST:event_jPanel3MouseDragged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelControles;
