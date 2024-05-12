@@ -72,7 +72,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         buscarUsuarios(); //busca los usuarios
         calcularTotal(); //calcula el total de los registros en la tbVenta
         
-        //Limpiar los controles del panel
+        ValidateVentaCreate.limpiarMensajesError(this);
         txtCodigoBarras.setText("");  
         if (cboMetodoPago.getItemCount() > 0) {
             cboMetodoPago.setSelectedIndex(0);
@@ -117,6 +117,14 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     private void eliminarItemCestaTemporal(String producto){
         this.controladorList.eliminarItemCestaTemporal(idUsuario, producto);
         resetPanel();
+    }
+    
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
     }
     
     @SuppressWarnings("unchecked")

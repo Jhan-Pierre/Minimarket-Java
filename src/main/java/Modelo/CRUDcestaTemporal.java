@@ -112,4 +112,31 @@ public class CRUDcestaTemporal extends Conexion{
         }
     }
     
+    public boolean existeCodigoBarras(String codigoBarras){
+        boolean valido = false;
+        
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+        try (CallableStatement cs = cnx.prepareCall("{CALL sp_exite_codigo_barras(?, ?)}")) {
+            cs.setString(1, codigoBarras);
+            cs.registerOutParameter(2, java.sql.Types.BOOLEAN);
+            cs.execute();
+
+            valido = cs.getBoolean(2); //obtener resultado
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al ejecutar el procedimiento almacenado.", ex);
+        } finally {
+            // Cerrar la conexión
+            try {
+                cnx.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar la conexión.", ex);
+            }
+        }
+        
+        return valido;
+    }
+    
 }
