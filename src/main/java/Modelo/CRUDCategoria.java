@@ -117,7 +117,7 @@ public class CRUDCategoria extends Conexion {
         }
     }
 
-    public String eliminarCategoria(int idCategoria) {
+        public String eliminarCategoria(int idCategoria) {
         Connection cnx = getConexion();
         if (cnx == null) {
             return "No se pudo establecer conexión con la base de datos.";
