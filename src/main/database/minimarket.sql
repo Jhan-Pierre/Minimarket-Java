@@ -210,9 +210,28 @@ end; //
 -- ##################################################################################################
 -- Zona experimental
 -- ##################################################################################################
+delimiter //
+create procedure sp_exite_codigo_barras(
+	in p_codigo_barras varchar(50),
+	out p_valido boolean
+)
+begin 
+	declare contador int;
+    
+    -- Verificar si el código de barras existe en la tabla 'products'
+    SELECT COUNT(*) INTO contador FROM tb_producto WHERE codigoBarras = p_codigo_barras;
+
+    -- Si el contador es mayor que 0, el código de barras es válido
+    IF contador > 0 THEN
+        SET p_valido = TRUE;
+    ELSE
+        SET p_valido = FALSE;
+    END IF;
+end; //
+
 DELIMITER //
 CREATE PROCEDURE sp_registrar_cesta_temporal(
-    IN p_usuario_id INT,
+    IN p_usuario_id bigint,
     IN p_codigobarras VARCHAR(50)
 )
 BEGIN
@@ -244,6 +263,8 @@ BEGIN
     END IF;
 END //
 
+-- call sp_registrar_cesta_temporal(3, '9022345678901')
+
 delimiter //
 create procedure sp_editar_cesta_temporal_cantidad (
 	in p_usuario_id int,
@@ -273,7 +294,7 @@ begin
     inner join tb_producto p on ct.producto_id = p.id
     where ct.usuario_id = p_idusuario;
 end //
-
+-- call sp_consultar_cesta_temporal_usuario(3)
 delimiter //
 create procedure sp_eliminar_item_cesta_temporal(
 	in p_usuario_id int,
@@ -303,24 +324,49 @@ end; //
 -- Procedimientos alamcenados para Proveedor
 -- *****************************************************************************************************************
 delimiter //
+
 create procedure sp_listar_proveedor()
 begin
-    select p.id, p.nombre, p.ruc, p.correo, e.nombre as estado
+    select p.id, p.nombre, p.ruc, p.correo, p.telefono, e.nombre as estado
     from tb_proveedor p
     inner join tb_estado e ON p.estado_id = e.id;
 end //
+
 
 -- call sp_listar_proveedor();
 
 delimiter //
 create procedure sp_buscar_proveedor_por_codigo(in codproveedor int)
 begin
-	select p.id, p.nombre, p.ruc, p.descripcion,p.telefono, p.correo, p.direccion, e.nombre as estado
+	select p.id, p.nombre, p.ruc,p.telefono, p.correo, e.nombre as estado
     from tb_proveedor p
     inner join tb_estado e on p.estado_id = e.id
     where p.id = codproveedor;
 end; //
 -- call sp_buscar_proveedor_por_codigo('12');
+delimiter //
+
+create procedure sp_buscar_proveedor_por_nombre(in nombre_proveedor varchar(80))
+begin
+	select p.id, p.nombre, p.ruc, p.telefono, p.correo, e.nombre as estado
+    from tb_proveedor p
+    inner join tb_estado e on p.estado_id = e.id
+    where p.nombre like concat('%', nombre_proveedor, '%');
+end; //
+
+delimiter //
+
+create procedure sp_eliminar_proveedor(in proveedor_id int)
+begin
+  delete from tb_proveedor where id = proveedor_id;
+
+  SELECT CASE WHEN ROW_COUNT() > 0 THEN 'Proveedor eliminado exitosamente' ELSE 'Proveedor no encontrado' END AS mensaje;
+end;
+
+
+
+
+
 
 delimiter //
 create procedure sp_registrar_proveedor(

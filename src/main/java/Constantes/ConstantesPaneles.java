@@ -7,7 +7,7 @@ public class ConstantesPaneles {
     public static final String PANEL_USUARIO_CREAR = "UsuarioCrear";
     public static final String PANEL_USUARIO_EDITAR = "UsuarioEditar";
     public static final String PANEL_USUARIO_SHOW = "UsuarioMostrar";
-    public static final String PANEL_PRODUCTO = "Producto";
+    public static final String PANEL_PEDIDO = "Pedido";
     
     public static final String PANEL_VENTA = "Venta";
     public static final String PANEL_VENTA_CREAR = "VentaCrear";
@@ -16,4 +16,15 @@ public class ConstantesPaneles {
     public static final String PANEL_CATEGORIA_CREAR = "CategoriaCrear";
     public static final String PANEL_CATEGORIA_EDITAR = "CategoriaEditar";
     public static final String PANEL_CATEGORIA_SHOW = "CategoriaMostrar";
+    
+    public static final String PANEL_PRODUCTO = "Producto";
+    public static final String PANEL_PRODUCTO_CREAR = "ProductoCrear";
+    public static final String PANEL_PRODUCTO_EDITAR = "ProductoEditar";
+    public static final String PANEL_PRODUCTO_SHOW = "ProductoMostrar";
+    
+    public static final String PANEL_PROVEEDOR = "Proveedor";
+    public static final String PANEL_PROVEEDOR_CREAR = "ProveedorCrear";
+    public static final String PANEL_PROVEEDOR_EDITAR = "ProveedorEditar";
+    public static final String PANEL_PROVEEDOR_SHOW = "ProveedorMostrar";
+    
 }

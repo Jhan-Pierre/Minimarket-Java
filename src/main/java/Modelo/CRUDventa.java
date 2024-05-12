@@ -1,6 +1,5 @@
 package Modelo;
 
-import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -30,8 +29,8 @@ public class CRUDventa extends Conexion {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 Date fecha_hora = rs.getDate("fecha_hora");
-                BigDecimal impuesto = rs.getBigDecimal("impuesto");
-                BigDecimal total = rs.getBigDecimal("total");
+                Double impuesto = rs.getDouble("impuesto");
+                Double total = rs.getDouble("total");
                 String tipo_comprobante = rs.getString("comprobante");
                 String metodo_pago = rs.getString("metodo_pago");
                 String usuario = rs.getString("usuario");
@@ -50,6 +49,31 @@ public class CRUDventa extends Conexion {
         }
         
         return listaVenta;
+    }
+    
+    public void registrarVenta(Double impuesto, Double total, int comprobante_id, int metodo_pago_id, Long usuario_id){
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDventa.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+        
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_registrar_venta(?, ?, ?, ?, ?)}")) {
+            stmt.setDouble(1, impuesto);
+            stmt.setDouble(2, total);
+            stmt.setInt(3, comprobante_id);
+            stmt.setInt(4, metodo_pago_id);
+            stmt.setLong(5, usuario_id);
+            
+            stmt.execute();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al crear usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
     }
     
 }
