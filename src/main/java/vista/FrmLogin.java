@@ -6,6 +6,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private UsuarioControllerLogin controladorLogin;
     
+    private int mouseX;
+    private int mouseY;
+    
     public FrmLogin() {
         initComponents();
         java.net.URL url = getClass().getResource("/img/logo.png");
@@ -43,6 +46,16 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(475, 480));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,6 +187,17 @@ public class FrmLogin extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        setLocation(x - mouseX, y - mouseY);
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnIngresar;
