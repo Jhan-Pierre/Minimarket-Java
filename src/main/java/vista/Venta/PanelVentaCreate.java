@@ -1,5 +1,6 @@
 package vista.Venta;
 
+import static Constantes.ConstantesPaneles.PANEL_VENTA;
 import Controlador.CestaTemporal.CestaTemporalControllerList;
 import Controlador.MetodoPago.MetodoPagoControllerList;
 import Controlador.TipoComprobante.TipoComprobanteControllerList;
@@ -12,12 +13,16 @@ import javax.swing.table.DefaultTableModel;
 
 import Modelo.SesionUsuario;
 import Utilidades.IButtonClickListener;
+import java.math.BigDecimal;
+import javax.swing.table.TableModel;
 
 public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClickListener {
     public IPanelListener panelListener;  
     VentaControllerCreate controlador;
     CestaTemporalControllerList controladorList;
-    private Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId(); // Obtener el ID del usuario logueado
+    private final Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId(); // Obtener el ID del usuario logueado
+    
+    private final Double igv = 18.0;
     
     public PanelVentaCreate(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -30,6 +35,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         TipoComprobanteControllerList tipoComprobante = new TipoComprobanteControllerList();
         tipoComprobante.cargarTipoCOmprobanteEnComboBox(cboTipoComprobante);
         
+        txtIGV.setText(String.valueOf(igv));
         buscarUsuarios();
     }
 
@@ -59,9 +65,38 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     
     private void registrarCestaTemporal(){
         controladorList.registrarCestaTemporal(idUsuario, txtCodigoBarras.getText());
-        txtCodigoBarras.setText("");
+        calcularTotal();
+        txtCodigoBarras.setText(""); 
         buscarUsuarios();
     }
+    
+    private void calcularTotal() {
+        double total = 0.0;
+        TableModel model = tbVenta.getModel();
+        int rowCount = model.getRowCount();
+        if (rowCount > 0) {
+            for (int i = 0; i < rowCount; i++) {
+                double subtotal = Double.parseDouble(model.getValueAt(i, 3).toString()); // Obtener el subtotal de la fila
+                total += subtotal;
+            }
+        }
+        txtTotal.setText(String.valueOf(total));
+    }
+    private void registrarVenta(){
+        
+        Double igvget = Double.valueOf(txtIGV.getText());
+        Double total = Double.valueOf(txtTotal.getText());
+        
+        TipoComprobante tipoComprobanteSelecionado = (TipoComprobante) cboTipoComprobante.getSelectedItem();
+        int tipoComprobanteId = tipoComprobanteSelecionado.getId();
+        
+        MetodoPago metodoPagoSelecionado = (MetodoPago) cboMetodoPago.getSelectedItem();
+        int metodoPagoId = metodoPagoSelecionado.getId();
+        
+        this.controlador.registrarVenta(igvget, total, tipoComprobanteId, metodoPagoId, this.idUsuario);
+        panelListener.abrirPanel(PANEL_VENTA);
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -213,7 +248,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
-        // TODO add your handling code here:
+        registrarVenta();
     }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
@@ -235,9 +270,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     private javax.swing.JLabel lblRol;
     public javax.swing.JTable tbVenta;
     private javax.swing.JTextField txtCodigoBarras;
-    public javax.swing.JTextField txtIGV;
+    private javax.swing.JTextField txtIGV;
     public javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
-
-    
 }

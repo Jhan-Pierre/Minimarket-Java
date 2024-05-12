@@ -1,13 +1,12 @@
 package Modelo;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class Venta {
     private int id;
     private Date fecha_hora;
-    private BigDecimal impuesto; 
-    private BigDecimal total;
+    private Double impuesto; 
+    private Double total;
     private int tipo_comprobante_id;
     private int metodo_pago_id;
     private Long usuario_id;
@@ -20,7 +19,8 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(int id, Date fecha_hora, BigDecimal impuesto, BigDecimal total, String comprobante, String metodo_pago, String usuario) {
+    //Para obtener el listado de las ventas
+    public Venta(int id, Date fecha_hora, Double impuesto, Double total, String comprobante, String metodo_pago, String usuario) {
         this.id = id;
         this.fecha_hora = fecha_hora;
         this.impuesto = impuesto;
@@ -48,19 +48,19 @@ public class Venta {
         this.fecha_hora = fecha_hora;
     }
 
-    public BigDecimal getImpuesto() {
+    public Double getImpuesto() {
         return impuesto;
     }
 
-    public void setImpuesto(BigDecimal impuesto) {
+    public void setImpuesto(Double impuesto) {
         this.impuesto = impuesto;
     }
 
-    public BigDecimal getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
