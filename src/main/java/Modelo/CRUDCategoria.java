@@ -117,25 +117,25 @@ public class CRUDCategoria extends Conexion {
         }
     }
 
-        public String eliminarCategoria(Long idCategoria) {
-        Connection cnx = getConexion();
-        if (cnx == null) {
-            return "No se pudo establecer conexión con la base de datos.";
-        }
+            public String eliminarCategoria(Long idCategoria) {
+            Connection cnx = getConexion();
+            if (cnx == null) {
+                return "No se pudo establecer conexión con la base de datos.";
+            }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_categoria(?)}")) {
-           // stmt.setInt(1, idCategoria);
+            try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_categoria(?)}")) {
+                stmt.setLong(1, idCategoria);
 
-            stmt.execute();
-            return "Categoría eliminada correctamente.";
-        } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al eliminar categoría", e);
-            return "Error: " + e.getMessage();
-        } finally {
-            try {
-                cnx.close();
+                stmt.execute();
+                return "Categoría eliminada correctamente.";
             } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al eliminar categoría", e);
+                return "Error: " + e.getMessage();
+            } finally {
+                try {
+                    cnx.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
             }
         }
     }
