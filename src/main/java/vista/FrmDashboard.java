@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import Utilidades.IPanelListener;
 //import vista.Categoria.PanelCategoria;
 import vista.Venta.PanelVenta;
+import vista.Venta.PanelVentaCreate;
 
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
@@ -29,6 +30,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelProducto panelProducto;
     
     PanelVenta panelVenta;
+    PanelVentaCreate panelventaCreate;
     
     public static CardLayout vista;
 
@@ -51,7 +53,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelProducto = new PanelProducto();
         
         panelVenta = new PanelVenta(this);
-        
+        panelventaCreate = new PanelVentaCreate(this);
         inicializarPaneles();
     }
     
@@ -68,6 +70,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         //agregarPanel(panelCategoria, PANEL_CATEGORIA);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
         agregarPanel(panelVenta, PANEL_VENTA);
+        agregarPanel(panelventaCreate, PANEL_VENTA_CREAR);
     }
 
     private void configurarListeners() {

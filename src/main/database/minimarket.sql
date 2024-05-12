@@ -583,13 +583,13 @@ end //
 delimiter //
 create procedure sp_listar_tipo_comprobante()
 begin
-	select * from tb_tipo_comprobante;
+	select id, comprobante from tb_tipo_comprobante;
 end //
 
 delimiter //
 create procedure sp_listar_metodo_pago()
 begin
-	select * from tb_metodo_pago;
+	select id, metodo_pago from tb_metodo_pago;
 end //
 
 
