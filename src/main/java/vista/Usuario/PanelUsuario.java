@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelUsuario extends javax.swing.JPanel implements IButtonClickListener {
     private UsuarioControllerList controlador;
-    public IPanelListener panelListener;
+    public final IPanelListener panelListener;
     private UsuarioControllerDelete ctrDelete;
     
     public PanelUsuario(IPanelListener panelListener) {
