@@ -1,15 +1,15 @@
 package Controlador.Categoria;
 
 import Modelo.CategoriaProducto;
-import Modelo.CRUDCategoriaProducto;
+import Modelo.CRUDCategoria;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class CategoriaProductoControllerList {
-    private final CRUDCategoriaProducto categoriaModelo;
+public class CategoriaControllerList {
+    private final CRUDCategoria categoriaModelo;
 
-    public CategoriaProductoControllerList() {
-        this.categoriaModelo = new CRUDCategoriaProducto();
+    public CategoriaControllerList() {
+        this.categoriaModelo = new CRUDCategoria();
     }
 
     public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {

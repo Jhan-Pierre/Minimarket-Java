@@ -15,6 +15,7 @@ import Utilidades.IPanelListener;
 import vista.Categoria.PanelCategoria;
 import vista.Venta.PanelVenta;
 
+
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
     // Declaración de tus paneles
     PanelDashboard panelDashboard;
@@ -87,6 +88,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         btnVenta.addActionListener(e -> {
             vista.show(PanelPadre, PANEL_VENTA);
         });
+        
     }
     
     @Override
