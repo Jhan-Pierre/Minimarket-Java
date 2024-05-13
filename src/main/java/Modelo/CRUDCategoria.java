@@ -22,7 +22,7 @@ public class CRUDCategoria extends Conexion {
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_categoria_producto()}")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                long id = rs.getLong("id");
+                int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
 
                 CategoriaProducto categoria = new CategoriaProducto(id, nombre);
@@ -52,7 +52,7 @@ public class CRUDCategoria extends Conexion {
             stmt.setString(1, textoBusqueda);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                long id = rs.getLong("id");
+                int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
 
                 CategoriaProducto categoria = new CategoriaProducto(id, nombre);
@@ -79,11 +79,11 @@ public class CRUDCategoria extends Conexion {
         }
 
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_buscar_categoria_por_id(?)}")) {
-            stmt.setLong(1, id);
+            stmt.setInt(1, (int) id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String nombre = rs.getString("nombre");
-                categoria = new CategoriaProducto(id, nombre);
+                categoria = new CategoriaProducto((int) id, nombre);
             }
         } catch (SQLException e) {
             Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al buscar categoría por ID", e);
@@ -108,7 +108,7 @@ public class CRUDCategoria extends Conexion {
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                long categoriaId = rs.getLong("id");
+                int categoriaId = rs.getInt("id");
                 String nombre = rs.getString("nombre");
 
                 return new CategoriaProducto(categoriaId, nombre);
