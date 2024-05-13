@@ -55,10 +55,10 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
     
     /*private Estado obtenerEstadoPorId(int estadoId) {
         return obtenerPorId(cboEstado, estadoId);
-    }*/
+    }
 
     // Obtener el Id de caulquier objeto
-    /*private <T extends Identificable> T obtenerPorId(JComboBox<T> comboBox, int id) {
+    private <T extends Identificable> T obtenerPorId(JComboBox<T> comboBox, int id) {
         for (int i = 0; i < comboBox.getItemCount(); i++) {
             T item = comboBox.getItemAt(i);
             if (item.getId() == id) {

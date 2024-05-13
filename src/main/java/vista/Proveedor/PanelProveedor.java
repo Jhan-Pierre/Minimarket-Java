@@ -1,10 +1,12 @@
 package vista.Proveedor;
 
+import static Constantes.ConstantesNombreBotonesTablas.*;
 import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR_EDITAR;
 import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR_SHOW;
 import Controlador.Proveedor.ProveedorControllerDelete;
 import Controlador.Proveedor.ProveedorControllerList;
+import Utilidades.ButtonColumn;
 
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
@@ -15,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelProveedor extends javax.swing.JPanel implements IButtonClickListener {
     private ProveedorControllerList controlador;
-    private IPanelListener panelListener;
+    private final IPanelListener panelListener;
     private ProveedorControllerDelete ctrDelete;
     
     public PanelProveedor(IPanelListener panelListener) {
@@ -35,6 +37,9 @@ public class PanelProveedor extends javax.swing.JPanel implements IButtonClickLi
     public void buscarProveedores(String texto) {
         DefaultTableModel model = controlador.obtenerModeloTabla(texto);
         tbProveedor.setModel(model);
+        new ButtonColumn(tbProveedor, 6, this);
+        new ButtonColumn(tbProveedor, 7, this);
+        new ButtonColumn(tbProveedor, 8, this);
 
     }
     
@@ -42,9 +47,9 @@ public class PanelProveedor extends javax.swing.JPanel implements IButtonClickLi
     public void buttonClicked(int row, int column, String buttonText) {
         Long id = (Long) tbProveedor.getModel().getValueAt(row, 0);
         switch (buttonText) {
-            case "Ver detalles" -> abrirDetallesProveedor(id);
-            case "Editar" -> abrirEditarProveedor(id);
-            case "Eliminar" -> eliminarProveedor(id);
+            case VER_DETALLES -> abrirDetallesProveedor(id);
+            case EDITAR -> abrirEditarProveedor(id);
+            case ELIMINAR -> eliminarProveedor(id);
         }
     }
     

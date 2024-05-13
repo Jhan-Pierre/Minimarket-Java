@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package vista.Proveedor;
+package vista.Categoria;
 
 /**
  *
- * @author jean carlos
+ * @author User
  */
-public class PanelProveedorShow extends javax.swing.JPanel {
+public class PanelCategoriaShow extends javax.swing.JPanel {
 
     /**
-     * Creates new form PanelProveedorShow
+     * Creates new form PanelCategoriaShow
      */
-    public PanelProveedorShow() {
+    public PanelCategoriaShow() {
         initComponents();
     }
 
