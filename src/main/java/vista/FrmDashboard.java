@@ -3,6 +3,7 @@ package vista;
 import vista.Usuario.PanelUsuarioShow;
 import vista.Usuario.PanelUsuarioEdit;
 import vista.Usuario.PanelUsuario;
+import vista.Producto.PanelProducto;
 import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
@@ -95,7 +96,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
 
         btnProducto.addActionListener(e -> {
             vista.show(PanelPadre, PANEL_PRODUCTO);
-            panelProducto.resetPanel(); // Restablece el panel Producto
+            //panelProducto.resetPanel(); // Restablece el panel Producto
         });
     
         btnVenta.addActionListener(e -> {

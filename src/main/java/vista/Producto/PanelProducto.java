@@ -1,14 +1,54 @@
-
 package vista.Producto;
 
-public class PanelProducto extends javax.swing.JPanel {
+import Controlador.Producto.ProductoControllerList;
+import Controlador.Usuario.UsuarioControllerDelete;
+import Controlador.Usuario.UsuarioControllerList;
+import Utilidades.ButtonColumn;
+import Utilidades.IButtonClickListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.table.DefaultTableModel;
 
+
+public class PanelProducto extends javax.swing.JPanel implements IButtonClickListener {
+    private ProductoControllerList controlador;
     
     public PanelProducto() {
         initComponents();
+        inicializar();
+
+        
+        //Hacer una busque cada vez que se escribe en txt buscar
+        txtBuscarProducto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                buscarProducto(txtBuscarProducto.getText());
+            }
+        });
     }
+    
+    public void buscarProducto(String texto) {
+        DefaultTableModel model = controlador.obtenerModeloTabla(texto);
+        tbProducto.setModel(model);
+        new ButtonColumn(tbProducto, 6, this);
+        new ButtonColumn(tbProducto, 7, this);
+        new ButtonColumn(tbProducto, 8, this);
+
+    }
+    
 
   
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        
+    }
+    
+    private void inicializar() {
+        controlador = new ProductoControllerList();
+        buscarProducto("");
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,4 +156,5 @@ public class PanelProducto extends javax.swing.JPanel {
     public javax.swing.JTable tbProducto;
     private javax.swing.JTextField txtBuscarProducto;
     // End of variables declaration//GEN-END:variables
+
 }
