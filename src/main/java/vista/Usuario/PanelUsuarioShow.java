@@ -1,5 +1,6 @@
 package vista.Usuario;
 
+import Constantes.ConstantesPaneles;
 import Controlador.Usuario.UsuarioControllerShow;
 import Modelo.Usuario;
 import Utilidades.IPanelListener;
@@ -57,6 +58,7 @@ public class PanelUsuarioShow extends javax.swing.JPanel {
         lbFechaActualzado = new javax.swing.JLabel();
         txtFechaActualizado = new javax.swing.JTextField();
         lblTitulo = new javax.swing.JLabel();
+        RegresarShowP = new javax.swing.JButton();
 
         setEnabled(false);
 
@@ -102,7 +104,14 @@ public class PanelUsuarioShow extends javax.swing.JPanel {
         txtFechaActualizado.setPreferredSize(new java.awt.Dimension(150, 22));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTitulo.setText("Información de ");
+        lblTitulo.setText("Información del usuario");
+
+        RegresarShowP.setText("Regresar");
+        RegresarShowP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarShowPActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -146,18 +155,26 @@ public class PanelUsuarioShow extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbFechaActualzado)
-                            .addComponent(txtFechaActualizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(lblTitulo)))
+                            .addComponent(txtFechaActualizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(258, 258, 258)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(RegresarShowP)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(22, 22, 22)
+                .addComponent(RegresarShowP)
+                .addGap(31, 31, 31)
                 .addComponent(lblTitulo)
-                .addGap(113, 113, 113)
+                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCorreo)
@@ -203,8 +220,15 @@ public class PanelUsuarioShow extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void RegresarShowPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarShowPActionPerformed
+        if (panelListener != null) {
+        panelListener.abrirPanel(ConstantesPaneles.PANEL_USUARIO);
+    }
+    }//GEN-LAST:event_RegresarShowPActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RegresarShowP;
     private javax.swing.JLabel lbFechaActualzado;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCorreo;
