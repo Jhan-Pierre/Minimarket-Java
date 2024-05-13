@@ -1,22 +1,34 @@
 
 package vista.Categoria;
 
-import vista.FrmDashboard;
+import Controlador.Categoria.CategoriaControllerCreate;
 import Utilidades.IPanelListener;
+import static Constantes.ConstantesPaneles.PANEL_CATEGORIA;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class PanelCategoriaCrear extends javax.swing.JPanel {
 
-    public IPanelListener panelListener; 
+    public IPanelListener panelListener;  
+    private JTable tablaCategorias;
+    private CategoriaControllerCreate controlador;
 
-   public PanelCategoriaCrear() {
+    public PanelCategoriaCrear(IPanelListener panelListener, JTable tablaCategorias) {
+        this.panelListener = panelListener;
+        this.tablaCategorias = tablaCategorias; // Inicializa la tabla
         initComponents();
-        // Otro código de inicialización aquí
+    
+    controlador = new CategoriaControllerCreate();
+    }
+    
+    public String getNombreCategoria() {
+        return txtCategoriaCrear.getText();
     }
 
-    public PanelCategoriaCrear(IPanelListener panelListener) {
-        this.panelListener = panelListener;
-        initComponents();
-        // Otro código de inicialización aquí
+    private void agregarCategoriaATabla(String nombreCategoria) {
+        DefaultTableModel modelo = (DefaultTableModel) tablaCategorias.getModel();
+        modelo.addRow(new Object[]{nombreCategoria});
     }
     
 
@@ -36,6 +48,11 @@ public class PanelCategoriaCrear extends javax.swing.JPanel {
         jLabel2.setText("Nonbre de categoria:");
 
         btnAgregarCategoriaCrear.setText("Agregar");
+        btnAgregarCategoriaCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCategoriaCrearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,11 +86,29 @@ public class PanelCategoriaCrear extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAgregarCategoriaCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaCrearActionPerformed
+        String nombreCategoria = getNombreCategoria();
+
+        // Llamar al método del controlador para agregar la categoría
+        String mensaje = controlador.agregarCategoria(nombreCategoria);
+
+        // Verificar si se agregó correctamente
+        if (mensaje.startsWith("Categoría agregada")) {
+            // Agregar la nueva categoría a la tabla
+            agregarCategoriaATabla(nombreCategoria);
+
+            panelListener.abrirPanel(PANEL_CATEGORIA);
+        } else {
+            // Mostrar mensaje de error si hubo algún problema al agregar la categoría
+            JOptionPane.showMessageDialog(this, mensaje, "Error al agregar categoría", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAgregarCategoriaCrearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCategoriaCrear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtCategoriaCrear;
+    public javax.swing.JTextField txtCategoriaCrear;
     // End of variables declaration//GEN-END:variables
 }
