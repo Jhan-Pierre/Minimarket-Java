@@ -1,9 +1,110 @@
 package vista.Proveedor;
 
-public class PanelProveedor extends javax.swing.JPanel {
+import static Constantes.ConstantesNombreBotonesTablas.*;
+import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR_CREAR;
+import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR_EDITAR;
+import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR_SHOW;
+import Controlador.Proveedor.ProveedorControllerDelete;
+import Controlador.Proveedor.ProveedorControllerList;
+import Utilidades.ButtonColumn;
 
-    public PanelProveedor() {
+import Utilidades.IButtonClickListener;
+import Utilidades.IPanelListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+public class PanelProveedor extends javax.swing.JPanel implements IButtonClickListener {
+    private ProveedorControllerList controlador;
+    private final IPanelListener panelListener;
+    private ProveedorControllerDelete ctrDelete;
+    
+    public PanelProveedor(IPanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
+        inicializar();
+        
+        // Hacer una búsqueda cada vez que se escribe en txtBuscarProveedor
+        txtBuscarProveedor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                buscarProveedores(txtBuscarProveedor.getText());
+            }
+        });
+    }
+    
+    public void buscarProveedores(String texto) {
+        DefaultTableModel model = controlador.obtenerModeloTabla(texto);
+        tbProveedor.setModel(model);
+        new ButtonColumn(tbProveedor, 6, this);
+        new ButtonColumn(tbProveedor, 7, this);
+        new ButtonColumn(tbProveedor, 8, this);
+
+    }
+    
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        Long id = (Long) tbProveedor.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case VER_DETALLES -> abrirDetallesProveedor(id);
+            case EDITAR -> abrirEditarProveedor(id);
+            case ELIMINAR -> eliminarProveedor(id);
+        }
+    }
+    
+    private void abrirDetallesProveedor(Long id) {
+        if (panelListener != null) {
+            panelListener.abrirPanel(PANEL_PROVEEDOR_SHOW, id);
+        }
+    }
+
+    private void abrirEditarProveedor(Long id) {
+        if (panelListener != null) {
+            panelListener.abrirPanel(PANEL_PROVEEDOR_EDITAR, id);
+        }
+    }
+
+    private void eliminarProveedor(Long id) {
+        // Mostrar un JOptionPane de confirmación
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este proveedor?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        // Verificar si el usuario confirmó la eliminación
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Llamar al controlador para eliminar el proveedor
+            String mensaje = ctrDelete.eliminarProveedor(id);
+
+            // Mostrar el mensaje de confirmación o error
+            JOptionPane.showMessageDialog(this, mensaje);
+
+            // Actualizar la tabla después de eliminar el proveedor
+            buscarProveedores("");
+        }
+    }
+    
+    private void inicializar() {
+        controlador = new ProveedorControllerList();
+        ctrDelete = new ProveedorControllerDelete();
+        buscarProveedores("");
+    }
+    
+    private void abrirPanelProveedorCrear() {
+        // Solicitar al PanelListener que abra PanelProveedorCrear
+        this.panelListener.abrirPanel(PANEL_PROVEEDOR_CREAR);
+    }
+
+    public void resetPanel() {
+        txtBuscarProveedor.setText("");
+        buscarProveedores("");
+    }
+    
+    // Cuando el panel proveedor sea visible se resetea el contenido
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -78,6 +179,7 @@ public class PanelProveedor extends javax.swing.JPanel {
 
     private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
         //panelPadre.vista.show(panelPadre.PanelPadre, "UsuarioCrear");
+        abrirPanelProveedorCrear();
     }//GEN-LAST:event_btnAgregarProveedorActionPerformed
 
 

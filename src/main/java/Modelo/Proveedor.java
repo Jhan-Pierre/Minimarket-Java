@@ -13,26 +13,25 @@ public class Proveedor {
     private String correo;
     private String direccion;
     private int idEstado;
-
-    public Proveedor(String nombre, String ruc, String descripcion, String telefono, String correo, String direccion, int idEstado) {
-        this.nombre = nombre;
-        this.ruc = ruc;
-        this.descripcion = descripcion;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.direccion = direccion;
-        this.idEstado = idEstado;
-    }
-
-    public Proveedor(Long id, String nombre, String ruc, String descripcion, String telefono, String correo, String direccion, int idEstado) {
+    private String estado;
+    
+    //buscar por nombre
+       public Proveedor(Long id, String nombre, String ruc, String correo, String telefono, String estado) {
         this.id = id;
         this.nombre = nombre;
         this.ruc = ruc;
-        this.descripcion = descripcion;
-        this.telefono = telefono;
         this.correo = correo;
-        this.direccion = direccion;
-        this.idEstado = idEstado;
+        this.telefono = telefono;
+        this.estado = estado;
+    }
+       
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Long getId() {

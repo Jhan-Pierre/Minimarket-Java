@@ -27,9 +27,9 @@ public class CRUDcestaTemporal extends Conexion{
             while (rs.next()) {
 
                 String producto = rs.getString("producto");
-                BigDecimal precio_venta = rs.getBigDecimal("precio_unitario");
+                Double precio_venta = rs.getDouble("precio_unitario");
                 int cantidad = rs.getInt("cantidad");
-                BigDecimal subtotal = rs.getBigDecimal("subtotal");
+                Double subtotal = rs.getDouble("subtotal");
                 
                 CestaTemporal cestaTemporal = new CestaTemporal(cantidad, subtotal, producto, precio_venta);
                 listaCestaTemporal.add(cestaTemporal);
@@ -58,15 +58,85 @@ public class CRUDcestaTemporal extends Conexion{
             stmt.setString(2, codigoBarras);
             stmt.execute();
         } catch (SQLException e) {
-            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al agregar categoría", e);
+            Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al agregar categoría", e);
         } finally {
             try {
                 cnx.close();
             } catch (SQLException e) {
-                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+                Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
             }
         }
         
+    }
+    
+    public void eliminarCestaTemporalUsuario(Long id) {
+
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_cesta_temporal_usuario(?)}")) {
+            stmt.setLong(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al eliminar usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+    }
+    
+    public void eliminarItemCestaTemporal(Long id, String producto){
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_item_cesta_temporal(?, ?)}")) {
+            stmt.setLong(1, id);
+            stmt.setString(2, producto);
+            ResultSet rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al eliminar usuario", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDcestaTemporal.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+    }
+    
+    public boolean existeCodigoBarras(String codigoBarras){
+        boolean valido = false;
+        
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+        }
+        try (CallableStatement cs = cnx.prepareCall("{CALL sp_exite_codigo_barras(?, ?)}")) {
+            cs.setString(1, codigoBarras);
+            cs.registerOutParameter(2, java.sql.Types.BOOLEAN);
+            cs.execute();
+
+            valido = cs.getBoolean(2); //obtener resultado
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al ejecutar el procedimiento almacenado.", ex);
+        } finally {
+            // Cerrar la conexión
+            try {
+                cnx.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al cerrar la conexión.", ex);
+            }
+        }
+        
+        return valido;
     }
     
 }

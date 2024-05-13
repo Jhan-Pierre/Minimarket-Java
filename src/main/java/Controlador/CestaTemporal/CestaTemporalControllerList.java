@@ -21,7 +21,7 @@ public class CestaTemporalControllerList {
         for (CestaTemporal cestaTemporal : listaCestaTemporal) {
             Object[] row = new Object[]{
                 cestaTemporal.getProducto(),
-                cestaTemporal.getPrecio_unitario(),
+                cestaTemporal.getPrecio_venta(),
                 cestaTemporal.getCantidad(),
                 cestaTemporal.getSubtotal(),
                 ELIMINAR
@@ -34,4 +34,17 @@ public class CestaTemporalControllerList {
     public void registrarCestaTemporal(Long id, String codigoBarras){
         this.modelo.registrarCestaTemporal(id, codigoBarras);
     }
+    
+    public void eliminarCestaTemporalUsuario(Long id){
+        this.modelo.eliminarCestaTemporalUsuario(id);
+    }
+    
+    public void eliminarItemCestaTemporal(Long id, String producto){
+        this.modelo.eliminarItemCestaTemporal(id, producto);
+    }
+    
+    public boolean existeCodigoBarras(String codigoBarras){
+        return this.modelo.existeCodigoBarras(codigoBarras);
+    }
+    
 }

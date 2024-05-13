@@ -1,17 +1,38 @@
 package vista.Proveedor;
 
+import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR;
+import Controlador.Estado.EstadoController;
+import Controlador.Proveedor.ProveedorControllerCreate;
+import Modelo.Estado;
+import Utilidades.IPanelListener;
+
+
 public class PanelProveedorCrear extends javax.swing.JPanel {
-
-    public PanelProveedorCrear() {
+    private ProveedorControllerCreate controlador;
+    public IPanelListener panelListener;  
+    
+    // Declaración del JComboBox
+    //public javax.swing.JComboBox<Estado> cboEstado;
+    
+    public PanelProveedorCrear(IPanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
-    }
-
+        
+        controlador = new ProveedorControllerCreate();
+        
+        // Inicializa cboEstado antes de llamar a cargarEstadosEnComboBox()
+        //cboEstado = new javax.swing.JComboBox<>();
+        
+        // Configura cboEstado con los estados
+        EstadoController estadoController = new EstadoController();
+        estadoController.cargarEstadosEnComboBox(cboEstado);
+    } 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblCorreo = new javax.swing.JLabel();
-        cboEstado = new javax.swing.JComboBox<>();
         txtNombre = new javax.swing.JTextField();
         lblEstado = new javax.swing.JLabel();
         txtRuc = new javax.swing.JTextField();
@@ -27,12 +48,11 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
         lblDescripcion = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        cboEstado = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(900, 490));
 
         lblCorreo.setText("Correo:");
-
-        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblEstado.setText("Estado:");
 
@@ -48,6 +68,11 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
         lblDireccion.setText("Direccion: ");
 
         btnAgregarProveedor.setText("Agregar");
+        btnAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProveedorActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Nuevo Proveedor");
@@ -94,10 +119,10 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblEstado)
                                     .addComponent(lblDireccion)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(57, 57, 57))))))
@@ -141,8 +166,8 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
                             .addComponent(lblDescripcion))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addComponent(jLabel5)))
@@ -156,10 +181,52 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRucActionPerformed
 
+    private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
 
+   // TODO add your handling code here:
+        String nombre = txtNombre.getText();
+        String ruc = txtRuc.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+        String direccion = txtDireccion.getText();
+        String descripcion = txtDescripcion.getText();
+
+        Estado estadoSeleccionado = (Estado) cboEstado.getSelectedItem();
+        int estadoId = estadoSeleccionado.getId();
+
+        // Llamar al método del controlador para crear el proveedor
+        controlador.crearProveedor(nombre, ruc, telefono, correo, direccion, descripcion, estadoId);
+
+        panelListener.abrirPanel(PANEL_PROVEEDOR);
+    }//GEN-LAST:event_btnAgregarProveedorActionPerformed
+    // Cuando el panel sea visible se resetea el contenido
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
+    }
+    
+    public void resetPanel() {
+        //limpiarMensajesError(this);
+        // Resetea los campos de texto
+        txtNombre.setText("");
+        txtRuc.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtDescripcion.setText("");
+        
+        // Resetea el combobox seleccionando el primer ítem
+        if (cboEstado.getItemCount() > 0) {
+            cboEstado.setSelectedIndex(0);
+        }
+    }
+    //se cambio en propiedades a Estado En cboEstado linea 2 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProveedor;
-    public javax.swing.JComboBox<String> cboEstado;
+    public javax.swing.JComboBox<Estado> cboEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblCorreo;
