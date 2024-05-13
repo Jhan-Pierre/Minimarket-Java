@@ -116,8 +116,9 @@ public class CRUDusuario extends Conexion {
                 Long id = rs.getLong("id");
                 String nombre = rs.getString("nombre");
                 String correo = rs.getString("correo");
+                int rol_id = rs.getInt("rol_id");
                 String rol = rs.getString("rol");
-                usuario = new Usuario(id, nombre, correo, rol);
+                usuario = new Usuario(id, nombre, correo, rol_id, rol);
             }
         } catch (SQLException e) {
             Logger.getLogger(CRUDusuario.class.getName()).log(Level.SEVERE, "Error al obtener usuario logeado", e);
