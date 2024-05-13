@@ -16,13 +16,13 @@ public class CategoriaController {
         cboCategoria.removeAllItems(); // Limpiar el ComboBox
         
        
-        CategoriaProducto seleccionarCategoria = new CategoriaProducto(0, "Seleccionar Estado");
+        CategoriaProducto seleccionarCategoria = new CategoriaProducto(0, "Seleccionar Categoria");
         cboCategoria.addItem(seleccionarCategoria);
         
         List<CategoriaProducto> listaCategoria = modelo.listarCategoriaProducto();
 
-        for (CategoriaProducto estado : listaCategoria) {
-            cboCategoria.addItem(estado);
+        for (CategoriaProducto categoriaProducto : listaCategoria) {
+            cboCategoria.addItem(categoriaProducto);
         }
     }
 }

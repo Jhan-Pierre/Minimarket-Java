@@ -165,7 +165,7 @@ public class CRUDProveedor extends Conexion {
                 listaProveedores.add(proveedor);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar proveedores por nombre: " + e.getMessage());
+           Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "Error al buscar proveedor por nombre", e);
         } finally {
             try {
                 cnx.close();
