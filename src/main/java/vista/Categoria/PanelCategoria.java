@@ -1,5 +1,6 @@
 package vista.Categoria;
 
+import static Constantes.ConstantesNombreBotonesTablas.*;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_EDITAR;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_SHOW;
@@ -59,9 +60,9 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     public void buttonClicked(int row, int column, String buttonText) {
         Long id = (Long) tbCategoria.getModel().getValueAt(row, 0);
         switch (buttonText) {
-            case "Ver detalles" -> abrirDetallesCategoria(id);
-            case "Editar" -> abrirEditarCategoria(id);
-            case "Eliminar" -> eliminarCategoria(id);
+            case VER_DETALLES -> abrirDetallesCategoria(id);
+            case EDITAR -> abrirEditarCategoria(id);
+            case ELIMINAR -> eliminarCategoria(id);
         }
     }
     
