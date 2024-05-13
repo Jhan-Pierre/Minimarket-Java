@@ -2,6 +2,7 @@ package vista.Venta;
 
 import static Constantes.ConstantesPaneles.PANEL_VENTA_CREAR;
 import Controlador.Venta.VentaControllerList;
+import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
@@ -33,19 +34,22 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
     
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
-        Long id = (Long) tbVenta.getModel().getValueAt(row, 0);
+        long id = ((Number) tbVenta.getModel().getValueAt(row, 0)).longValue();
         switch (buttonText) {
             case "Ver detalles" -> abrirDetallesUsuario(id);
             case "Editar" -> abrirEditarUsuario(id);
             case "Eliminar" -> eliminarUsuario(id);
         }
+        
     }
     
     public void buscarUsuarios(String texto) {
         DefaultTableModel model = controladorList.obtenerModeloTabla(texto);
         tbVenta.setModel(model);
-
-
+        new ButtonColumn(tbVenta, 7, this);
+        new ButtonColumn(tbVenta, 8, this);
+        new ButtonColumn(tbVenta, 9, this);
+        
     }
     
     private void abrirDetallesUsuario(Long id) {
