@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import Modelo.SesionUsuario;
 import Utilidades.IButtonClickListener;
 import Validaciones.ValidateVentaCreate;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.table.TableModel;
 
 public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClickListener {
@@ -23,7 +25,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     CestaTemporalControllerList controladorList;
     private final Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId(); // Obtener el ID del usuario logueado
     
-    private final Double igv = 18.0;
+    private final Double igv = 0.0;
     
     public PanelVentaCreate(IPanelListener panelListener) {
         this.panelListener = panelListener;
@@ -38,6 +40,24 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         
         txtIGV.setText(String.valueOf(igv));
         resetPanel();
+        
+        // Agregar ActionListener al JComboBox cboTipoComprobante
+        cboTipoComprobante.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtener el TipoComprobante seleccionado
+                TipoComprobante tipoComprobanteSelecionado = (TipoComprobante) cboTipoComprobante.getSelectedItem();
+                // Verificar el ID del TipoComprobante
+                if (tipoComprobanteSelecionado.getId() == 1) {
+                    // Si es 1, establecer el IGV al 18%
+                    txtIGV.setText("18");
+                } else {
+                    txtIGV.setText("0");
+                }
+                // Recalcular el total
+                calcularTotal();
+            }
+        });
     }
 
     public void buscarUsuarios() {
@@ -93,7 +113,18 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
                 total += subtotal;
             }
         }
-        txtTotal.setText(String.valueOf(total));
+
+        // Obtener el TipoComprobante seleccionado
+        TipoComprobante tipoComprobanteSelecionado = (TipoComprobante) cboTipoComprobante.getSelectedItem();
+
+        // Verificar el ID del TipoComprobante y ajustar el total si es una factura
+        if (tipoComprobanteSelecionado.getId() == 1) { // Si es factura
+            double igv = Double.parseDouble(txtIGV.getText()); // Obtener el valor del IGV
+            total *= (1 + (igv / 100)); // Aplicar el IGV al total
+        }
+
+        // Formatear el total a dos decimales
+        txtTotal.setText(String.format("%.2f", total));
     }
     private void registrarVenta(){
         
