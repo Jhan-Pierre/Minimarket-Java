@@ -1,25 +1,9 @@
-/*package Validaciones.Categoria;
-
-import vista.Categoria.PanelCategoriaCrear;
+package Validaciones.Categoria;
 
 public class ValidateCategoriaCreate {
-    public static boolean validarCampos(PanelCategoriaCrear vista) {
-        // Limpiar los mensajes de error anteriores
-        limpiarMensajesError(vista);
-
-        boolean camposValidos = true;
-    
-        // Verificar campo de nombre de categoría
-        if (vista.txtCategoriaCrear.getText().isEmpty()) {
-            vista.errorNombreCategoria.setText("El nombre de la categoría es requerido");
-            camposValidos = false;
-        }
-
-        return camposValidos;
+    public static boolean validarNombre(String nombre) {
+        // Aquí implementa la lógica de validación
+        // Por ejemplo, verifica si el nombre solo contiene letras
+        return nombre.matches("[a-zA-Z]+");
     }
-
-    public static void limpiarMensajesError(PanelCategoriaCrear vista) {
-        // Limpiar los mensajes de error
-        vista.errorNombreCategoria.setText("");
-    }
-}*/
+}
