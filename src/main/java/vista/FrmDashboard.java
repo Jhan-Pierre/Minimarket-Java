@@ -13,12 +13,17 @@ import vista.Proveedor.PanelProveedorEdit;
 import vista.Proveedor.PanelProveedor;
 import vista.Proveedor.PanelProveedorCrear;
 
+import vista.Categoria.PanelCategoria;
+import vista.Categoria.PanelCategoriaEdit;
+import vista.Categoria.PanelCategoriaCrear;
+import vista.Categoria.PanelCategoriaShow;
+
+
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
-import vista.Categoria.PanelCategoria;
 import vista.Venta.PanelVenta;
 import vista.Venta.PanelVentaCreate;
 import vista.Pedido.PanelPedido;
@@ -38,6 +43,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     //PanelProveedorShow panelProveedorShow;
     
     PanelCategoria panelCategoria;
+    PanelCategoriaShow panelCategoriaShow;
+    PanelCategoriaEdit panelCategoriaEdit;
+    PanelCategoriaCrear panelCategoriaCrear;
     
     PanelProducto panelProducto;
     
@@ -73,6 +81,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         //panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
+        panelCategoriaCrear = new PanelCategoriaCrear(this);
+        panelCategoriaEdit = new PanelCategoriaEdit(this);
+        panelCategoriaShow = new PanelCategoriaShow(this);
         
         panelProducto = new PanelProducto();
         
@@ -92,11 +103,15 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
-        agregarPanel(panelCategoria, PANEL_CATEGORIA);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
         agregarPanel(panelVenta, PANEL_VENTA);
         agregarPanel(panelventaCreate, PANEL_VENTA_CREAR);
         agregarPanel(panelPedido, PANEL_PEDIDO);
+        
+        agregarPanel(panelCategoria, PANEL_CATEGORIA);
+        agregarPanel(panelCategoriaCrear, PANEL_CATEGORIA_CREAR);
+        agregarPanel(panelCategoriaShow, PANEL_CATEGORIA_SHOW);
+        agregarPanel(panelCategoriaEdit, PANEL_CATEGORIA_EDITAR);
         
         agregarPanel(panelProveedor, PANEL_PROVEEDOR);
         agregarPanel(panelProveedorCrear, PANEL_PROVEEDOR_CREAR);
