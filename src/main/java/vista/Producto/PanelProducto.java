@@ -2,6 +2,7 @@ package vista.Producto;
 
 import static Constantes.ConstantesPaneles.PANEL_PRODUCTO_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
+import Controlador.GlobalPermisos;
 import Controlador.Producto.ProductoControllerList;
 import Controlador.Usuario.UsuarioControllerDelete;
 import Controlador.Usuario.UsuarioControllerList;
@@ -10,15 +11,18 @@ import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 
 public class PanelProducto extends javax.swing.JPanel implements IButtonClickListener {
     private ProductoControllerList controlador;
-     public final IPanelListener panelListener;
+    public final IPanelListener panelListener;
+    private Set<String> permisosUsuario;
     
     public PanelProducto(IPanelListener panelListener) {
         this.panelListener = panelListener;
+        this.permisosUsuario = GlobalPermisos.getPermisos();
         initComponents();
         inicializar();
 
@@ -35,21 +39,27 @@ public class PanelProducto extends javax.swing.JPanel implements IButtonClickLis
     public void buscarProducto(String texto) {
         DefaultTableModel model = controlador.obtenerModeloTabla(texto);
         tbProducto.setModel(model);
-        new ButtonColumn(tbProducto, 6, this);
-        new ButtonColumn(tbProducto, 7, this);
-        new ButtonColumn(tbProducto, 8, this);
 
+        // Verificar permisos antes de agregar botones a las columnas
+        if (permisosUsuario.contains("ver_detalle_producto")) {
+            new ButtonColumn(tbProducto, 6, this); // Convertir la séptima columna ("Ver detalles") en un botón
+        }
+        if (permisosUsuario.contains("editar_producto")) {
+            new ButtonColumn(tbProducto, 7, this); // Convertir la octava columna ("Editar") en un botón
+        }
+        if (permisosUsuario.contains("eliminar_producto")) {
+            new ButtonColumn(tbProducto, 8, this); // Convertir la novena columna ("Eliminar") en un botón
+        }
     }
-    
 
-  
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
         
     }
     
     private void inicializar() {
-        controlador = new ProductoControllerList();
+        controlador = new ProductoControllerList(permisosUsuario);
+        btnAgregarProducto.setVisible(permisosUsuario.contains("agregar_categoria_producto"));
         buscarProducto("");
     }
     private void abrirPanelProductoCrear() {

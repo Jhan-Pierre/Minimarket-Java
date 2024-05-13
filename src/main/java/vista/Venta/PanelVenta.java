@@ -1,35 +1,38 @@
 package vista.Venta;
 
 import static Constantes.ConstantesPaneles.PANEL_VENTA_CREAR;
+import Controlador.GlobalPermisos;
 import Controlador.Venta.VentaControllerList;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 public class PanelVenta extends javax.swing.JPanel implements IButtonClickListener{
     public IPanelListener panelListener;
     private VentaControllerList controladorList;
+    private Set<String> permisosUsuario;
     
     public PanelVenta(IPanelListener panelListener) {
         this.panelListener = panelListener;
+        this.permisosUsuario = GlobalPermisos.getPermisos();
         initComponents();
         this.iniciarlizar();
         //Hacer una busque cada vez que se escribe en txt buscar
         txtBuscarVenta.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buscarUsuarios(txtBuscarVenta.getText());
+                buscarVentas(txtBuscarVenta.getText());
             }
         });
     }
 
     public void iniciarlizar(){
-        controladorList = new VentaControllerList();
-        
-        buscarUsuarios("");
+        controladorList = new VentaControllerList(permisosUsuario);
+        buscarVentas("");    
     }
     
     @Override
@@ -43,13 +46,20 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
         
     }
     
-    public void buscarUsuarios(String texto) {
+    public void buscarVentas(String texto) {
         DefaultTableModel model = controladorList.obtenerModeloTabla(texto);
         tbVenta.setModel(model);
-        new ButtonColumn(tbVenta, 7, this);
-        new ButtonColumn(tbVenta, 8, this);
-        new ButtonColumn(tbVenta, 9, this);
-        
+
+        // Verificar permisos antes de agregar botones a las columnas
+        if (permisosUsuario.contains("buscar_venta")) {
+            new ButtonColumn(tbVenta, 7, this); // Convertir la octava columna ("Ver detalles") en un botón
+        }
+        if (permisosUsuario.contains("editar_venta")) {
+            new ButtonColumn(tbVenta, 8, this); // Convertir la novena columna ("Editar") en un botón
+        }
+        if (permisosUsuario.contains("eliminar_venta")) {
+            new ButtonColumn(tbVenta, 9, this); // Convertir la décima columna ("Eliminar") en un botón
+        }
     }
     
     private void abrirDetallesUsuario(Long id) {
@@ -66,7 +76,7 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
     
     public void resetPanel() {
         txtBuscarVenta.setText("");
-        buscarUsuarios("");
+        buscarVentas("");
     }
     
     //Cuando el panel usuario sea visible se resetea el contenido
