@@ -7,7 +7,7 @@ import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
 
-import vista.Proveedor.PanelProveedorShow;
+//import vista.Proveedor.PanelProveedorShow;
 import vista.Proveedor.PanelProveedorEdit;
 import vista.Proveedor.PanelProveedor;
 import vista.Proveedor.PanelProveedorCrear;
@@ -32,6 +32,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelUsuarioShow panelUsuarioShow;
     
     PanelProveedor panelProveedor;
+    PanelProveedorCrear panelProveedorCrear;
+    PanelProveedorEdit panelProveedorEdit;
+    //PanelProveedorShow panelProveedorShow;
     
     PanelCategoria panelCategoria;
     
@@ -64,6 +67,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelUsuarioShow = new PanelUsuarioShow(this);
         
         panelProveedor = new PanelProveedor(this);
+        panelProveedorCrear = new PanelProveedorCrear(this);
+        panelProveedorEdit = new PanelProveedorEdit(this);
+        //panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
         
@@ -92,6 +98,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelPedido, PANEL_PEDIDO);
         
         agregarPanel(panelProveedor, PANEL_PROVEEDOR);
+        agregarPanel(panelProveedorCrear, PANEL_PROVEEDOR_CREAR);
+        agregarPanel(panelProveedorEdit, PANEL_PROVEEDOR_EDITAR);
     }
 
     private void configurarListeners() {

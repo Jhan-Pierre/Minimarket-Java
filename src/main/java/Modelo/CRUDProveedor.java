@@ -85,7 +85,7 @@ public class CRUDProveedor extends Conexion {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 mensaje = rs.getString("mensaje");
-                JOptionPane.showMessageDialog(null, mensaje);
+                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar proveedor: " + e.getMessage());

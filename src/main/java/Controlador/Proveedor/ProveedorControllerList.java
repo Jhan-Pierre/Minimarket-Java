@@ -17,7 +17,7 @@ public class ProveedorControllerList{
     //Funcion para buscar de acuerdo al nombre del proveedor
      public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
         List<Proveedor> listaProveedores = proveedorModelo.buscarProveedorPorNombre(textoBusqueda);
-        String[] columnNames = {"ID", "Nombre", "RUC", "Telefono", "Correo", "Estado", VER_DETALLES, EDITAR, ELIMINAR};
+        String[] columnNames = {"ID", "Nombre", "RUC","Correo" ,"Telefono" , "Estado", VER_DETALLES, EDITAR, ELIMINAR};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (Proveedor proveedor : listaProveedores) {
@@ -25,9 +25,9 @@ public class ProveedorControllerList{
                 proveedor.getId(),
                 proveedor.getNombre(),
                 proveedor.getRuc(),
-                
-                proveedor.getTelefono(),
                 proveedor.getCorreo(),
+                proveedor.getTelefono(),
+                
                 
                 proveedor.getEstado(),
                 VER_DETALLES,
