@@ -13,12 +13,11 @@ import Validaciones.Categoria.ValidateCategoriaCreate;
 public class PanelCategoriaCrear extends javax.swing.JPanel {
 
     public IPanelListener panelListener;  
-    private JTable tablaCategorias;
     private CategoriaControllerCreate controlador;
 
-    public PanelCategoriaCrear(IPanelListener panelListener, JTable tablaCategorias) {
+    public PanelCategoriaCrear(IPanelListener panelListener) {
         this.panelListener = panelListener;
-        this.tablaCategorias = tablaCategorias; // Inicializa la tabla
+        //this.tablaCategorias = tablaCategorias; // Inicializa la tabla
         initComponents();
     
     controlador = new CategoriaControllerCreate();
@@ -28,10 +27,10 @@ public class PanelCategoriaCrear extends javax.swing.JPanel {
         return txtCategoriaCrear.getText();
     }
 
-    private void agregarCategoriaATabla(String nombreCategoria) {
+    /*private void agregarCategoriaATabla(String nombreCategoria) {
         DefaultTableModel modelo = (DefaultTableModel) tablaCategorias.getModel();
         modelo.addRow(new Object[]{nombreCategoria});
-    }
+    }*/
     
     
     
@@ -104,32 +103,21 @@ public class PanelCategoriaCrear extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarCategoriaCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaCrearActionPerformed
-     // Obtiene el nombre de la categoría desde el campo de texto
-    String nombreCategoria = getNombreCategoria();
-
-    // Realiza la validación del nombre de la categoría
-    if (ValidateCategoriaCreate.validarNombre(nombreCategoria)) {
-        // Si la validación es exitosa, procede con la lógica para agregar la categoría
-
-        // Llamar al método del controlador para agregar la categoría
-        String mensaje = controlador.agregarCategoria(nombreCategoria);
-
-        // Verificar si se agregó correctamente
-        if (mensaje.startsWith("Categoría agregada")) {
-            // Agregar la nueva categoría a la tabla
-            agregarCategoriaATabla(nombreCategoria);
-
-            // Limpiar el campo de texto después de agregar la categoría con éxito
-            txtCategoriaCrear.setText("");
-
-            panelListener.abrirPanel(PANEL_CATEGORIA);
-        } else {
-            // Mostrar mensaje de error si hubo algún problema al agregar la categoría
-            JOptionPane.showMessageDialog(this, mensaje, "Error al agregar categoría", JOptionPane.ERROR_MESSAGE);
-        }
+       String nombre = txtCategoriaCrear.getText();
+    
+    // Validar el nombre antes de agregar la categoría
+    if (ValidateCategoriaCreate.validarNombre(nombre)) {
+        // Agregar la categoría
+        controlador.agregarCategoria(nombre);
+        
+        // Limpiar el campo de texto
+        txtCategoriaCrear.setText("");
+        
+        // Abrir el panel de categoría
+        panelListener.abrirPanel(PANEL_CATEGORIA);
     } else {
-        // Si la validación falla, muestra un mensaje de error
-        JOptionPane.showMessageDialog(this, "El nombre de la categoría no es válido. Debe contener solo letras.", "Error de validación", JOptionPane.ERROR_MESSAGE);
+        // Mostrar un mensaje de error si el nombre no es válido
+        JOptionPane.showMessageDialog(this, "El nombre de la categoría solo puede contener letras.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnAgregarCategoriaCrearActionPerformed
 

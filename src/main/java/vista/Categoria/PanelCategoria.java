@@ -63,7 +63,7 @@ public void buscarCategorias(String texto) {
         if (panelListener != null) {
             panelListener.abrirPanel(PANEL_CATEGORIA_EDITAR, id);
         }
-    }
+    }   
 
     private void eliminarCategoria(Long id) {
         // Mostrar un JOptionPane de confirmación
