@@ -77,7 +77,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         
         panelVenta = new PanelVenta(this);
         panelventaCreate = new PanelVentaCreate(this);
-        panelPedido = new PanelPedido();
+        panelPedido = new PanelPedido(this);
         inicializarPaneles();
     }
     
