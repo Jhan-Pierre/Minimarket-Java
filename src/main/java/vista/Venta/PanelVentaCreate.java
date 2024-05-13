@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import Modelo.SesionUsuario;
 import Utilidades.IButtonClickListener;
 import Validaciones.ValidateVentaCreate;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.table.TableModel;
 
 public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClickListener {
@@ -22,7 +24,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     CestaTemporalControllerList controladorList;
     private final Long idUsuario = SesionUsuario.getInstancia().getUsuarioLogeado().getId(); // Obtener el ID del usuario logueado
     
-    private final Double igv = 18.0;
+    private final Double igv = 0.0;
     
     public PanelVentaCreate(IPanelListener panelListener) {
         this.panelListener = panelListener;
