@@ -5,11 +5,13 @@ import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_EDITAR;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_SHOW;
 import Controlador.Categoria.CategoriaControllerDelete;
 import Controlador.Categoria.CategoriaControllerList;
+import Controlador.GlobalPermisos;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,9 +19,11 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     private CategoriaControllerList controlador;
     public IPanelListener panelListener;
     private CategoriaControllerDelete ctrDelete;
+    private Set<String> permisosUsuario;
     
     public PanelCategoria(IPanelListener panelListener) {
         this.panelListener = panelListener;
+        this.permisosUsuario = GlobalPermisos.getPermisos();
         initComponents();
         inicializar();
         
@@ -33,15 +37,22 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     }
 
     
-public void buscarCategorias(String texto) {
-    DefaultTableModel model = controlador.obtenerModeloTabla(texto);
-    tbCategoria.setModel(model);
+    public void buscarCategorias(String texto) {
+        DefaultTableModel model = controlador.obtenerModeloTabla(texto);
+        tbCategoria.setModel(model);
 
-    // Suponiendo que this implementa la interfaz IButtonClickListener
-    new ButtonColumn(tbCategoria, 2, this); // Convertir la tercera columna ("Ver detalles") en un botón
-    new ButtonColumn(tbCategoria, 3, this); // Convertir la cuarta columna ("Editar") en un botón
-    new ButtonColumn(tbCategoria, 4, this); // Convertir la quinta columna ("Eliminar") en un botón
-}
+        // Verificar permisos antes de agregar botones a las columnas
+        if (permisosUsuario.contains("ver_detalle_categoria_producto")) {
+            new ButtonColumn(tbCategoria, 2, this); // Convertir la tercera columna ("Ver detalles") en un botón
+        }
+        if (permisosUsuario.contains("editar_categoria_producto")) {
+            new ButtonColumn(tbCategoria, 3, this); // Convertir la cuarta columna ("Editar") en un botón
+        }
+        if (permisosUsuario.contains("eliminar_categoria_producto")) {
+            new ButtonColumn(tbCategoria, 4, this); // Convertir la quinta columna ("Eliminar") en un botón
+        }
+    }
+
     
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
@@ -83,7 +94,7 @@ public void buscarCategorias(String texto) {
     }
     
     private void inicializar() {
-        controlador = new CategoriaControllerList();
+        controlador = new CategoriaControllerList(permisosUsuario);
         ctrDelete = new CategoriaControllerDelete();
         buscarCategorias("");
     }
