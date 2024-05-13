@@ -208,7 +208,7 @@
                   <Component id="errorEstado" min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="errorRol" min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="117" max="32767" attributes="0"/>
+              <EmptySpace pref="123" max="32767" attributes="0"/>
               <Component id="btnAgregarUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
@@ -219,7 +219,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="18" style="0"/>
+          <Font name="Georgia" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Crear Usuario"/>
       </Properties>
@@ -232,6 +232,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombre">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Nombre"/>
       </Properties>
     </Component>
@@ -242,6 +245,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Correo"/>
       </Properties>
     </Component>
@@ -252,6 +258,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblApellido">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Apellido"/>
       </Properties>
     </Component>
@@ -267,6 +276,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombre1">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
       </Properties>
     </Component>
@@ -277,6 +289,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblApellido1">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Confirma contrase&#xf1;a"/>
       </Properties>
     </Component>
@@ -292,6 +307,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblTurno">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Turno"/>
       </Properties>
     </Component>
@@ -302,6 +320,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelefono">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Telefono"/>
       </Properties>
     </Component>
@@ -318,6 +339,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblEstado">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
     </Component>
@@ -329,6 +353,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblRol">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Rol"/>
       </Properties>
     </Component>
