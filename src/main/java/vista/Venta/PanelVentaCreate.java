@@ -1,5 +1,6 @@
 package vista.Venta;
 
+import Constantes.ConstantesPaneles;
 import static Constantes.ConstantesPaneles.PANEL_VENTA;
 import Controlador.CestaTemporal.CestaTemporalControllerList;
 import Controlador.MetodoPago.MetodoPagoControllerList;
@@ -151,6 +152,8 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         errorTotal = new javax.swing.JLabel();
         errorMetodoPago = new javax.swing.JLabel();
         errorTipoComprobante = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        RegresarCreatVentaP = new javax.swing.JButton();
 
         tbVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,6 +226,16 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         errorTipoComprobante.setForeground(new java.awt.Color(255, 51, 51));
         errorTipoComprobante.setInheritsPopupMenu(false);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setText("VENTAS AGREGAR");
+
+        RegresarCreatVentaP.setText("regresar");
+        RegresarCreatVentaP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarCreatVentaPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -237,11 +250,15 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAgregarProducto)
-                                .addGap(18, 18, 18)
-                                .addComponent(errorCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(RegresarCreatVentaP, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(btnAgregarProducto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(errorCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(18, 28, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -276,6 +293,10 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
                                         .addGap(0, 9, Short.MAX_VALUE))
                                     .addComponent(errorTipoComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(351, 351, 351)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(291, 291, 291)
@@ -285,17 +306,21 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(errorCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(RegresarCreatVentaP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNombre)
                             .addComponent(lblApellido)
                             .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarProducto)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(errorCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAgregarProducto))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -349,8 +374,13 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
         eliminarCestaTemporalUsuario();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void RegresarCreatVentaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarCreatVentaPActionPerformed
+      panelListener.abrirPanel(ConstantesPaneles.PANEL_VENTA);
+    }//GEN-LAST:event_RegresarCreatVentaPActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RegresarCreatVentaP;
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegistrarVenta;
@@ -362,6 +392,7 @@ public class PanelVentaCreate extends javax.swing.JPanel implements IButtonClick
     public javax.swing.JLabel errorMetodoPago;
     public javax.swing.JLabel errorTipoComprobante;
     public javax.swing.JLabel errorTotal;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblEstado;
