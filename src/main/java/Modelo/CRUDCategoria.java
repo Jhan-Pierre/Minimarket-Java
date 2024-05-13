@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class CRUDCategoria extends Conexion {
 
-    public List<CategoriaProducto> listarCategorias() {
+    public List<CategoriaProducto> listarCategoriaProducto() {
         List<CategoriaProducto> listaCategorias = new ArrayList<>();
         Connection cnx = getConexion();
         if (cnx == null) {
