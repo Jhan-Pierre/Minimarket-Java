@@ -1128,6 +1128,18 @@ BEGIN
     WHERE id = p_codpedido;
 END //
 
+delimiter //
+CREATE PROCEDURE sp_buscar_pedido_por_nombre_usuario(IN nombre VARCHAR(160))
+BEGIN
+    SELECT p.id, p.fecha, p.costoTotal, CONCAT(u.nombre, ' ', u.apellido) AS usuario, pr.nombre as proveedor
+    FROM tb_pedido p
+    INNER JOIN tb_proveedor pr ON p.proveedor_id = pr.id
+    INNER JOIN tb_usuario u ON p.usuario_id = u.id
+    WHERE u.nombre LIKE CONCAT('%', nombre, '%'); -- Búsqueda aproximada por nombre
+END; //
+
+-- CALL sp_buscar_pedido_por_nombre_usuario('Admin');
+
 -- ##################################################################################################
 -- Zona experimental
 -- ##################################################################################################
