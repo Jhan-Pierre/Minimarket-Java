@@ -1,23 +1,19 @@
 package Modelo;
 
 public class CategoriaProducto {
-    private int id;
+    private Long id;
     private String nombre;
 
-    public CategoriaProducto(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public CategoriaProducto(int id, String nombre) {
+    public CategoriaProducto(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
