@@ -4,6 +4,7 @@
  */
 package vista.Producto;
 
+import static Constantes.ConstantesPaneles.PANEL_PRODUCTO;
 import Controlador.Categoria.CategoriaController;
 import Controlador.Estado.EstadoController;
 import Controlador.Producto.ProductoControllerCreate;
@@ -61,6 +62,7 @@ public class PanelProductoCrear extends javax.swing.JPanel {
         errorRol1 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox<>();
         lblRol1 = new javax.swing.JLabel();
+        btnAgregarProducto = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Crear Producto");
@@ -92,6 +94,13 @@ public class PanelProductoCrear extends javax.swing.JPanel {
         });
 
         lblRol1.setText("Estado");
+
+        btnAgregarProducto.setText("Agregar");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -136,7 +145,10 @@ public class PanelProductoCrear extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(errorRol1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblRol1)
-                                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(360, 360, 360)
+                        .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(215, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -182,7 +194,9 @@ public class PanelProductoCrear extends javax.swing.JPanel {
                         .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errorRol1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(btnAgregarProducto)
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,8 +204,55 @@ public class PanelProductoCrear extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboEstadoActionPerformed
 
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+
+        String nombre = txtNombre.getText();
+        float precio_compra = Float.parseFloat(txtPrecioCompra.getText());
+        float precio_venta = Float.parseFloat(txtPrecioVenta.getText());
+        int stockDisponible = Integer.parseInt(txtStockDisponible.getText());
+        String codigoBarras = txtCodigoDeBarras.getText();
+        
+        CategoriaProducto categoriaSeleccionado = (CategoriaProducto) cboCategoria.getSelectedItem();
+        int categoria_producto_id = (int) categoriaSeleccionado.getId();
+        
+        Estado estadoSeleccionado = (Estado) cboEstado.getSelectedItem();
+        int estado_id = estadoSeleccionado.getId();
+
+
+            
+        // Aquí llamarías al método del controlador para crear el producto
+            controlador.crearProducto(nombre, precio_compra, precio_venta, stockDisponible, codigoBarras, categoria_producto_id, estado_id);
+
+            panelListener.abrirPanel(PANEL_PRODUCTO);
+        
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
+    
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            resetPanel();
+        }
+    }
+    
+    private void resetPanel() {
+       txtNombre.setText("");
+        txtPrecioCompra.setText("");
+        txtPrecioVenta.setText("");
+        txtStockDisponible.setText("");
+        txtCodigoDeBarras.setText("");
+        
+        // Resetea el combobox seleccionando el primer ítem
+        if (cboEstado.getItemCount() > 0) {
+            cboEstado.setSelectedIndex(0);
+        } 
+        if (cboCategoria.getItemCount() > 0) {
+            cboCategoria.setSelectedIndex(0);
+        } 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnAgregarProducto;
     public javax.swing.JComboBox<CategoriaProducto> cboCategoria;
     public javax.swing.JComboBox<Estado> cboEstado;
     public javax.swing.JLabel errorRol;
@@ -210,4 +271,10 @@ public class PanelProductoCrear extends javax.swing.JPanel {
     public javax.swing.JTextField txtPrecioVenta;
     public javax.swing.JTextField txtStockDisponible;
     // End of variables declaration//GEN-END:variables
+
+   
+
+    
+
+    
 }

@@ -1,11 +1,11 @@
 package Modelo;
 
 public class CategoriaProducto {
-    private long id;
+    private int id;
     private String nombre;
 
     // Constructor
-    public CategoriaProducto(long id, String nombre) {
+    public CategoriaProducto(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -15,7 +15,7 @@ public class CategoriaProducto {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -14,7 +14,7 @@ public class CategoriaControllerEdit {
         return categoriaModelo.buscarCategoriaPorId(id);
     }
     
-    public String editarCategoria(Long id, String nombre){
+    public String editarCategoria(int id, String nombre){
         return categoriaModelo.actualizarCategoria(new CategoriaProducto(id, nombre));
     }
 }
