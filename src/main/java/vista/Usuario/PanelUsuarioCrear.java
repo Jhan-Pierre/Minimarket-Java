@@ -21,7 +21,7 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         this.panelListener = panelListener;
         initComponents();
         
-        txtTelefono.addKeyListener(new OnlyNumbers());
+        txtTelefono.addKeyListener(new OnlyNumbers()); //impedir que se digite algo diferente a un numero
 
         controlador = new UsuarioControllerCreate();
         
