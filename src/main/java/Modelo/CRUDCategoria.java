@@ -19,7 +19,7 @@ public class CRUDCategoria extends Conexion {
             return listaCategorias;
         }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_categorias()}")) {
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_categoria_producto()}")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 long id = rs.getLong("id");
