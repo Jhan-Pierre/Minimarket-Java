@@ -103,7 +103,7 @@ public class CRUDProveedor extends Conexion {
     //especiales
     
     public Proveedor mostrarProveedorPorCodigo(Long id) {
-   /* //Proveedor proveedor = null;
+    /*//Proveedor proveedor = null;
     Connection cnx = getConexion();
     if (cnx == null) {
         Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
@@ -122,7 +122,7 @@ public class CRUDProveedor extends Conexion {
             String descripcion = rs.getString("descripcion");
             String estado = rs.getString("estado");
 
-            Proveedor proveedor = new Proveedor(id, nombre, ruc, telefono, correo, direccion, descripcion, estado);
+            Proveedor proveedor = new Proveedor(nombre, ruc, telefono, correo, direccion, descripcion, estado);
             return proveedor;
         }
     } catch (SQLException e) {
@@ -133,8 +133,8 @@ public class CRUDProveedor extends Conexion {
         } catch (SQLException e) {
             Logger.getLogger(CRUDProveedor.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
         }
-    }*/
-    return null;
+    }
+    */return null;
 }
 
 

@@ -5,6 +5,9 @@ import Controlador.Estado.EstadoController;
 import Controlador.Proveedor.ProveedorControllerCreate;
 import Modelo.Estado;
 import Utilidades.IPanelListener;
+//import static Validaciones.ValidateProveedorCreate.limpiarMensajesError;
+//import static Validaciones.ValidateUsuarioCreate.validarCampos;
+//import static Validaciones.ValidateUsuarioCreate.*;
 
 
 public class PanelProveedorCrear extends javax.swing.JPanel {
@@ -184,6 +187,7 @@ public class PanelProveedorCrear extends javax.swing.JPanel {
     private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
 
    // TODO add your handling code here:
+    
         String nombre = txtNombre.getText();
         String ruc = txtRuc.getText();
         String telefono = txtTelefono.getText();

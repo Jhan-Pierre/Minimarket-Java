@@ -32,8 +32,18 @@ public class Proveedor {
         this.descripcion = descripcion;
         this.estado_id = estado_id;
     }
+    // Para mostrar
+    public Proveedor(int id, String nombre, String ruc, String telefono, String correo, String direccion, String descripcion, String estado) {
+    this.id = id;
+    this.nombre = nombre;
+    this.ruc = ruc;
+    this.telefono = telefono;
+    this.correo = correo;
+    this.direccion = direccion;
+    this.descripcion = descripcion;
+    this.estado = estado;
+}
 
-       
     public int getId() {
         return id;
     }
@@ -105,6 +115,8 @@ public class Proveedor {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
+       
+   
  
 }
