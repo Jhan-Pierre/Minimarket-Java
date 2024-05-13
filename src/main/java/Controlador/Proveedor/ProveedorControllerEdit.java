@@ -11,7 +11,7 @@ public class ProveedorControllerEdit {
     }
     
     public Proveedor buscarProveedorPorCodigo(Long id){
-        return proveedorModelo.buscarProveedorPorCodigo(id);
+        return proveedorModelo.buscarProveedorPorCodigo((id.intValue()));
     }
     
     public void editarProveedor(Long id, String nombre, String ruc, String descripcion, String telefono, String correo, String direccion, int idEstado) { 

@@ -323,8 +323,9 @@ end; //
 -- *****************************************************************************************************************
 -- Procedimientos alamcenados para Proveedor
 -- *****************************************************************************************************************
-delimiter //
 
+
+delimiter //
 create procedure sp_listar_proveedor()
 begin
     select p.id, p.nombre, p.ruc, p.correo, p.telefono, e.nombre as estado
@@ -333,19 +334,39 @@ begin
 end //
 
 
--- call sp_listar_proveedor();
+DELIMITER //
+
+CREATE PROCEDURE sp_mostrar_proveedor_por_codigo(IN idproveedor INT)
+BEGIN
+    SELECT p.id,
+           p.nombre,
+           p.ruc,
+           p.descripcion,
+           p.telefono,
+           p.correo,
+           p.direccion,
+           e.nombre AS estado
+    FROM tb_proveedor p
+    INNER JOIN tb_estado e ON p.estado_id = e.id
+    WHERE p.id = idproveedor;
+END //
+
+DELIMITER ;
+
+
 
 delimiter //
 create procedure sp_buscar_proveedor_por_codigo(in codproveedor int)
 begin
-	select p.id, p.nombre, p.ruc,p.telefono, p.correo, e.nombre as estado
+	select p.id, p.nombre, p.ruc, p.telefono, p.correo, p.direccion, p.descripcion, p.estado_id
     from tb_proveedor p
-    inner join tb_estado e on p.estado_id = e.id
     where p.id = codproveedor;
 end; //
--- call sp_buscar_proveedor_por_codigo('12');
-delimiter //
 
+-- call sp_buscar_proveedor_por_codigo('12');
+
+
+delimiter //
 create procedure sp_buscar_proveedor_por_nombre(in nombre_proveedor varchar(80))
 begin
 	select p.id, p.nombre, p.ruc, p.telefono, p.correo, e.nombre as estado
@@ -395,20 +416,11 @@ BEGIN
     WHERE id = p_codprov;
 END //
 
+
 -- call sp_editar_proveedor(1, 'DiestrituiUUdorade Alfa Enlatados', '22345678900', 'Proveedor de alimentos enlatados', '987954329', 'info@alfa.com', 'Calle Principal #888', 1);
-
--- select * from tb_proveedor;
-
-delimiter //
-create procedure sp_borrar_proveedor(
-    IN p_idProveedor INT
-)
-begin
-    delete from tb_proveedor WHERE id = p_idProveedor;
-end //
-
 -- call sp_listar_proveedor();
 -- call sp_borrar_proveedor('18');
+
 
 DELIMITER $$
 CREATE PROCEDURE sp_consultar_proveedor_codigo(
@@ -422,6 +434,7 @@ DELIMITER ;
 
 -- call sp_consultar_proveedor_codigo('2');
 
+
 DELIMITER $$
 CREATE PROCEDURE sp_filtrar_proveedor(
     IN valor VARCHAR(40)
@@ -433,12 +446,14 @@ END$$
 DELIMITER ;
  -- call sp_filtrar_proveedor('Distribuidora')
 
+
 delimiter //
 create procedure sp_actualizar_estado_proveedor(in codprov int, in idesta int)
 begin
 	update tb_proveedor set estado_id = idesta
     where id = codprov;
 end //
+
 
 delimiter //
 create procedure sp_listar_estado_proveedor()
@@ -462,7 +477,9 @@ BEGIN
 
     SELECT 'Proveedor eliminado exitosamente' AS mensaje;
 END // 
-call sp_eliminar_proveedor '8';
+-- call sp_eliminar_proveedor '8';
+
+
 -- *****************************************************************************************************************
 -- *****************************************************************************************************************
 -- Procedimientos alamcenados para Productos

@@ -1,22 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 public class Proveedor {
-    private Long id;
+    private int id;
     private String nombre;
     private String ruc;
     private String descripcion;
     private String telefono;
     private String correo;
     private String direccion;
-    private int idEstado;
+    private int estado_id;
     private String estado;
     
     //buscar por nombre
-       public Proveedor(Long id, String nombre, String ruc, String correo, String telefono, String estado) {
+       public Proveedor(int id, String nombre, String ruc, String correo, String telefono, String estado) {
         this.id = id;
         this.nombre = nombre;
         this.ruc = ruc;
@@ -24,21 +20,25 @@ public class Proveedor {
         this.telefono = telefono;
         this.estado = estado;
     }
+
+    //constructor para buscar un rpoovedor por ID
+    public Proveedor(int id, String nombre, String ruc, String telefono, String correo, String direccion, String descripcion, int estado_id) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ruc = ruc;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.direccion = direccion;
+        this.descripcion = descripcion;
+        this.estado_id = estado_id;
+    }
+
        
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -90,11 +90,21 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
-    public int getIdEstado() {
-        return idEstado;
+    public int getEstado_id() {
+        return estado_id;
     }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
+    public void setEstado_id(int estado_id) {
+        this.estado_id = estado_id;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+ 
 }

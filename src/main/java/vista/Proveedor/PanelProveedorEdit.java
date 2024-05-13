@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package vista.Proveedor;
 
 import static Constantes.ConstantesPaneles.PANEL_PROVEEDOR;
@@ -13,10 +9,6 @@ import Utilidades.IPanelListener;
 import Utilidades.Identificable;
 import javax.swing.JComboBox;
 
-/**
- *
- * @author jean carlos
- */
 public class PanelProveedorEdit extends javax.swing.JPanel {
     private ProveedorControllerEdit controlador;
     public IPanelListener panelListener;
@@ -27,15 +19,15 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
     }
 
     private void CargarComboBox(){
-       /* EstadoController estadoController = new EstadoController();
-        estadoController.cargarEstadosEnComboBox(cboEstado);*/
+       EstadoController estadoController = new EstadoController();
+       estadoController.cargarEstadosEnComboBox(cboEstado);
     }
     
     public void BuscarProveedorPorId(Long id){
         Proveedor proveedor = controlador.buscarProveedorPorCodigo(id);
         
         if (proveedor != null) {
-            txtId.setText(String.valueOf(id));
+            txtId.setText(String.valueOf(proveedor.getId())); // Usar el ID del proveedor obtenido
             txtNombre.setText(proveedor.getNombre());
             txtRuc.setText(proveedor.getRuc());
             txtTelefono.setText(proveedor.getTelefono());
@@ -43,21 +35,21 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
             txtDireccion.setText(proveedor.getDireccion());
             txtDescripcion.setText(proveedor.getDescripcion());
             
-            // Obtener el ID del estado
-            //int estadoId = proveedor.getEstado_id();
+            //Obtener el ID del estado
+            int estadoId = proveedor.getEstado_id();
 
             //Seleccionar el elemento correspondiente en el ComboBox
-            //cboEstado.setSelectedItem(obtenerEstadoPorId(estadoId));
+            cboEstado.setSelectedItem(obtenerEstadoPorId(estadoId));
         } else {
             System.out.println("Proveedor no encontrado con el ID: " + id);
         }
     }
     
-    /*private Estado obtenerEstadoPorId(int estadoId) {
+    private Estado obtenerEstadoPorId(int estadoId) {
         return obtenerPorId(cboEstado, estadoId);
     }
 
-    // Obtener el Id de caulquier objeto
+    // Obtener el Id de cualquier objeto
     private <T extends Identificable> T obtenerPorId(JComboBox<T> comboBox, int id) {
         for (int i = 0; i < comboBox.getItemCount(); i++) {
             T item = comboBox.getItemAt(i);
@@ -66,7 +58,7 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
             }
         }
         return null; // Si no se encuentra el item con el ID especificado
-    }*/
+    }
     
     private void inicializar(){
         initComponents();
@@ -117,8 +109,6 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
         lblNombre.setText("Nombre:");
 
         lblCorreo.setText("Correo:");
-
-        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblTelefono.setText("Telefono:");
 
@@ -249,9 +239,9 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
         String descripcion = txtDescripcion.getText();
 
         Estado estadoSeleccionado = (Estado) cboEstado.getSelectedItem();
-        int estadoId = estadoSeleccionado.getId();
+        int estado_id = estadoSeleccionado.getId();
 
-        controlador.editarProveedor(id, nombre, ruc, telefono, correo, direccion, descripcion, estadoId);
+        controlador.editarProveedor(id, nombre, ruc, telefono, correo, direccion, descripcion, estado_id);
         panelListener.abrirPanel(PANEL_PROVEEDOR);
 
 
@@ -260,7 +250,7 @@ public class PanelProveedorEdit extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarProveedor;
-    public javax.swing.JComboBox<String> cboEstado;
+    public javax.swing.JComboBox<Estado> cboEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblCorreo;
