@@ -3,6 +3,7 @@ package vista.Categoria;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_EDITAR;
 import static Constantes.ConstantesPaneles.PANEL_CATEGORIA_SHOW;
+import static Constantes.ConstantesPaneles.PANEL_MANTENIMIENTO;
 import Controlador.Categoria.CategoriaControllerDelete;
 import Controlador.Categoria.CategoriaControllerList;
 import Controlador.GlobalPermisos;
@@ -42,7 +43,7 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
         tbCategoria.setModel(model);
 
         // Verificar permisos antes de agregar botones a las columnas
-        if (permisosUsuario.contains("ver_detalle_categoria_producto")) {
+        if (permisosUsuario.contains("buscar_categoria_producto")) {
             new ButtonColumn(tbCategoria, 2, this); // Convertir la tercera columna ("Ver detalles") en un botón
         }
         if (permisosUsuario.contains("editar_categoria_producto")) {
@@ -65,15 +66,11 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     }
     
     private void abrirDetallesCategoria(Long id) {
-        if (panelListener != null) {
-            panelListener.abrirPanel(PANEL_CATEGORIA_SHOW, id);
-        }
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
     }
 
     private void abrirEditarCategoria(Long id) {
-        if (panelListener != null) {
-            panelListener.abrirPanel(PANEL_CATEGORIA_EDITAR, id);
-        }
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
     }   
 
     private void eliminarCategoria(Long id) {

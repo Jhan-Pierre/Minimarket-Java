@@ -27,4 +27,6 @@ public class ConstantesPaneles {
     public static final String PANEL_PROVEEDOR_EDITAR = "ProveedorEditar";
     public static final String PANEL_PROVEEDOR_SHOW = "ProveedorMostrar";
     
+    public static final String PANEL_MANTENIMIENTO = "Mantenimiento";
+    
 }

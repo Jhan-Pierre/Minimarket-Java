@@ -1,6 +1,11 @@
 package vista.Pedido;
 
+import static Constantes.ConstantesNombreBotonesTablas.EDITAR;
+import static Constantes.ConstantesNombreBotonesTablas.ELIMINAR;
+import static Constantes.ConstantesNombreBotonesTablas.VER_DETALLES;
+import static Constantes.ConstantesPaneles.PANEL_MANTENIMIENTO;
 import Controlador.Pedido.PedidoControllerList;
+import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
@@ -33,8 +38,32 @@ public class PanelPedido extends javax.swing.JPanel implements IButtonClickListe
     public void buscarUsuarios(String texto) {
         DefaultTableModel model = controladorList.obtenerModeloTabla(texto);
         tbPedido.setModel(model);
+        new ButtonColumn(tbPedido, 5, this);
+        new ButtonColumn(tbPedido, 6, this);
+        new ButtonColumn(tbPedido, 7, this);
+    }
+    
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        //Long id = (Long) tbProducto.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case VER_DETALLES -> abrirDetallesUsuario();
+            case EDITAR -> abrirEditarUsuario();
+            case ELIMINAR -> eliminarUsuario();
+        }
+    }
+    
+    private void abrirDetallesUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
     }
 
+    private void eliminarUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
+    }
+
+    private void abrirEditarUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,7 +77,6 @@ public class PanelPedido extends javax.swing.JPanel implements IButtonClickListe
         txtBuscarPedido = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("LISTA DE PEDIDOS:");
 
         tbPedido.setModel(new javax.swing.table.DefaultTableModel(
@@ -65,6 +93,11 @@ public class PanelPedido extends javax.swing.JPanel implements IButtonClickListe
         jScrollPane1.setViewportView(tbPedido);
 
         btnAgregarPedido.setText("Agregar");
+        btnAgregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPedidoActionPerformed(evt);
+            }
+        });
 
         txtBuscarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +150,10 @@ public class PanelPedido extends javax.swing.JPanel implements IButtonClickListe
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarPedidoActionPerformed
 
+    private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
+    }//GEN-LAST:event_btnAgregarPedidoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPedido;
     private javax.swing.Box.Filler filler1;
@@ -127,13 +164,4 @@ public class PanelPedido extends javax.swing.JPanel implements IButtonClickListe
     private javax.swing.JTextField txtBuscarPedido;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void buttonClicked(int row, int column, String buttonText) {
-        Long id = (Long) tbPedido.getModel().getValueAt(row, 0);
-        switch (buttonText) {
-            //case "Ver detalles" -> abrirDetallesUsuario(id);
-            //case "Editar" -> abrirEditarUsuario(id);
-            //case "Eliminar" -> eliminarUsuario(id);
-        }
-    }
 }
