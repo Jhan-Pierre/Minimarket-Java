@@ -209,6 +209,10 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     public void configurarAccesoSegunRol(Set<String> permisosUsuario) {
         btnUsuario.setVisible(permisosUsuario.contains("ver_usuario"));
         btnProducto.setVisible(permisosUsuario.contains("ver_producto"));
+        btnVenta.setVisible(permisosUsuario.contains("ver_venta"));
+        btnCategoria.setVisible(permisosUsuario.contains("ver_categoria_producto"));
+        btnPedido.setVisible(permisosUsuario.contains("ver_pedido"));
+        btnProveedor.setVisible(permisosUsuario.contains("ver_proveedor"));
     }
    
     private void agregarPanel(JPanel panel, String nombre) {

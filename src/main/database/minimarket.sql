@@ -1177,16 +1177,16 @@ INSERT INTO tb_turno VALUES (1, 'mañana'), (2, 'tarde'), (3,'noche');
 INSERT INTO tb_estado VALUES (1,'activo'),(3,'eliminado'),(2,'inactivo');
 
 -- insertar modulos
-INSERT INTO tb_modulo VALUES (1,'role'),(2,'usuario'),(3,'producto'),(4,'categoria_producto'),(5,'proveedor'),(6,'pedido');
+INSERT INTO tb_modulo VALUES (1,'role'),(2,'usuario'),(3,'producto'),(4,'categoria_producto'),(5,'proveedor'),(6,'pedido'),(7,'venta');
 
 -- insertar permisos
-INSERT INTO tb_permiso VALUES (1,'agregar_rol',1),(2,'editar_rol',1),(3,'eliminar_rol',1),(4,'ver_rol',1),(5,'buscar_rol',1),(6,'agregar_usuario',2),(7,'editar_usuario',2),(8,'eliminar_usuario',2),(9,'ver_usuario',2),(10,'buscar_usuario',2),(11,'agregar_producto',3),(12,'editar_producto',3),(13,'eliminar_producto',3),(14,'ver_producto',3),(15,'buscar_producto',3),(16,'agregar_categoria_producto',4),(17,'editar_categoria_producto',4),(18,'eliminar_categoria_producto',4),(19,'ver_categoria_producto',4),(20,'buscar_categoria_producto',4);
+INSERT INTO tb_permiso VALUES (1,'agregar_rol',1),(2,'editar_rol',1),(3,'eliminar_rol',1),(4,'ver_rol',1),(5,'buscar_rol',1),(6,'agregar_usuario',2),(7,'editar_usuario',2),(8,'eliminar_usuario',2),(9,'ver_usuario',2),(10,'buscar_usuario',2),(11,'agregar_producto',3),(12,'editar_producto',3),(13,'eliminar_producto',3),(14,'ver_producto',3),(15,'buscar_producto',3),(16,'agregar_categoria_producto',4),(17,'editar_categoria_producto',4),(18,'eliminar_categoria_producto',4),(19,'ver_categoria_producto',4),(20,'buscar_categoria_producto',4),(21,'agregar_proveedor',5),(22,'editar_proveedor',5),(23,'eliminar_proveedor',5),(24,'ver_proveedor',5),(25,'buscar_proveedor',5),(26,'agregar_pedido',6),(27,'editar_pedido',6),(28,'eliminar_pedido',6),(29,'ver_pedido',6),(30,'buscar_pedido',6),(31,'agregar_venta',7),(32,'editar_venta',7),(33,'eliminar_venta',7),(34,'ver_venta',7),(35,'buscar_venta',7);
 
 -- insertar roles
 INSERT INTO tb_rol VALUES (1,'admin'),(2,'empleado');
 
 -- insertar roles con permiso
-INSERT INTO tb_rol_permiso VALUES (23,1,1),(24,1,2),(25,1,3),(26,1,4),(27,1,5),(28,1,6),(29,1,7),(30,1,8),(31,1,9),(32,1,10),(33,1,11),(34,1,12),(35,1,13),(36,1,14),(37,1,15),(38,1,16),(39,1,17),(40,1,18),(41,1,19),(42,1,20),(43,2,14),(44,2,15);
+INSERT INTO tb_rol_permiso VALUES (23,1,1),(24,1,2),(25,1,3),(26,1,4),(27,1,5),(28,1,6),(29,1,7),(30,1,8),(31,1,9),(32,1,10),(33,1,11),(34,1,12),(35,1,13),(36,1,14),(37,1,15),(38,1,16),(39,1,17),(40,1,18),(41,1,19),(42,1,20),(43,2,14),(44,2,15),(45,2,19),(46,2,31),(47,2,34),(48,2,35),(49,1,21),(50,1,22),(51,1,23),(52,1,24),(53,1,25),(54,1,26),(55,1,27),(56,1,28),(57,1,29),(58,1,30),(59,1,31),(60,1,32),(61,1,33),(62,1,34),(63,1,35);
 
 -- Insertar usuarios
 INSERT INTO tb_usuario (correo, password, telefono, nombre, apellido, fecha_alta, fecha_actualizado, rol_id, estado_id, turno_id)
