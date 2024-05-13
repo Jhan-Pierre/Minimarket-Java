@@ -500,15 +500,21 @@ begin
     left join  tb_categoria_producto c on p.categoria_producto_id = c.id
     left join tb_estado e on p.estado_id = e.id;
 end; //
-
 delimiter //
 create procedure sp_buscar_producto_por_codigo(in codigobar varchar(50))
 begin
-    select nombre, precio_venta
-    from tb_producto
-    where codigoBarras = codigobar;
+    select p.nombre AS nombre_producto, 
+        p.precio_venta, 
+        p.stock_disponible, 
+        p.codigoBarras, 
+        e.nombre AS estado, 
+        cp.nombre AS categoria
+    from tb_producto p
+    inner join tb_estado e ON p.estado_id = e.id
+    inner join tb_categoria_producto cp ON p.categoria_producto_id = cp.id
+    where p.codigoBarras LIKE CONCAT('%', codigobar, '%');
 end; //
-
+-- call sp_buscar_producto_por_codigo('')
 delimiter //
 create procedure sp_mostrar_producto_por_codigo(
     in producto_id int
@@ -1144,6 +1150,18 @@ BEGIN
     FROM tb_pedido
     WHERE id = p_codpedido;
 END //
+
+delimiter //
+CREATE PROCEDURE sp_buscar_pedido_por_nombre_usuario(IN nombre VARCHAR(160))
+BEGIN
+    SELECT p.id, p.fecha, p.costoTotal, CONCAT(u.nombre, ' ', u.apellido) AS usuario, pr.nombre as proveedor
+    FROM tb_pedido p
+    INNER JOIN tb_proveedor pr ON p.proveedor_id = pr.id
+    INNER JOIN tb_usuario u ON p.usuario_id = u.id
+    WHERE u.nombre LIKE CONCAT('%', nombre, '%'); -- Búsqueda aproximada por nombre
+END; //
+
+-- CALL sp_buscar_pedido_por_nombre_usuario('Admin');
 
 -- ##################################################################################################
 -- Zona experimental
