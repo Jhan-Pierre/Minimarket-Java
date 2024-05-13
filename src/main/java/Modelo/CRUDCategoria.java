@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class CRUDCategoria extends Conexion {
 
-    public List<CategoriaProducto> listarCategorias() {
+    public List<CategoriaProducto> listarCategoriaProducto() {
         List<CategoriaProducto> listaCategorias = new ArrayList<>();
         Connection cnx = getConexion();
         if (cnx == null) {
@@ -19,7 +19,7 @@ public class CRUDCategoria extends Conexion {
             return listaCategorias;
         }
 
-        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_categorias()}")) {
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_categoria_producto()}")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 long id = rs.getLong("id");

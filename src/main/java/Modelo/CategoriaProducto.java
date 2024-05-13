@@ -1,19 +1,21 @@
 package Modelo;
 
 public class CategoriaProducto {
-    private Long id;
+    private long id;
     private String nombre;
 
-    public CategoriaProducto(Long id, String nombre) {
+    // Constructor
+    public CategoriaProducto(long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public Long getId() {
+    // Getters y setters
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -24,4 +26,11 @@ public class CategoriaProducto {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    // Método toString para mostrar el nombre en el ComboBox
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
+

@@ -28,6 +28,7 @@ import javax.swing.JTable;
 import vista.Venta.PanelVenta;
 import vista.Venta.PanelVentaCreate;
 import vista.Pedido.PanelPedido;
+import vista.Producto.PanelProductoCrear;
 
 
 public final class FrmDashboard extends javax.swing.JFrame implements IPanelListener {
@@ -49,6 +50,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelCategoriaCrear panelCategoriaCrear;
     
     PanelProducto panelProducto;
+    PanelProductoCrear panelProductoCrear; 
+    
     
     PanelVenta panelVenta;
     PanelVentaCreate panelventaCreate;
@@ -86,7 +89,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelCategoriaEdit = new PanelCategoriaEdit(this);
         panelCategoriaShow = new PanelCategoriaShow(this);
         
-        panelProducto = new PanelProducto();
+        panelProducto = new PanelProducto(this);
+        panelProductoCrear = new PanelProductoCrear(this);
         
         panelVenta = new PanelVenta(this);
         panelventaCreate = new PanelVentaCreate(this);
@@ -105,6 +109,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
+        agregarPanel(panelProductoCrear, PANEL_PRODUCTO_CREAR);
         agregarPanel(panelVenta, PANEL_VENTA);
         agregarPanel(panelventaCreate, PANEL_VENTA_CREAR);
         agregarPanel(panelPedido, PANEL_PEDIDO);
