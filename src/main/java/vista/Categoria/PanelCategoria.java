@@ -97,6 +97,7 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
         controlador = new CategoriaControllerList(permisosUsuario);
         ctrDelete = new CategoriaControllerDelete();
         buscarCategorias("");
+        btnAgregarCategoria.setVisible(permisosUsuario.contains("agregar_categoria_producto"));
     }
     
     private void abrirPanelCategoriaCrear() {

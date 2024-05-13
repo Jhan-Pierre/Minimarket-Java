@@ -32,7 +32,7 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
 
     public void iniciarlizar(){
         controladorList = new VentaControllerList(permisosUsuario);
-        buscarVentas("");
+        buscarVentas("");    
     }
     
     @Override
