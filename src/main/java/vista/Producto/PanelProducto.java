@@ -1,10 +1,13 @@
 package vista.Producto;
 
+import static Constantes.ConstantesPaneles.PANEL_PRODUCTO_CREAR;
+import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 import Controlador.Producto.ProductoControllerList;
 import Controlador.Usuario.UsuarioControllerDelete;
 import Controlador.Usuario.UsuarioControllerList;
 import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
+import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
@@ -12,8 +15,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelProducto extends javax.swing.JPanel implements IButtonClickListener {
     private ProductoControllerList controlador;
+     public final IPanelListener panelListener;
     
-    public PanelProducto() {
+    public PanelProducto(IPanelListener panelListener) {
+        this.panelListener = panelListener;
         initComponents();
         inicializar();
 
@@ -47,7 +52,10 @@ public class PanelProducto extends javax.swing.JPanel implements IButtonClickLis
         controlador = new ProductoControllerList();
         buscarProducto("");
     }
-    
+    private void abrirPanelProductoCrear() {
+        // Solicitar al PanelListener que abra PanelUsuarioCrear
+        this.panelListener.abrirPanel(PANEL_PRODUCTO_CREAR);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -144,7 +152,7 @@ public class PanelProducto extends javax.swing.JPanel implements IButtonClickLis
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        
+        abrirPanelProductoCrear();
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
 
