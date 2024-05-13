@@ -77,29 +77,38 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(900, 490));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel1.setText("Crear Usuario");
 
+        lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNombre.setText("Nombre");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Correo");
 
+        lblApellido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblApellido.setText("Apellido");
 
         txtApellido.setPreferredSize(new java.awt.Dimension(150, 22));
 
+        lblNombre1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNombre1.setText("Contraseña");
 
+        lblApellido1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblApellido1.setText("Confirma contraseña");
 
         txtConfirmarContraseña.setPreferredSize(new java.awt.Dimension(150, 22));
 
+        lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTurno.setText("Turno");
 
+        lblTelefono.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTelefono.setText("Telefono");
 
+        lblEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblEstado.setText("Estado");
 
+        lblRol.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblRol.setText("Rol");
 
         btnAgregarUsuario.setText("Agregar");
@@ -289,7 +298,7 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(errorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(errorRol, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(btnAgregarUsuario)
                 .addGap(26, 26, 26))
         );
