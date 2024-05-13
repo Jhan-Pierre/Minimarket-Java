@@ -7,6 +7,7 @@ import vista.Producto.PanelProducto;
 import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
+import Modelo.SesionUsuario;
 
 import vista.Proveedor.PanelProveedorShow;
 import vista.Proveedor.PanelProveedorEdit;
@@ -73,6 +74,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         configurarPaneles();
         configurarListeners();
         configurarAccesoSegunRol(GlobalPermisos.getPermisos()); // Utiliza la clase global aquí
+        txtTipoRol.setText(SesionUsuario.getInstancia().getUsuarioLogeado().getRol());
     }
     
     private void configurarPaneles() {
@@ -243,6 +245,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
+        txtTipoRol = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -415,7 +418,12 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
 
         lblUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsuario.setText("Usuario Iniciado Sesión");
+
+        txtTipoRol.setForeground(new java.awt.Color(255, 255, 255));
+        txtTipoRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTipoRol.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -424,14 +432,20 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 957, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUsuario)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTipoRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                .addComponent(lblUsuario))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(lblUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTipoRol)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 80));
@@ -489,5 +503,6 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     public javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel txtTipoRol;
     // End of variables declaration//GEN-END:variables
 }

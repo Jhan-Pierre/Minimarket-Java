@@ -200,8 +200,9 @@ create procedure sp_obtener_usuario_logeado(
 	IN p_correo VARCHAR(60)
 )
 begin
-	SELECT u.id, u.correo, concat(u.nombre, ' ', u.apellido) as nombre, u.rol_id
+	SELECT u.id, u.correo, concat(u.nombre, ' ', u.apellido) as nombre, r.nombre as rol
     FROM tb_usuario AS u
+    inner join tb_rol r on u.rol_id = r.id
     WHERE u.correo = p_correo;
 end; //
 -- ##################################################################################################
