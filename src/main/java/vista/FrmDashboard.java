@@ -85,7 +85,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
-        panelCategoriaCrear = new PanelCategoriaCrear(this, tablaCategorias);
+        panelCategoriaCrear = new PanelCategoriaCrear(this);
         panelCategoriaEdit = new PanelCategoriaEdit(this);
         panelCategoriaShow = new PanelCategoriaShow(this);
         
