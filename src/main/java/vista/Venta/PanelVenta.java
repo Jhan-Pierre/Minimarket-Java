@@ -1,5 +1,9 @@
 package vista.Venta;
 
+import static Constantes.ConstantesNombreBotonesTablas.EDITAR;
+import static Constantes.ConstantesNombreBotonesTablas.ELIMINAR;
+import static Constantes.ConstantesNombreBotonesTablas.VER_DETALLES;
+import static Constantes.ConstantesPaneles.PANEL_MANTENIMIENTO;
 import static Constantes.ConstantesPaneles.PANEL_VENTA_CREAR;
 import Controlador.GlobalPermisos;
 import Controlador.Venta.VentaControllerList;
@@ -35,17 +39,6 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
         buscarVentas("");    
     }
     
-    @Override
-    public void buttonClicked(int row, int column, String buttonText) {
-        long id = ((Number) tbVenta.getModel().getValueAt(row, 0)).longValue();
-        switch (buttonText) {
-            case "Ver detalles" -> abrirDetallesUsuario(id);
-            case "Editar" -> abrirEditarUsuario(id);
-            case "Eliminar" -> eliminarUsuario(id);
-        }
-        
-    }
-    
     public void buscarVentas(String texto) {
         DefaultTableModel model = controladorList.obtenerModeloTabla(texto);
         tbVenta.setModel(model);
@@ -62,16 +55,26 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
         }
     }
     
-    private void abrirDetallesUsuario(Long id) {
-        System.out.println("abrir:" + id);    
+    @Override
+    public void buttonClicked(int row, int column, String buttonText) {
+        //Long id = (Long) tbProducto.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case VER_DETALLES -> abrirDetallesUsuario();
+            case EDITAR -> abrirEditarUsuario();
+            case ELIMINAR -> eliminarUsuario();
+        }
+    }
+    
+    private void abrirDetallesUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
     }
 
-    private void abrirEditarUsuario(Long id) {
-        System.out.println("editar:" + id);    
+    private void eliminarUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
     }
 
-    private void eliminarUsuario(Long id) {
-        System.out.println("eliminar:" + id);    
+    private void abrirEditarUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
     }
     
     public void resetPanel() {

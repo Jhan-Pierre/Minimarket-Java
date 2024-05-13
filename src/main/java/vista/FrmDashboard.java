@@ -59,6 +59,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
 
     PanelPedido panelPedido;
 
+    
+    PanelMantenimiento panelMantenimiento;
+    
     private int mouseX;
     private int mouseY;
 
@@ -95,6 +98,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelVenta = new PanelVenta(this);
         panelventaCreate = new PanelVentaCreate(this);
         panelPedido = new PanelPedido(this);
+        
+        panelMantenimiento = new PanelMantenimiento();
         inicializarPaneles();
     }
     
@@ -122,6 +127,8 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelProveedor, PANEL_PROVEEDOR);
         agregarPanel(panelProveedorCrear, PANEL_PROVEEDOR_CREAR);
         agregarPanel(panelProveedorEdit, PANEL_PROVEEDOR_EDITAR);
+        
+        agregarPanel(panelMantenimiento, PANEL_MANTENIMIENTO);
     }
 
     private void configurarListeners() {

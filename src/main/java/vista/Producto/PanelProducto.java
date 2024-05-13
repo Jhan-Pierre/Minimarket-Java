@@ -1,5 +1,7 @@
 package vista.Producto;
 
+import static Constantes.ConstantesNombreBotonesTablas.*;
+import static Constantes.ConstantesPaneles.PANEL_MANTENIMIENTO;
 import static Constantes.ConstantesPaneles.PANEL_PRODUCTO_CREAR;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO_CREAR;
 import Controlador.GlobalPermisos;
@@ -41,7 +43,7 @@ public class PanelProducto extends javax.swing.JPanel implements IButtonClickLis
         tbProducto.setModel(model);
 
         // Verificar permisos antes de agregar botones a las columnas
-        if (permisosUsuario.contains("ver_detalle_producto")) {
+        if (permisosUsuario.contains("buscar_producto")) {
             new ButtonColumn(tbProducto, 6, this); // Convertir la séptima columna ("Ver detalles") en un botón
         }
         if (permisosUsuario.contains("editar_producto")) {
@@ -54,9 +56,24 @@ public class PanelProducto extends javax.swing.JPanel implements IButtonClickLis
 
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
-        
+        //Long id = (Long) tbProducto.getModel().getValueAt(row, 0);
+        switch (buttonText) {
+            case VER_DETALLES -> abrirDetallesUsuario();
+            case EDITAR -> abrirEditarUsuario();
+            case ELIMINAR -> eliminarUsuario();
+        }
     }
-    
+    private void abrirDetallesUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
+    }
+
+    private void eliminarUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
+    }
+
+    private void abrirEditarUsuario() {
+        this.panelListener.abrirPanel(PANEL_MANTENIMIENTO);
+    }
     private void inicializar() {
         controlador = new ProductoControllerList(permisosUsuario);
         btnAgregarProducto.setVisible(permisosUsuario.contains("agregar_categoria_producto"));
