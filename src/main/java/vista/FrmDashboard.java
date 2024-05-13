@@ -18,6 +18,9 @@ import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
 import vista.Categoria.PanelCategoria;
+import vista.Categoria.PanelCategoriaCrear;
+import vista.Categoria.PanelCategoriaEdit;
+import vista.Categoria.PanelCategoriaShow;
 import vista.Venta.PanelVenta;
 import vista.Venta.PanelVentaCreate;
 import vista.Pedido.PanelPedido;
@@ -34,6 +37,10 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelProveedor panelProveedor;
     
     PanelCategoria panelCategoria;
+    PanelCategoriaCrear panelCategoriaCrear;
+    PanelCategoriaEdit panelCategoriaEdit;
+    PanelCategoriaShow panelCategoriaShow;
+    
     
     PanelProducto panelProducto;
     
@@ -65,6 +72,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         
         panelProveedor = new PanelProveedor(this);
         
+        panelCategoriaCrear = new PanelCategoriaCrear(this);
+        panelCategoriaEdit = new PanelCategoriaEdit();
+        panelCategoriaShow = new PanelCategoriaShow();
         panelCategoria = new PanelCategoria(this);
         
         panelProducto = new PanelProducto();
@@ -82,16 +92,22 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
 
         // Añadimos los paneles a PanelPadre
         agregarPanel(panelDashboard, PANEL_DASHBOARD);
+        
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
-        agregarPanel(panelCategoria, PANEL_CATEGORIA);
+        
         agregarPanel(panelProducto, PANEL_PRODUCTO);
+        
         agregarPanel(panelVenta, PANEL_VENTA);
         agregarPanel(panelventaCreate, PANEL_VENTA_CREAR);
         agregarPanel(panelPedido, PANEL_PEDIDO);
         
         agregarPanel(panelProveedor, PANEL_PROVEEDOR);
+        
+        agregarPanel(panelCategoria, PANEL_CATEGORIA);
+        agregarPanel(panelCategoriaCrear, PANEL_CATEGORIA_CREAR);
+        agregarPanel(panelCategoriaEdit, PANEL_PROVEEDOR_EDITAR);
     }
 
     private void configurarListeners() {

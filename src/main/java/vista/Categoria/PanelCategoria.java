@@ -33,37 +33,37 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     }
 
     
-public void buscarCategorias(String texto) {
-    DefaultTableModel model = controlador.obtenerModeloTabla(texto);
-    tbCategoria.setModel(model);
+    public void buscarCategorias(String texto) {
+        DefaultTableModel model = controlador.obtenerModeloTabla(texto);
+        tbCategoria.setModel(model);
 
-    // Suponiendo que this implementa la interfaz IButtonClickListener
-    new ButtonColumn(tbCategoria, 2, this); // Convertir la tercera columna ("Ver detalles") en un botón
-    new ButtonColumn(tbCategoria, 3, this); // Convertir la cuarta columna ("Editar") en un botón
-    new ButtonColumn(tbCategoria, 4, this); // Convertir la quinta columna ("Eliminar") en un botón
-}
+        // Suponiendo que this implementa la interfaz IButtonClickListener
+        new ButtonColumn(tbCategoria, 2, this); // Convertir la tercera columna ("Ver detalles") en un botón
+        new ButtonColumn(tbCategoria, 3, this); // Convertir la cuarta columna ("Editar") en un botón
+        new ButtonColumn(tbCategoria, 4, this); // Convertir la quinta columna ("Eliminar") en un botón
+    }
     
     @Override
-    public void buttonClicked(int row, int column, String buttonText) {
-        Long id = (Long) tbCategoria.getModel().getValueAt(row, 0);
-        switch (buttonText) {
-            case "Ver detalles" -> abrirDetallesCategoria(id);
-            case "Editar" -> abrirEditarCategoria(id);
-            case "Eliminar" -> eliminarCategoria(id);
+        public void buttonClicked(int row, int column, String buttonText) {
+            long id = (Long) tbCategoria.getModel().getValueAt(row, 0);
+            switch (buttonText) {
+                case "Ver detalles" -> abrirDetallesCategoria(id);
+                case "Editar" -> abrirEditarCategoria(id);
+                case "Eliminar" -> eliminarCategoria(id);
+            }
         }
-    }
-    
-    private void abrirDetallesCategoria(Long id) {
-        if (panelListener != null) {
-            panelListener.abrirPanel(PANEL_CATEGORIA_SHOW, id);
-        }
-    }
 
-    private void abrirEditarCategoria(Long id) {
-        if (panelListener != null) {
-            panelListener.abrirPanel(PANEL_CATEGORIA_EDITAR, id);
+        private void abrirDetallesCategoria(Long id) {
+            if (panelListener != null) {
+                panelListener.abrirPanel(PANEL_CATEGORIA_SHOW, id);
+            }
         }
-    }
+
+        private void abrirEditarCategoria(Long id) {
+            if (panelListener != null) {
+                panelListener.abrirPanel(PANEL_CATEGORIA_EDITAR, id);
+            }
+        }
 
     private void eliminarCategoria(Long id) {
         // Mostrar un JOptionPane de confirmación

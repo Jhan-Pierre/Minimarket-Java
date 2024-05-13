@@ -541,6 +541,10 @@ end; //
 
 -- CALL sp_filtrar_producto('man');
 
+
+-- SP CATEGORIA
+
+
 delimiter //
 create procedure sp_listar_categoria_producto()
 begin
@@ -557,6 +561,33 @@ BEGIN
     WHERE nombre LIKE CONCAT('%', nombre_categoria, '%');
 END//
 
+DELIMITER //
+
+CREATE PROCEDURE sp_buscar_categoria_por_id(
+    IN idCategoria INT
+)
+BEGIN
+    SELECT id, nombre
+    FROM tb_categoria_producto
+    WHERE id = idCategoria;
+END //
+
+DELIMITER //
+CREATE PROCEDURE sp_mostrar_categoria_por_id(IN categoria_id INT)
+BEGIN
+    SELECT id, nombre
+    FROM tb_categoria_producto
+    WHERE id = categoria_id;
+END //
+
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_categoria(IN categoria_id INT)
+BEGIN
+    DELETE FROM tb_categoria_producto
+    WHERE id = categoria_id;
+END //
+
+-- END 
 
 delimiter //
 create procedure sp_registrar_producto(
