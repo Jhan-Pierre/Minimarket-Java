@@ -24,6 +24,7 @@ import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
+import javax.swing.JTable;
 import vista.Venta.PanelVenta;
 import vista.Venta.PanelVentaCreate;
 import vista.Pedido.PanelPedido;
@@ -58,7 +59,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     private int mouseX;
     private int mouseY;
 
-    
+     private JTable tablaCategorias = new JTable();
     public static CardLayout vista;
 
     public FrmDashboard() {
@@ -81,7 +82,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
-        panelCategoriaCrear = new PanelCategoriaCrear(this);
+        panelCategoriaCrear = new PanelCategoriaCrear(this, tablaCategorias);
         panelCategoriaEdit = new PanelCategoriaEdit(this);
         panelCategoriaShow = new PanelCategoriaShow(this);
         
