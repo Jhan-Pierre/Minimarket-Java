@@ -561,6 +561,9 @@ end; //
 
 -- CALL sp_filtrar_producto('man');
 
+-- ============================================================
+-- ===================== SP CATEGORIA  ======================== 
+-- ============================================================
 delimiter //
 create procedure sp_listar_categoria_producto()
 begin
@@ -569,13 +572,49 @@ end; //
 
 DELIMITER //
 
-CREATE PROCEDURE sp_buscar_categoria_por_nombre(
-    IN nombre_categoria VARCHAR(60)
-)
+DELIMITER //
+CREATE PROCEDURE sp_buscar_categoria_por_nombre(IN texto_busqueda VARCHAR(100))
 BEGIN
-    SELECT * FROM tb_categoria_producto
-    WHERE nombre LIKE CONCAT('%', nombre_categoria, '%');
-END//
+    SELECT id, nombre FROM tb_categoria_producto WHERE nombre LIKE CONCAT('%', texto_busqueda, '%');
+END //
+
+
+DELIMITER //
+CREATE PROCEDURE sp_buscar_categoria_por_id(IN categoria_id INT)
+BEGIN
+    SELECT id, nombre FROM tb_categoria_producto WHERE id = categoria_id;
+END //
+
+
+DELIMITER //
+CREATE PROCEDURE sp_mostrar_categoria_por_id(IN categoria_id INT)
+BEGIN
+    SELECT id, nombre FROM tb_categoria_producto WHERE id = categoria_id;
+END //
+
+
+DELIMITER //
+CREATE PROCEDURE sp_agregar_categoria(IN nombre_categoria VARCHAR(60))
+BEGIN
+    INSERT INTO tb_categoria_producto (nombre) VALUES (nombre_categoria);
+END //
+
+
+DELIMITER //
+CREATE PROCEDURE sp_actualizar_categoria(IN categoria_id INT, IN nuevo_nombre VARCHAR(60))
+BEGIN
+    UPDATE tb_categoria_producto SET nombre = nuevo_nombre WHERE id = categoria_id;
+END //
+
+
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_categoria(IN categoria_id INT)
+BEGIN
+    DELETE FROM tb_categoria_producto WHERE id = categoria_id;
+END //
+
+
+-- =============== =============== =============== 
 
 
 delimiter //

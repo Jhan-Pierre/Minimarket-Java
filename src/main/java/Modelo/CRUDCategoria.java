@@ -22,7 +22,7 @@ public class CRUDCategoria extends Conexion {
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_listar_categorias()}")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
+                long id = rs.getLong("id");
                 String nombre = rs.getString("nombre");
 
                 CategoriaProducto categoria = new CategoriaProducto(id, nombre);
@@ -52,7 +52,7 @@ public class CRUDCategoria extends Conexion {
             stmt.setString(1, textoBusqueda);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
+                long id = rs.getLong("id");
                 String nombre = rs.getString("nombre");
 
                 CategoriaProducto categoria = new CategoriaProducto(id, nombre);
@@ -69,16 +69,70 @@ public class CRUDCategoria extends Conexion {
         }
         return categoriasEncontradas;
     }
+    
+    public CategoriaProducto buscarCategoriaPorId(long id) {
+        CategoriaProducto categoria = null;
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return null;
+        }
 
-    public String agregarCategoria(CategoriaProducto categoria) {
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_buscar_categoria_por_id(?)}")) {
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String nombre = rs.getString("nombre");
+                categoria = new CategoriaProducto(id, nombre);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al buscar categoría por ID", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return categoria;
+    }
+    
+    public CategoriaProducto mostrarCategoriaPorId(long id) {
+        Connection cnx = getConexion();
+        if (cnx == null) {
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "No se pudo establecer conexión con la base de datos.");
+            return null;
+        }
+
+        try (CallableStatement stmt = cnx.prepareCall("{CALL sp_mostrar_categoria_por_id(?)}")) {
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                long categoriaId = rs.getLong("id");
+                String nombre = rs.getString("nombre");
+
+                return new CategoriaProducto(categoriaId, nombre);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al mostrar categoría por ID", e);
+        } finally {
+            try {
+                cnx.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CRUDCategoria.class.getName()).log(Level.SEVERE, "Error al cerrar conexión", e);
+            }
+        }
+        return null;
+    }
+
+    public String agregarCategoria(String nombre) {
         Connection cnx = getConexion();
         if (cnx == null) {
             return "No se pudo establecer conexión con la base de datos.";
         }
 
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_agregar_categoria(?)}")) {
-            stmt.setString(1, categoria.getNombre());
-
+            stmt.setString(1, nombre);
             stmt.execute();
             return "Categoría agregada correctamente.";
         } catch (SQLException e) {
@@ -100,7 +154,7 @@ public class CRUDCategoria extends Conexion {
         }
 
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_actualizar_categoria(?, ?)}")) {
-            stmt.setInt(1, categoria.getId());
+            stmt.setLong(1, categoria.getId());
             stmt.setString(2, categoria.getNombre());
 
             stmt.execute();
@@ -117,14 +171,14 @@ public class CRUDCategoria extends Conexion {
         }
     }
 
-        public String eliminarCategoria(Long idCategoria) {
+    public String eliminarCategoria(long idCategoria) {
         Connection cnx = getConexion();
         if (cnx == null) {
             return "No se pudo establecer conexión con la base de datos.";
         }
 
         try (CallableStatement stmt = cnx.prepareCall("{CALL sp_eliminar_categoria(?)}")) {
-           // stmt.setInt(1, idCategoria);
+            stmt.setLong(1, idCategoria);
 
             stmt.execute();
             return "Categoría eliminada correctamente.";

@@ -14,13 +14,16 @@ public class CategoriaControllerList {
 
     public DefaultTableModel obtenerModeloTabla(String textoBusqueda) {
         List<CategoriaProducto> listaCategorias = categoriaModelo.buscarCategoriaProductoPorNombre(textoBusqueda);
-        String[] columnNames = {"ID", "Nombre"};
+        String[] columnNames = {"ID", "Nombre", "Ver detalles", "Editar", "Eliminar"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (CategoriaProducto categoria : listaCategorias) {
             Object[] row = new Object[]{
                 categoria.getId(),
-                categoria.getNombre()
+                categoria.getNombre(),
+                "Ver detalles",
+                "Editar",
+                "Eliminar"
             };
             model.addRow(row);
         }

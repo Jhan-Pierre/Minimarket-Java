@@ -2,7 +2,6 @@ package vista.Venta;
 
 import static Constantes.ConstantesPaneles.PANEL_VENTA_CREAR;
 import Controlador.Venta.VentaControllerList;
-import Utilidades.ButtonColumn;
 import Utilidades.IButtonClickListener;
 import Utilidades.IPanelListener;
 import java.awt.event.KeyAdapter;
@@ -45,9 +44,7 @@ public class PanelVenta extends javax.swing.JPanel implements IButtonClickListen
     public void buscarUsuarios(String texto) {
         DefaultTableModel model = controladorList.obtenerModeloTabla(texto);
         tbVenta.setModel(model);
-        new ButtonColumn(tbVenta, 7, this);
-        new ButtonColumn(tbVenta, 8, this);
-        new ButtonColumn(tbVenta, 9, this);
+
 
     }
     

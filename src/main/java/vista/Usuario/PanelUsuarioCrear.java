@@ -9,7 +9,9 @@ import Modelo.Rol;
 import Modelo.Turno;
 import Utilidades.IPanelListener;
 import static Constantes.ConstantesPaneles.PANEL_USUARIO;
+import Utilidades.OnlyNumbers;
 import static Validaciones.ValidateUsuarioCreate.*; //importar las validaciones de los campos
+
 
 public class PanelUsuarioCrear extends javax.swing.JPanel {
     private UsuarioControllerCreate controlador;
@@ -19,6 +21,8 @@ public class PanelUsuarioCrear extends javax.swing.JPanel {
         this.panelListener = panelListener;
         initComponents();
         
+        txtTelefono.addKeyListener(new OnlyNumbers());
+
         controlador = new UsuarioControllerCreate();
         
         TurnoController turnoController = new TurnoController();

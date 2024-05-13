@@ -23,7 +23,7 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
         initComponents();
         inicializar();
         
-        //Hacer una búsqueda cada vez que se escribe en txtBuscarCategoria
+        // Hacer una búsqueda cada vez que se escribe en txtBuscarCategoria
         txtBuscarCategoria.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -33,12 +33,15 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     }
 
     
-    public void buscarCategorias(String texto) {
-        DefaultTableModel model = controlador.obtenerModeloTabla(texto);
-        tbCategoria.setModel(model);
-       
-        
-    }
+public void buscarCategorias(String texto) {
+    DefaultTableModel model = controlador.obtenerModeloTabla(texto);
+    tbCategoria.setModel(model);
+
+    // Suponiendo que this implementa la interfaz IButtonClickListener
+    new ButtonColumn(tbCategoria, 2, this); // Convertir la tercera columna ("Ver detalles") en un botón
+    new ButtonColumn(tbCategoria, 3, this); // Convertir la cuarta columna ("Editar") en un botón
+    new ButtonColumn(tbCategoria, 4, this); // Convertir la quinta columna ("Eliminar") en un botón
+}
     
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
@@ -95,7 +98,7 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
         buscarCategorias("");
     }
     
-    //Cuando el panel de categoría sea visible, se resetea el contenido
+    // Cuando el panel de categoría sea visible, se resetea el contenido
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
@@ -103,7 +106,6 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
             resetPanel();
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -173,7 +175,7 @@ public class PanelCategoria extends javax.swing.JPanel implements IButtonClickLi
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaActionPerformed
-        
+        abrirPanelCategoriaCrear();
     }//GEN-LAST:event_btnAgregarCategoriaActionPerformed
 
 
