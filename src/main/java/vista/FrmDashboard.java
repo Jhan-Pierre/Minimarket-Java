@@ -7,7 +7,7 @@ import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
 
-//import vista.Proveedor.PanelProveedorShow;
+import vista.Proveedor.PanelProveedorShow;
 import vista.Proveedor.PanelProveedorEdit;
 import vista.Proveedor.PanelProveedor;
 import vista.Proveedor.PanelProveedorCrear;
@@ -34,7 +34,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelProveedor panelProveedor;
     PanelProveedorCrear panelProveedorCrear;
     PanelProveedorEdit panelProveedorEdit;
-    //PanelProveedorShow panelProveedorShow;
+    PanelProveedorShow panelProveedorShow;
     
     PanelCategoria panelCategoria;
     
@@ -69,7 +69,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelProveedor = new PanelProveedor(this);
         panelProveedorCrear = new PanelProveedorCrear(this);
         panelProveedorEdit = new PanelProveedorEdit(this);
-        //panelProveedorShow = new PanelProveedorShow(this);
+        panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
         
@@ -161,6 +161,22 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             panelUsuarioShow.mostrarUsuarioPorId(id);
             PanelPadre.add(panelUsuarioShow, PANEL_USUARIO_SHOW);
             vista.show(PanelPadre, PANEL_USUARIO_SHOW);
+        }
+        if (PANEL_PROVEEDOR_EDITAR.equals(panelName)) {
+            if (panelProveedorEdit == null) {
+                panelProveedorEdit = new PanelProveedorEdit(this);
+            }
+            panelProveedorEdit.BuscarProveedorPorId(id);
+            PanelPadre.add(panelProveedorEdit, PANEL_PROVEEDOR_EDITAR);
+            vista.show(PanelPadre, PANEL_PROVEEDOR_EDITAR);
+        }
+        if (PANEL_PROVEEDOR_SHOW.equals(panelName)) {
+            if (panelProveedorShow == null) {
+                panelProveedorShow = new PanelProveedorShow(this);
+            }
+            panelProveedorShow.mostrarProveedorPorId(id);
+            PanelPadre.add(panelProveedorShow, PANEL_PROVEEDOR_SHOW);
+            vista.show(PanelPadre, PANEL_PROVEEDOR_SHOW);
         }
     }   
     
