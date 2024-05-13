@@ -85,7 +85,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
-        panelCategoriaCrear = new PanelCategoriaCrear(this, tablaCategorias);
+        panelCategoriaCrear = new PanelCategoriaCrear(this);
         panelCategoriaEdit = new PanelCategoriaEdit(this);
         panelCategoriaShow = new PanelCategoriaShow(this);
         
@@ -209,6 +209,10 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     public void configurarAccesoSegunRol(Set<String> permisosUsuario) {
         btnUsuario.setVisible(permisosUsuario.contains("ver_usuario"));
         btnProducto.setVisible(permisosUsuario.contains("ver_producto"));
+        btnVenta.setVisible(permisosUsuario.contains("ver_venta"));
+        btnCategoria.setVisible(permisosUsuario.contains("ver_categoria_producto"));
+        btnPedido.setVisible(permisosUsuario.contains("ver_pedido"));
+        btnProveedor.setVisible(permisosUsuario.contains("ver_proveedor"));
     }
    
     private void agregarPanel(JPanel panel, String nombre) {
@@ -239,32 +243,36 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
 
         PanelControles.setBackground(new java.awt.Color(255, 174, 120));
 
-        btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDashboard.setForeground(new java.awt.Color(255, 153, 51));
+        btnDashboard.setBackground(new java.awt.Color(255, 174, 120));
+        btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnDashboard.setText("Dashboard");
         btnDashboard.setToolTipText("");
         btnDashboard.setBorder(null);
         btnDashboard.setBorderPainted(false);
         btnDashboard.setFocusPainted(false);
 
-        btnUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnUsuario.setForeground(new java.awt.Color(255, 153, 51));
+        btnUsuario.setBackground(new java.awt.Color(255, 174, 120));
+        btnUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnUsuario.setText("Usuarios");
         btnUsuario.setToolTipText("");
         btnUsuario.setBorder(null);
         btnUsuario.setBorderPainted(false);
         btnUsuario.setFocusPainted(false);
 
-        btnProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnProducto.setForeground(new java.awt.Color(255, 153, 0));
+        btnProducto.setBackground(new java.awt.Color(255, 174, 120));
+        btnProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnProducto.setText("Productos");
         btnProducto.setToolTipText("");
         btnProducto.setBorder(null);
         btnProducto.setBorderPainted(false);
         btnProducto.setFocusPainted(false);
 
-        btnProveedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnProveedor.setForeground(new java.awt.Color(255, 153, 0));
+        btnProveedor.setBackground(new java.awt.Color(255, 174, 120));
+        btnProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnProveedor.setForeground(new java.awt.Color(255, 255, 255));
         btnProveedor.setText("Proveedores");
         btnProveedor.setToolTipText("");
         btnProveedor.setBorder(null);
@@ -276,16 +284,18 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             }
         });
 
-        btnVenta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnVenta.setForeground(new java.awt.Color(255, 153, 0));
+        btnVenta.setBackground(new java.awt.Color(255, 174, 120));
+        btnVenta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnVenta.setForeground(new java.awt.Color(255, 255, 255));
         btnVenta.setText("Ventas");
         btnVenta.setToolTipText("");
         btnVenta.setBorder(null);
         btnVenta.setBorderPainted(false);
         btnVenta.setFocusPainted(false);
 
-        btnCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCategoria.setForeground(new java.awt.Color(255, 153, 0));
+        btnCategoria.setBackground(new java.awt.Color(255, 174, 120));
+        btnCategoria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnCategoria.setText("Categorias");
         btnCategoria.setToolTipText("");
         btnCategoria.setBorder(null);
@@ -307,8 +317,9 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             }
         });
 
-        btnPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPedido.setForeground(new java.awt.Color(255, 153, 0));
+        btnPedido.setBackground(new java.awt.Color(255, 174, 120));
+        btnPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnPedido.setForeground(new java.awt.Color(255, 255, 255));
         btnPedido.setText("Pedido");
         btnPedido.setToolTipText("");
         btnPedido.setBorder(null);
@@ -320,17 +331,13 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         PanelControlesLayout.setHorizontalGroup(
             PanelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnCerrarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-            .addGroup(PanelControlesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCategoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(btnPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PanelControlesLayout.setVerticalGroup(
             PanelControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

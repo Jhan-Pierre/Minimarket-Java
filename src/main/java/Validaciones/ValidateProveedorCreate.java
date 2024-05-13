@@ -1,9 +1,11 @@
 package Validaciones;
 
-//import vista.Proveedor.PanelProveedorCrear;
+
+import vista.Proveedor.PanelProveedorCrear;
+
 
 public class ValidateProveedorCreate {
-   /* public static boolean validarCampos(PanelProveedorCrear vista) {
+    public static boolean validarCampos(PanelProveedorCrear vista) {
         // Limpiar los mensajes de error anteriores
         limpiarMensajesError(vista);
 
@@ -69,5 +71,5 @@ public class ValidateProveedorCreate {
         vista.errorDireccion.setText("");
         vista.errorDescripcion.setText("");
         vista.errorEstado.setText("");
-    }*/
+    }
 }
