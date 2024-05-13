@@ -8,17 +8,23 @@ import vista.Usuario.PanelUsuarioCrear;
 import static Constantes.ConstantesPaneles.*;
 import Controlador.GlobalPermisos;
 
-//import vista.Proveedor.PanelProveedorShow;
+import vista.Proveedor.PanelProveedorShow;
 import vista.Proveedor.PanelProveedorEdit;
 import vista.Proveedor.PanelProveedor;
 import vista.Proveedor.PanelProveedorCrear;
+
+import vista.Categoria.PanelCategoria;
+import vista.Categoria.PanelCategoriaEdit;
+import vista.Categoria.PanelCategoriaCrear;
+import vista.Categoria.PanelCategoriaShow;
+
 
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.util.Set;
 import javax.swing.JPanel;
 import Utilidades.IPanelListener;
-import vista.Categoria.PanelCategoria;
+import javax.swing.JTable;
 import vista.Venta.PanelVenta;
 import vista.Venta.PanelVentaCreate;
 import vista.Pedido.PanelPedido;
@@ -36,9 +42,12 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     PanelProveedor panelProveedor;
     PanelProveedorCrear panelProveedorCrear;
     PanelProveedorEdit panelProveedorEdit;
-    //PanelProveedorShow panelProveedorShow;
+    PanelProveedorShow panelProveedorShow;
     
     PanelCategoria panelCategoria;
+    PanelCategoriaShow panelCategoriaShow;
+    PanelCategoriaEdit panelCategoriaEdit;
+    PanelCategoriaCrear panelCategoriaCrear;
     
     PanelProducto panelProducto;
     PanelProductoCrear panelProductoCrear; 
@@ -53,7 +62,7 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
     private int mouseX;
     private int mouseY;
 
-    
+     private JTable tablaCategorias = new JTable();
     public static CardLayout vista;
 
     public FrmDashboard() {
@@ -73,16 +82,19 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         panelProveedor = new PanelProveedor(this);
         panelProveedorCrear = new PanelProveedorCrear(this);
         panelProveedorEdit = new PanelProveedorEdit(this);
-        //panelProveedorShow = new PanelProveedorShow(this);
+        panelProveedorShow = new PanelProveedorShow(this);
         
         panelCategoria = new PanelCategoria(this);
+        panelCategoriaCrear = new PanelCategoriaCrear(this, tablaCategorias);
+        panelCategoriaEdit = new PanelCategoriaEdit(this);
+        panelCategoriaShow = new PanelCategoriaShow(this);
         
         panelProducto = new PanelProducto(this);
         panelProductoCrear = new PanelProductoCrear(this);
         
         panelVenta = new PanelVenta(this);
         panelventaCreate = new PanelVentaCreate(this);
-        panelPedido = new PanelPedido();
+        panelPedido = new PanelPedido(this);
         inicializarPaneles();
     }
     
@@ -96,12 +108,16 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
         agregarPanel(panelUsuario, PANEL_USUARIO);
         agregarPanel(panelUsuarioCrear, PANEL_USUARIO_CREAR);
         agregarPanel(panelUsuarioEdit, PANEL_USUARIO_EDITAR);
-        agregarPanel(panelCategoria, PANEL_CATEGORIA);
         agregarPanel(panelProducto, PANEL_PRODUCTO);
         agregarPanel(panelProducto, PANEL_PRODUCTO_CREAR);
         agregarPanel(panelVenta, PANEL_VENTA);
         agregarPanel(panelventaCreate, PANEL_VENTA_CREAR);
         agregarPanel(panelPedido, PANEL_PEDIDO);
+        
+        agregarPanel(panelCategoria, PANEL_CATEGORIA);
+        agregarPanel(panelCategoriaCrear, PANEL_CATEGORIA_CREAR);
+        agregarPanel(panelCategoriaShow, PANEL_CATEGORIA_SHOW);
+        agregarPanel(panelCategoriaEdit, PANEL_CATEGORIA_EDITAR);
         
         agregarPanel(panelProveedor, PANEL_PROVEEDOR);
         agregarPanel(panelProveedorCrear, PANEL_PROVEEDOR_CREAR);
@@ -167,6 +183,22 @@ public final class FrmDashboard extends javax.swing.JFrame implements IPanelList
             panelUsuarioShow.mostrarUsuarioPorId(id);
             PanelPadre.add(panelUsuarioShow, PANEL_USUARIO_SHOW);
             vista.show(PanelPadre, PANEL_USUARIO_SHOW);
+        }
+        if (PANEL_PROVEEDOR_EDITAR.equals(panelName)) {
+            if (panelProveedorEdit == null) {
+                panelProveedorEdit = new PanelProveedorEdit(this);
+            }
+            panelProveedorEdit.BuscarProveedorPorId(id);
+            PanelPadre.add(panelProveedorEdit, PANEL_PROVEEDOR_EDITAR);
+            vista.show(PanelPadre, PANEL_PROVEEDOR_EDITAR);
+        }
+        if (PANEL_PROVEEDOR_SHOW.equals(panelName)) {
+            if (panelProveedorShow == null) {
+                panelProveedorShow = new PanelProveedorShow(this);
+            }
+            panelProveedorShow.mostrarProveedorPorId(id);
+            PanelPadre.add(panelProveedorShow, PANEL_PROVEEDOR_SHOW);
+            vista.show(PanelPadre, PANEL_PROVEEDOR_SHOW);
         }
     }   
     

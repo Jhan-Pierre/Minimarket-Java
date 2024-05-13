@@ -45,7 +45,7 @@ public class PanelProveedor extends javax.swing.JPanel implements IButtonClickLi
     
     @Override
     public void buttonClicked(int row, int column, String buttonText) {
-        Long id = (Long) tbProveedor.getModel().getValueAt(row, 0);
+        long id = ((Number) tbProveedor.getModel().getValueAt(row, 0)).longValue();
         switch (buttonText) {
             case VER_DETALLES -> abrirDetallesProveedor(id);
             case EDITAR -> abrirEditarProveedor(id);

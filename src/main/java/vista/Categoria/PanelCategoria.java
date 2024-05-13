@@ -175,7 +175,7 @@ public void buscarCategorias(String texto) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaActionPerformed
-        
+        abrirPanelCategoriaCrear();
     }//GEN-LAST:event_btnAgregarCategoriaActionPerformed
 
 
