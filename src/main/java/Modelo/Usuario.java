@@ -23,10 +23,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public Usuario(Long id, String nombre, String correo, String rol) {
+    public Usuario(Long id, String nombre, String correo,int rol_id, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
+        this.rol_id = rol_id;
         this.rol = rol;
     }
 
